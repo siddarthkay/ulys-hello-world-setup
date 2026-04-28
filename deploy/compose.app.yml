@@ -1,0 +1,32 @@
+name: app-${COLOR}
+
+services:
+  worker:
+    image: ${IMAGE_WORKER}
+    container_name: worker-${COLOR}
+    restart: unless-stopped
+    environment:
+      WORKER_SECRET: ${WORKER_SECRET}
+      PORT: "8081"
+    networks: [appnet]
+
+  api:
+    image: ${IMAGE_API}
+    container_name: api-${COLOR}
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgres://app:${DB_PASSWORD}@${DB_HOST}:5432/app?sslmode=disable
+      REDIS_URL: redis://${REDIS_HOST}:${REDIS_PORT}/0
+      WORKER_URL: http://worker-${COLOR}:8081
+      WORKER_SECRET: ${WORKER_SECRET}
+      GIT_SHA: ${GIT_SHA}
+      BUILD_TIME: ${BUILD_TIME}
+      PORT: "8080"
+    depends_on:
+      - worker
+    networks: [appnet]
+
+networks:
+  appnet:
+    name: appnet
+    external: true

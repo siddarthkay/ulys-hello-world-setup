@@ -1,0 +1,12 @@
+# Copy this to terraform.tfvars and fill in.
+# All non-default values come from the bootstrap module's outputs.
+# (Or run scripts/bootstrap-finish.sh which writes this file for you.)
+
+project_id                = "REPLACE_WITH_YOUR_GCP_PROJECT_ID"
+region                    = "us-central1"
+zone                      = "us-central1-a"
+name_prefix               = "ulys"
+github_repo               = "REPLACE_WITH_GITHUB_OWNER/REPO_NAME"
+wif_provider              = "REPLACE_WITH_BOOTSTRAP_OUTPUT_wif_provider"
+gha_service_account_email = "REPLACE_WITH_BOOTSTRAP_OUTPUT_gha_service_account_email"
+vm_machine_type           = "e2-micro"

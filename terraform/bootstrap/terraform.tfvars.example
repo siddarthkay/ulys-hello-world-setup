@@ -1,0 +1,10 @@
+# Copy this to terraform.tfvars and fill in. See README "Bootstrap" section
+# for gcloud commands that print each value.
+
+project_id         = "REPLACE_WITH_YOUR_GCP_PROJECT_ID"
+project_number     = "REPLACE_WITH_NUMERIC_PROJECT_NUMBER"
+region             = "us-central1"
+state_bucket_name  = "REPLACE_WITH_YOUR_GCP_PROJECT_ID-tfstate"
+github_repo        = "REPLACE_WITH_GITHUB_OWNER/REPO_NAME"
+billing_account_id = "REPLACE_WITH_BILLING_ACCOUNT_ID"
+budget_alert_email = "REPLACE_WITH_YOUR_EMAIL"
