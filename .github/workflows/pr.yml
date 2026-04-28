@@ -1,0 +1,61 @@
+name: PR (tests + Terraform plan)
+
+on:
+  pull_request:
+
+# Workflow-scope grants the *minimum* needed for the reusable workflow
+# (`_test.yml`) to be read. Per-job blocks below add only what each job
+# needs (id-token + pull-requests for the plan job).
+# An empty `permissions: {}` here would deny `contents: read`, and
+# called-workflow permissions cannot exceed the caller's, so the runner
+# can't fetch `_test.yml` and the workflow startup-fails.
+permissions:
+  contents: read
+
+concurrency:
+  group: pr-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  GCP_PROJECT_ID:        ${{ secrets.GCP_PROJECT_ID }}
+  GCP_TF_STATE_BUCKET:   ${{ secrets.GCP_TF_STATE_BUCKET }}
+  GCP_WIF_PROVIDER:      ${{ secrets.GCP_WIF_PROVIDER }}
+  GCP_GHA_SA_EMAIL:      ${{ secrets.GCP_GHA_SA_EMAIL }}
+  GCP_REGION:            ${{ secrets.GCP_REGION }}
+  GITHUB_REPO:           ${{ github.repository }}
+
+jobs:
+  test:
+    uses: ./.github/workflows/_test.yml
+
+  plan:
+    runs-on: ubuntu-24.04
+    needs: test
+    permissions:
+      contents: read
+      id-token: write
+      pull-requests: write
+    defaults: { run: { shell: bash } }
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4.3.1
+      - uses: hashicorp/setup-terraform@b9cd54a3c349d3f38e8881555d616ced269862dd  # v3.1.2
+        with:
+          terraform_version: 1.9.5
+
+      - run: make tf-fmt
+
+      - uses: google-github-actions/auth@c200f3691d83b41bf9bbd8638997a462592937ed  # v2.1.13
+        with:
+          workload_identity_provider: ${{ secrets.GCP_WIF_PROVIDER }}
+          service_account: ${{ secrets.GCP_GHA_SA_EMAIL }}
+
+      - run: make tf-init
+      - run: make tf-validate
+      - run: make tf-plan
+
+      - name: Comment plan on PR
+        if: always()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: make post-plan-comment

@@ -1,0 +1,100 @@
+name: Deploy on merge to main
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+# Workflow-scope grants the *minimum* needed for the reusable workflow
+# (`_test.yml`) to be read. Per-job blocks below add only what each job
+# needs (id-token: write for WIF auth in build-and-deploy).
+# An empty `permissions: {}` here would deny `contents: read`, and
+# called-workflow permissions cannot exceed the caller's, so the runner
+# can't fetch `_test.yml` and the workflow startup-fails.
+permissions:
+  contents: read
+
+# Belt-and-suspenders with the on-VM flock in deploy.sh:
+# concurrency keeps the build phase serialised, flock guards the deploy phase.
+# Either alone would suffice; keeping both makes the intent explicit.
+concurrency:
+  group: deploy-main
+  cancel-in-progress: false
+
+env:
+  GCP_PROJECT_ID:        ${{ secrets.GCP_PROJECT_ID }}
+  GCP_TF_STATE_BUCKET:   ${{ secrets.GCP_TF_STATE_BUCKET }}
+  GCP_WIF_PROVIDER:      ${{ secrets.GCP_WIF_PROVIDER }}
+  GCP_GHA_SA_EMAIL:      ${{ secrets.GCP_GHA_SA_EMAIL }}
+  GCP_REGION:            ${{ secrets.GCP_REGION }}
+  GITHUB_REPO:           ${{ github.repository }}
+
+jobs:
+  test:
+    uses: ./.github/workflows/_test.yml
+
+  build-and-deploy:
+    runs-on: ubuntu-24.04
+    needs: test
+    permissions:
+      contents: read
+      id-token: write
+    defaults: { run: { shell: bash } }
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4.3.1
+
+      - id: meta
+        run: |
+          {
+            echo "tag=$(echo ${{ github.sha }} | cut -c1-12)"
+            echo "build_time=$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          } >> "$GITHUB_OUTPUT"
+
+      - uses: google-github-actions/auth@c200f3691d83b41bf9bbd8638997a462592937ed  # v2.1.13
+        with:
+          workload_identity_provider: ${{ secrets.GCP_WIF_PROVIDER }}
+          service_account: ${{ secrets.GCP_GHA_SA_EMAIL }}
+      - uses: google-github-actions/setup-gcloud@e427ad8a34f8676edf47cf7d7925499adf3eb74f  # v2.2.1
+        with: { project_id: "${{ secrets.GCP_PROJECT_ID }}" }
+      - uses: hashicorp/setup-terraform@b9cd54a3c349d3f38e8881555d616ced269862dd  # v3.1.2
+        with: { terraform_version: 1.9.5 }
+      - uses: docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f  # v3.12.0
+
+      - run: make tf-init
+      - run: make tf-apply
+
+      - name: Read TF outputs
+        id: tfout
+        run: make tf-output >> "$GITHUB_OUTPUT"
+
+      - name: Build & push images
+        env:
+          IMAGE_REGISTRY: ${{ steps.tfout.outputs.registry_repo }}
+          IMAGE_TAG:      ${{ steps.meta.outputs.tag }}
+          GIT_SHA:        ${{ github.sha }}
+          BUILD_TIME:     ${{ steps.meta.outputs.build_time }}
+        run: make build-push
+
+      - name: Deploy (wait + scp + canary + smoke)
+        env:
+          VM_NAME:                 ${{ steps.tfout.outputs.vm_name }}
+          VM_ZONE:                 ${{ steps.tfout.outputs.vm_zone }}
+          IMAGE_REGISTRY:          ${{ steps.tfout.outputs.registry_repo }}
+          IMAGE_TAG:               ${{ steps.meta.outputs.tag }}
+          GIT_SHA:                 ${{ github.sha }}
+          BUILD_TIME:              ${{ steps.meta.outputs.build_time }}
+          DOMAIN:                  ${{ steps.tfout.outputs.domain }}
+          DEPLOY_STATE_BUCKET:     ${{ steps.tfout.outputs.deploy_state_bucket }}
+          DB_PASSWORD_SECRET_NAME: ${{ steps.tfout.outputs.db_password_secret_name }}
+          WORKER_SECRET_NAME:      ${{ steps.tfout.outputs.worker_secret_name }}
+        run: make deploy
+
+      - name: Summary
+        if: always()
+        run: |
+          {
+            echo "## Deploy summary"
+            echo "- Web: https://${{ steps.tfout.outputs.domain }}"
+            echo "- API: https://${{ steps.tfout.outputs.domain }}/api"
+            echo "- Image tag: \`${{ steps.meta.outputs.tag }}\`"
+          } >> "$GITHUB_STEP_SUMMARY"

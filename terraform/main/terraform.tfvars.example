@@ -1,0 +1,9 @@
+# Copy this to terraform.tfvars and fill in.
+# Only per-project facts go here. Tunables like name_prefix, vm_machine_type,
+# and pgdata_disk_gb have defaults in variables.tf; add a line here only if
+# you want to override one. Zone is derived from region in locals.tf and
+# can't be overridden via this file.
+
+project_id                = "REPLACE_WITH_YOUR_GCP_PROJECT_ID"
+region                    = "us-central1"
+gha_service_account_email = "REPLACE_WITH_BOOTSTRAP_OUTPUT_gha_service_account_email"

@@ -1,0 +1,59 @@
+#cloud-config
+#
+# Ubuntu cloud-init config for the GCE VM. Rendered by terraform/main/vm.tf
+# via templatefile() and delivered as the `user-data` metadata key.
+# cloud-init's GCE datasource reads it on first boot.
+#
+# Cloud-init expands $RELEASE to the Ubuntu codename (e.g. "jammy" for
+# 22.04). That's a cloud-init template variable, not a TF one (no curly
+# braces), so Terraform leaves it alone.
+
+# ---- 1. Docker via the official apt repo ---------------------------------
+# Pinned to amd64 because we pin the machine type to e2-small (x86).
+# keyid is fetched from cloud-init's default keyserver (keys.openpgp.org
+# on modern cloud-init, with fallback to keyserver.ubuntu.com).
+apt:
+  sources:
+    docker.list:
+      source: "deb [arch=amd64] https://download.docker.com/linux/ubuntu $RELEASE stable"
+      keyid: 9DC858229FC7DD38854AE2D88D81803C0EBFCD88
+
+package_update: true
+packages:
+  - docker-ce
+  - docker-ce-cli
+  - containerd.io
+  - docker-compose-plugin
+
+# ---- 2. Persistent data disk for Postgres --------------------------------
+# fs_setup formats the disk if it has no filesystem signature.
+# overwrite=false protects against accidentally formatting a disk that
+# already has data on it. mounts adds an fstab entry and mounts at
+# /opt/app/pgdata; the mountpoint is created automatically.
+fs_setup:
+  - device: /dev/disk/by-id/google-pgdata
+    filesystem: ext4
+    label: pgdata
+    overwrite: false
+
+mounts:
+  - [/dev/disk/by-id/google-pgdata, /opt/app/pgdata, ext4, "discard,defaults,nofail"]
+
+# ---- 3. Discovery file: infra.env ----------------------------------------
+# deploy-tools sources this on every deploy. write_files runs early in
+# cloud-init's config stage, before runcmd, and creates parent dirs.
+write_files:
+  - path: /opt/app/state/infra.env
+    permissions: "0644"
+    content: |
+      REGISTRY=${region}-docker.pkg.dev/${project_id}/${name_prefix}-images
+      DOMAIN=${vm_domain}
+      DEPLOY_STATE_BUCKET=${deploy_state_bucket}
+
+# ---- 4. Final imperative steps -------------------------------------------
+# - Postgres official image runs as uid 999; the data dir must be
+#   writable by it. Set ownership AFTER mounts has populated /opt/app/pgdata.
+# - Authenticate docker for Artifact Registry pulls using the VM SA.
+runcmd:
+  - [ chown, -R, "999:999", /opt/app/pgdata ]
+  - [ sh, -c, "gcloud auth configure-docker ${region}-docker.pkg.dev --quiet || true" ]
