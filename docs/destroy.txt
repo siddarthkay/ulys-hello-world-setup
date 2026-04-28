@@ -1,0 +1,1381 @@
+=== terraform destroy: main ===
+--- pre-destroy: empty web bucket gs://ulys-devops-take-home-web ---
+Removing objects:
+  
+Removing gs://ulys-devops-take-home-web/index.html#1777649625216586...
+...........
+Acquiring state lock. This may take a few moments...
+[0m[1mrandom_password.transient_db: Refreshing state... [id=none][0m
+[0m[1mdata.google_secret_manager_secret.db_password: Reading...[0m[0m
+[0m[1mgoogle_compute_global_address.lb: Refreshing state... [id=projects/ulys-devops-take-home/global/addresses/ulys-lb-ip][0m
+[0m[1mgoogle_service_account.worker: Refreshing state... [id=projects/ulys-devops-take-home/serviceAccounts/ulys-worker@ulys-devops-take-home.iam.gserviceaccount.com][0m
+[0m[1mgoogle_service_account.api: Refreshing state... [id=projects/ulys-devops-take-home/serviceAccounts/ulys-api@ulys-devops-take-home.iam.gserviceaccount.com][0m
+[0m[1mgoogle_compute_network.vpc: Refreshing state... [id=projects/ulys-devops-take-home/global/networks/ulys-vpc][0m
+[0m[1mgoogle_storage_bucket.web: Refreshing state... [id=ulys-devops-take-home-web][0m
+[0m[1mgoogle_artifact_registry_repository.images: Refreshing state... [id=projects/ulys-devops-take-home/locations/us-central1/repositories/ulys-images][0m
+[0m[1mgoogle_compute_url_map.redirect: Refreshing state... [id=projects/ulys-devops-take-home/global/urlMaps/ulys-http-redirect][0m
+[0m[1mgoogle_artifact_registry_repository_iam_member.gha_writer: Refreshing state... [id=projects/ulys-devops-take-home/locations/us-central1/repositories/ulys-images/roles/artifactregistry.writer/serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com][0m
+[0m[1mdata.google_secret_manager_secret.db_password: Read complete after 1s [id=projects/ulys-devops-take-home/secrets/ulys-db-password][0m
+[0m[1mgoogle_compute_global_address.psa_range: Refreshing state... [id=projects/ulys-devops-take-home/global/addresses/ulys-psa-range][0m
+[0m[1mgoogle_vpc_access_connector.connector: Refreshing state... [id=projects/ulys-devops-take-home/locations/us-central1/connectors/ulys-vpc-conn][0m
+[0m[1mgoogle_compute_subnetwork.subnet: Refreshing state... [id=projects/ulys-devops-take-home/regions/us-central1/subnetworks/ulys-subnet][0m
+[0m[1mgoogle_compute_target_http_proxy.lb: Refreshing state... [id=projects/ulys-devops-take-home/global/targetHttpProxies/ulys-http-proxy][0m
+[0m[1mgoogle_compute_managed_ssl_certificate.lb: Refreshing state... [id=projects/ulys-devops-take-home/global/sslCertificates/ulys-cert][0m
+[0m[1mgoogle_service_networking_connection.psa: Refreshing state... [id=projects%2Fulys-devops-take-home%2Fglobal%2Fnetworks%2Fulys-vpc:servicenetworking.googleapis.com][0m
+[0m[1mgoogle_compute_global_forwarding_rule.lb_http: Refreshing state... [id=projects/ulys-devops-take-home/global/forwardingRules/ulys-fr-http][0m
+[0m[1mgoogle_storage_bucket_iam_member.web_public_read: Refreshing state... [id=b/ulys-devops-take-home-web/roles/storage.objectViewer/allUsers][0m
+[0m[1mgoogle_storage_bucket_iam_member.gha_writes_web: Refreshing state... [id=b/ulys-devops-take-home-web/roles/storage.objectAdmin/serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com][0m
+[0m[1mgoogle_compute_backend_bucket.web: Refreshing state... [id=projects/ulys-devops-take-home/global/backendBuckets/ulys-web-backend][0m
+[0m[1mgoogle_secret_manager_secret_iam_member.api_reads_db_password: Refreshing state... [id=projects/ulys-devops-take-home/secrets/ulys-db-password/roles/secretmanager.secretAccessor/serviceAccount:ulys-api@ulys-devops-take-home.iam.gserviceaccount.com][0m
+[0m[1mgoogle_artifact_registry_repository_iam_member.api_reads: Refreshing state... [id=projects/ulys-devops-take-home/locations/us-central1/repositories/ulys-images/roles/artifactregistry.reader/serviceAccount:ulys-api@ulys-devops-take-home.iam.gserviceaccount.com][0m
+[0m[1mgoogle_service_account_iam_member.gha_acts_as_api: Refreshing state... [id=projects/ulys-devops-take-home/serviceAccounts/ulys-api@ulys-devops-take-home.iam.gserviceaccount.com/roles/iam.serviceAccountUser/serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com][0m
+[0m[1mgoogle_cloud_run_v2_service.worker: Refreshing state... [id=projects/ulys-devops-take-home/locations/us-central1/services/ulys-worker][0m
+[0m[1mgoogle_artifact_registry_repository_iam_member.worker_reads: Refreshing state... [id=projects/ulys-devops-take-home/locations/us-central1/repositories/ulys-images/roles/artifactregistry.reader/serviceAccount:ulys-worker@ulys-devops-take-home.iam.gserviceaccount.com][0m
+[0m[1mgoogle_service_account_iam_member.gha_acts_as_worker: Refreshing state... [id=projects/ulys-devops-take-home/serviceAccounts/ulys-worker@ulys-devops-take-home.iam.gserviceaccount.com/roles/iam.serviceAccountUser/serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com][0m
+[0m[1mgoogle_cloud_run_v2_service_iam_member.api_invokes_worker: Refreshing state... [id=projects/ulys-devops-take-home/locations/us-central1/services/ulys-worker/roles/run.invoker/serviceAccount:ulys-api@ulys-devops-take-home.iam.gserviceaccount.com][0m
+[0m[1mgoogle_redis_instance.cache: Refreshing state... [id=projects/ulys-devops-take-home/locations/us-central1/instances/ulys-redis][0m
+[0m[1mgoogle_sql_database_instance.pg: Refreshing state... [id=ulys-pg][0m
+[0m[1mgoogle_sql_database.app: Refreshing state... [id=projects/ulys-devops-take-home/instances/ulys-pg/databases/app][0m
+[0m[1mgoogle_sql_user.app: Refreshing state... [id=app//ulys-pg][0m
+[0m[1mgoogle_cloud_run_v2_service.api: Refreshing state... [id=projects/ulys-devops-take-home/locations/us-central1/services/ulys-api][0m
+[0m[1mgoogle_cloud_run_v2_service_iam_member.api_public: Refreshing state... [id=projects/ulys-devops-take-home/locations/us-central1/services/ulys-api/roles/run.invoker/allUsers][0m
+[0m[1mgoogle_compute_region_network_endpoint_group.api: Refreshing state... [id=projects/ulys-devops-take-home/regions/us-central1/networkEndpointGroups/ulys-api-neg][0m
+[0m[1mgoogle_compute_backend_service.api: Refreshing state... [id=projects/ulys-devops-take-home/global/backendServices/ulys-api-backend][0m
+[0m[1mgoogle_compute_url_map.lb: Refreshing state... [id=projects/ulys-devops-take-home/global/urlMaps/ulys-url-map][0m
+[0m[1mgoogle_compute_target_https_proxy.lb: Refreshing state... [id=projects/ulys-devops-take-home/global/targetHttpsProxies/ulys-https-proxy][0m
+[0m[1mgoogle_compute_global_forwarding_rule.lb_https: Refreshing state... [id=projects/ulys-devops-take-home/global/forwardingRules/ulys-fr-https][0m
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  [31m-[0m destroy[0m
+
+Terraform will perform the following actions:
+
+[1m  # google_artifact_registry_repository.images[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "google_artifact_registry_repository" "images" {
+      [31m-[0m[0m cleanup_policy_dry_run = false [90m-> null[0m[0m
+      [31m-[0m[0m create_time            = "2026-05-01T14:40:58.416356Z" [90m-> null[0m[0m
+      [31m-[0m[0m description            = "Container images for the api and worker Cloud Run services." [90m-> null[0m[0m
+      [31m-[0m[0m effective_labels       = {
+          [31m-[0m[0m "app"                        = "ulys"
+          [31m-[0m[0m "component"                  = "registry"
+          [31m-[0m[0m "goog-terraform-provisioned" = "true"
+          [31m-[0m[0m "managed"                    = "terraform"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m format                 = "DOCKER" [90m-> null[0m[0m
+      [31m-[0m[0m id                     = "projects/ulys-devops-take-home/locations/us-central1/repositories/ulys-images" [90m-> null[0m[0m
+      [31m-[0m[0m labels                 = {
+          [31m-[0m[0m "app"       = "ulys"
+          [31m-[0m[0m "component" = "registry"
+          [31m-[0m[0m "managed"   = "terraform"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m location               = "us-central1" [90m-> null[0m[0m
+      [31m-[0m[0m mode                   = "STANDARD_REPOSITORY" [90m-> null[0m[0m
+      [31m-[0m[0m name                   = "ulys-images" [90m-> null[0m[0m
+      [31m-[0m[0m project                = "ulys-devops-take-home" [90m-> null[0m[0m
+      [31m-[0m[0m repository_id          = "ulys-images" [90m-> null[0m[0m
+      [31m-[0m[0m terraform_labels       = {
+          [31m-[0m[0m "app"                        = "ulys"
+          [31m-[0m[0m "component"                  = "registry"
+          [31m-[0m[0m "goog-terraform-provisioned" = "true"
+          [31m-[0m[0m "managed"                    = "terraform"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m update_time            = "2026-05-01T15:33:43.242538Z" [90m-> null[0m[0m
+        [90m# (1 unchanged attribute hidden)[0m[0m
+
+      [31m-[0m[0m cleanup_policies {
+          [31m-[0m[0m action = "DELETE" [90m-> null[0m[0m
+          [31m-[0m[0m id     = "delete-older-30d" [90m-> null[0m[0m
+
+          [31m-[0m[0m condition {
+              [31m-[0m[0m older_than            = "2592000s" [90m-> null[0m[0m
+              [31m-[0m[0m package_name_prefixes = [] [90m-> null[0m[0m
+              [31m-[0m[0m tag_prefixes          = [] [90m-> null[0m[0m
+              [31m-[0m[0m tag_state             = "ANY" [90m-> null[0m[0m
+              [31m-[0m[0m version_name_prefixes = [] [90m-> null[0m[0m
+                [90m# (1 unchanged attribute hidden)[0m[0m
+            }
+        }
+      [31m-[0m[0m cleanup_policies {
+          [31m-[0m[0m action = "KEEP" [90m-> null[0m[0m
+          [31m-[0m[0m id     = "keep-latest-10" [90m-> null[0m[0m
+
+          [31m-[0m[0m most_recent_versions {
+              [31m-[0m[0m keep_count            = 10 [90m-> null[0m[0m
+              [31m-[0m[0m package_name_prefixes = [] [90m-> null[0m[0m
+            }
+        }
+
+      [31m-[0m[0m vulnerability_scanning_config {
+          [31m-[0m[0m enablement_state        = "SCANNING_DISABLED" [90m-> null[0m[0m
+          [31m-[0m[0m enablement_state_reason = "API containerscanning.googleapis.com is not enabled." [90m-> null[0m[0m
+            [90m# (1 unchanged attribute hidden)[0m[0m
+        }
+    }
+
+[1m  # google_artifact_registry_repository_iam_member.api_reads[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "google_artifact_registry_repository_iam_member" "api_reads" {
+      [31m-[0m[0m etag       = "BwZQwpNeaBg=" [90m-> null[0m[0m
+      [31m-[0m[0m id         = "projects/ulys-devops-take-home/locations/us-central1/repositories/ulys-images/roles/artifactregistry.reader/serviceAccount:ulys-api@ulys-devops-take-home.iam.gserviceaccount.com" [90m-> null[0m[0m
+      [31m-[0m[0m location   = "us-central1" [90m-> null[0m[0m
+      [31m-[0m[0m member     = "serviceAccount:ulys-api@ulys-devops-take-home.iam.gserviceaccount.com" [90m-> null[0m[0m
+      [31m-[0m[0m project    = "ulys-devops-take-home" [90m-> null[0m[0m
+      [31m-[0m[0m repository = "projects/ulys-devops-take-home/locations/us-central1/repositories/ulys-images" [90m-> null[0m[0m
+      [31m-[0m[0m role       = "roles/artifactregistry.reader" [90m-> null[0m[0m
+    }
+
+[1m  # google_artifact_registry_repository_iam_member.gha_writer[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "google_artifact_registry_repository_iam_member" "gha_writer" {
+      [31m-[0m[0m etag       = "BwZQwpNeaBg=" [90m-> null[0m[0m
+      [31m-[0m[0m id         = "projects/ulys-devops-take-home/locations/us-central1/repositories/ulys-images/roles/artifactregistry.writer/serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com" [90m-> null[0m[0m
+      [31m-[0m[0m location   = "us-central1" [90m-> null[0m[0m
+      [31m-[0m[0m member     = "serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com" [90m-> null[0m[0m
+      [31m-[0m[0m project    = "ulys-devops-take-home" [90m-> null[0m[0m
+      [31m-[0m[0m repository = "projects/ulys-devops-take-home/locations/us-central1/repositories/ulys-images" [90m-> null[0m[0m
+      [31m-[0m[0m role       = "roles/artifactregistry.writer" [90m-> null[0m[0m
+    }
+
+[1m  # google_artifact_registry_repository_iam_member.worker_reads[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "google_artifact_registry_repository_iam_member" "worker_reads" {
+      [31m-[0m[0m etag       = "BwZQwpNeaBg=" [90m-> null[0m[0m
+      [31m-[0m[0m id         = "projects/ulys-devops-take-home/locations/us-central1/repositories/ulys-images/roles/artifactregistry.reader/serviceAccount:ulys-worker@ulys-devops-take-home.iam.gserviceaccount.com" [90m-> null[0m[0m
+      [31m-[0m[0m location   = "us-central1" [90m-> null[0m[0m
+      [31m-[0m[0m member     = "serviceAccount:ulys-worker@ulys-devops-take-home.iam.gserviceaccount.com" [90m-> null[0m[0m
+      [31m-[0m[0m project    = "ulys-devops-take-home" [90m-> null[0m[0m
+      [31m-[0m[0m repository = "projects/ulys-devops-take-home/locations/us-central1/repositories/ulys-images" [90m-> null[0m[0m
+      [31m-[0m[0m role       = "roles/artifactregistry.reader" [90m-> null[0m[0m
+    }
+
+[1m  # google_cloud_run_v2_service.api[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "google_cloud_run_v2_service" "api" {
+      [31m-[0m[0m annotations             = {} [90m-> null[0m[0m
+      [31m-[0m[0m client                  = "gcloud" [90m-> null[0m[0m
+      [31m-[0m[0m client_version          = "564.0.0" [90m-> null[0m[0m
+      [31m-[0m[0m conditions              = [
+          [31m-[0m[0m {
+              [31m-[0m[0m last_transition_time = "2026-05-01T15:35:06.768499Z"
+              [31m-[0m[0m state                = "CONDITION_SUCCEEDED"
+              [31m-[0m[0m type                 = "RoutesReady"
+                [90m# (5 unchanged attributes hidden)[0m[0m
+            },
+          [31m-[0m[0m {
+              [31m-[0m[0m last_transition_time = "2026-05-01T15:34:03.665919Z"
+              [31m-[0m[0m state                = "CONDITION_SUCCEEDED"
+              [31m-[0m[0m type                 = "ConfigurationsReady"
+                [90m# (5 unchanged attributes hidden)[0m[0m
+            },
+        ] [90m-> null[0m[0m
+      [31m-[0m[0m create_time             = "2026-05-01T14:50:55.817514Z" [90m-> null[0m[0m
+      [31m-[0m[0m creator                 = "siddarthkay@gmail.com" [90m-> null[0m[0m
+      [31m-[0m[0m custom_audiences        = [] [90m-> null[0m[0m
+      [31m-[0m[0m deletion_protection     = true [90m-> null[0m[0m
+      [31m-[0m[0m effective_annotations   = {} [90m-> null[0m[0m
+      [31m-[0m[0m effective_labels        = {
+          [31m-[0m[0m "app"                        = "ulys"
+          [31m-[0m[0m "component"                  = "api"
+          [31m-[0m[0m "goog-terraform-provisioned" = "true"
+          [31m-[0m[0m "managed"                    = "terraform"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m etag                    = "\"CKWQ088GELjvlYID/cHJvamVjdHMvdWx5cy1kZXZvcHMtdGFrZS1ob21lL2xvY2F0aW9ucy91cy1jZW50cmFsMS9zZXJ2aWNlcy91bHlzLWFwaQ\"" [90m-> null[0m[0m
+      [31m-[0m[0m generation              = "21" [90m-> null[0m[0m
+      [31m-[0m[0m id                      = "projects/ulys-devops-take-home/locations/us-central1/services/ulys-api" [90m-> null[0m[0m
+      [31m-[0m[0m ingress                 = "INGRESS_TRAFFIC_ALL" [90m-> null[0m[0m
+      [31m-[0m[0m invoker_iam_disabled    = false [90m-> null[0m[0m
+      [31m-[0m[0m labels                  = {
+          [31m-[0m[0m "app"       = "ulys"
+          [31m-[0m[0m "component" = "api"
+          [31m-[0m[0m "managed"   = "terraform"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m last_modifier           = "ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com" [90m-> null[0m[0m
+      [31m-[0m[0m latest_created_revision = "projects/ulys-devops-take-home/locations/us-central1/services/ulys-api/revisions/ulys-api-213fdfe2c3bb" [90m-> null[0m[0m
+      [31m-[0m[0m latest_ready_revision   = "projects/ulys-devops-take-home/locations/us-central1/services/ulys-api/revisions/ulys-api-213fdfe2c3bb" [90m-> null[0m[0m
+      [31m-[0m[0m launch_stage            = "GA" [90m-> null[0m[0m
+      [31m-[0m[0m location                = "us-central1" [90m-> null[0m[0m
+      [31m-[0m[0m name                    = "ulys-api" [90m-> null[0m[0m
+      [31m-[0m[0m observed_generation     = "21" [90m-> null[0m[0m
+      [31m-[0m[0m project                 = "ulys-devops-take-home" [90m-> null[0m[0m
+      [31m-[0m[0m reconciling             = false [90m-> null[0m[0m
+      [31m-[0m[0m terminal_condition      = [
+          [31m-[0m[0m {
+              [31m-[0m[0m last_transition_time = "2026-05-01T15:35:06.869340Z"
+              [31m-[0m[0m state                = "CONDITION_SUCCEEDED"
+              [31m-[0m[0m type                 = "Ready"
+                [90m# (5 unchanged attributes hidden)[0m[0m
+            },
+        ] [90m-> null[0m[0m
+      [31m-[0m[0m terraform_labels        = {
+          [31m-[0m[0m "app"                        = "ulys"
+          [31m-[0m[0m "component"                  = "api"
+          [31m-[0m[0m "goog-terraform-provisioned" = "true"
+          [31m-[0m[0m "managed"                    = "terraform"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m traffic_statuses        = [
+          [31m-[0m[0m {
+              [31m-[0m[0m percent  = 100
+              [31m-[0m[0m revision = "ulys-api-213fdfe2c3bb"
+              [31m-[0m[0m tag      = "cand-213fdfe2c3bb"
+              [31m-[0m[0m type     = "TRAFFIC_TARGET_ALLOCATION_TYPE_REVISION"
+              [31m-[0m[0m uri      = "https://cand-213fdfe2c3bb---ulys-api-abj7aux4ha-uc.a.run.app"
+            },
+          [31m-[0m[0m {
+              [31m-[0m[0m percent  = 0
+              [31m-[0m[0m revision = "ulys-api-544894cb45e8"
+              [31m-[0m[0m tag      = "cand-544894cb45e8"
+              [31m-[0m[0m type     = "TRAFFIC_TARGET_ALLOCATION_TYPE_REVISION"
+              [31m-[0m[0m uri      = "https://cand-544894cb45e8---ulys-api-abj7aux4ha-uc.a.run.app"
+            },
+          [31m-[0m[0m {
+              [31m-[0m[0m percent  = 0
+              [31m-[0m[0m revision = "ulys-api-8d6796860894"
+              [31m-[0m[0m tag      = "cand-8d6796860894"
+              [31m-[0m[0m type     = "TRAFFIC_TARGET_ALLOCATION_TYPE_REVISION"
+              [31m-[0m[0m uri      = "https://cand-8d6796860894---ulys-api-abj7aux4ha-uc.a.run.app"
+            },
+          [31m-[0m[0m {
+              [31m-[0m[0m percent  = 0
+              [31m-[0m[0m revision = "ulys-api-a85a445cdfea"
+              [31m-[0m[0m tag      = "cand-a85a445cdfea"
+              [31m-[0m[0m type     = "TRAFFIC_TARGET_ALLOCATION_TYPE_REVISION"
+              [31m-[0m[0m uri      = "https://cand-a85a445cdfea---ulys-api-abj7aux4ha-uc.a.run.app"
+            },
+          [31m-[0m[0m {
+              [31m-[0m[0m percent  = 0
+              [31m-[0m[0m revision = "ulys-api-d7e9157e7f23"
+              [31m-[0m[0m tag      = "cand-d7e9157e7f23"
+              [31m-[0m[0m type     = "TRAFFIC_TARGET_ALLOCATION_TYPE_REVISION"
+              [31m-[0m[0m uri      = "https://cand-d7e9157e7f23---ulys-api-abj7aux4ha-uc.a.run.app"
+            },
+          [31m-[0m[0m {
+              [31m-[0m[0m percent  = 0
+              [31m-[0m[0m revision = "ulys-api-dc48c0467da4"
+              [31m-[0m[0m tag      = "cand-dc48c0467da4"
+              [31m-[0m[0m type     = "TRAFFIC_TARGET_ALLOCATION_TYPE_REVISION"
+              [31m-[0m[0m uri      = "https://cand-dc48c0467da4---ulys-api-abj7aux4ha-uc.a.run.app"
+            },
+        ] [90m-> null[0m[0m
+      [31m-[0m[0m uid                     = "d5d28a17-3140-4612-a1d0-76c5e5058e93" [90m-> null[0m[0m
+      [31m-[0m[0m update_time             = "2026-05-01T15:35:01.809859Z" [90m-> null[0m[0m
+      [31m-[0m[0m uri                     = "https://ulys-api-abj7aux4ha-uc.a.run.app" [90m-> null[0m[0m
+      [31m-[0m[0m urls                    = [
+          [31m-[0m[0m "https://ulys-api-80162569551.us-central1.run.app",
+          [31m-[0m[0m "https://ulys-api-abj7aux4ha-uc.a.run.app",
+        ] [90m-> null[0m[0m
+        [90m# (3 unchanged attributes hidden)[0m[0m
+
+      [31m-[0m[0m scaling {
+          [31m-[0m[0m manual_instance_count = 0 [90m-> null[0m[0m
+          [31m-[0m[0m min_instance_count    = 0 [90m-> null[0m[0m
+            [90m# (1 unchanged attribute hidden)[0m[0m
+        }
+
+      [31m-[0m[0m template {
+          [31m-[0m[0m annotations                      = {} [90m-> null[0m[0m
+          [31m-[0m[0m gpu_zonal_redundancy_disabled    = false [90m-> null[0m[0m
+          [31m-[0m[0m labels                           = {} [90m-> null[0m[0m
+          [31m-[0m[0m max_instance_request_concurrency = 80 [90m-> null[0m[0m
+          [31m-[0m[0m revision                         = "ulys-api-213fdfe2c3bb" [90m-> null[0m[0m
+          [31m-[0m[0m service_account                  = "ulys-api@ulys-devops-take-home.iam.gserviceaccount.com" [90m-> null[0m[0m
+          [31m-[0m[0m session_affinity                 = false [90m-> null[0m[0m
+          [31m-[0m[0m timeout                          = "30s" [90m-> null[0m[0m
+            [90m# (2 unchanged attributes hidden)[0m[0m
+
+          [31m-[0m[0m containers {
+              [31m-[0m[0m args           = [] [90m-> null[0m[0m
+              [31m-[0m[0m build_info     = [] [90m-> null[0m[0m
+              [31m-[0m[0m command        = [] [90m-> null[0m[0m
+              [31m-[0m[0m depends_on     = [] [90m-> null[0m[0m
+              [31m-[0m[0m image          = "us-central1-docker.pkg.dev/ulys-devops-take-home/ulys-images/api:213fdfe2c3bb" [90m-> null[0m[0m
+                name           = [90mnull[0m[0m
+                [90m# (2 unchanged attributes hidden)[0m[0m
+
+              [31m-[0m[0m env {
+                  [31m-[0m[0m name  = "BUILD_TIME" [90m-> null[0m[0m
+                  [31m-[0m[0m value = "2026-05-01T15:31:45Z" [90m-> null[0m[0m
+                }
+              [31m-[0m[0m env {
+                  [31m-[0m[0m name  = "DB_HOST" [90m-> null[0m[0m
+                  [31m-[0m[0m value = "10.12.1.2" [90m-> null[0m[0m
+                }
+              [31m-[0m[0m env {
+                  [31m-[0m[0m name  = "DB_NAME" [90m-> null[0m[0m
+                  [31m-[0m[0m value = "app" [90m-> null[0m[0m
+                }
+              [31m-[0m[0m env {
+                  [31m-[0m[0m name  = "DB_PASSWORD" [90m-> null[0m[0m
+                    [90m# (1 unchanged attribute hidden)[0m[0m
+
+                  [31m-[0m[0m value_source {
+                      [31m-[0m[0m secret_key_ref {
+                          [31m-[0m[0m secret  = "ulys-db-password" [90m-> null[0m[0m
+                          [31m-[0m[0m version = "latest" [90m-> null[0m[0m
+                        }
+                    }
+                }
+              [31m-[0m[0m env {
+                  [31m-[0m[0m name  = "DB_USER" [90m-> null[0m[0m
+                  [31m-[0m[0m value = "app" [90m-> null[0m[0m
+                }
+              [31m-[0m[0m env {
+                  [31m-[0m[0m name  = "GIT_SHA" [90m-> null[0m[0m
+                  [31m-[0m[0m value = "213fdfe2c3bbd8e979b2f195b638b9b441ba98f1" [90m-> null[0m[0m
+                }
+              [31m-[0m[0m env {
+                  [31m-[0m[0m name  = "REDIS_HOST" [90m-> null[0m[0m
+                  [31m-[0m[0m value = "10.12.0.4" [90m-> null[0m[0m
+                }
+              [31m-[0m[0m env {
+                  [31m-[0m[0m name  = "REDIS_PORT" [90m-> null[0m[0m
+                  [31m-[0m[0m value = "6379" [90m-> null[0m[0m
+                }
+              [31m-[0m[0m env {
+                  [31m-[0m[0m name  = "WORKER_URL" [90m-> null[0m[0m
+                  [31m-[0m[0m value = "https://ulys-worker-abj7aux4ha-uc.a.run.app" [90m-> null[0m[0m
+                }
+
+              [31m-[0m[0m ports {
+                  [31m-[0m[0m container_port = 8080 [90m-> null[0m[0m
+                  [31m-[0m[0m name           = "http1" [90m-> null[0m[0m
+                }
+
+              [31m-[0m[0m resources {
+                  [31m-[0m[0m cpu_idle          = true [90m-> null[0m[0m
+                  [31m-[0m[0m limits            = {
+                      [31m-[0m[0m "cpu"    = "1000m"
+                      [31m-[0m[0m "memory" = "512Mi"
+                    } [90m-> null[0m[0m
+                  [31m-[0m[0m startup_cpu_boost = false [90m-> null[0m[0m
+                }
+
+              [31m-[0m[0m startup_probe {
+                  [31m-[0m[0m failure_threshold     = 1 [90m-> null[0m[0m
+                  [31m-[0m[0m initial_delay_seconds = 0 [90m-> null[0m[0m
+                  [31m-[0m[0m period_seconds        = 240 [90m-> null[0m[0m
+                  [31m-[0m[0m timeout_seconds       = 240 [90m-> null[0m[0m
+
+                  [31m-[0m[0m tcp_socket {
+                      [31m-[0m[0m port = 8080 [90m-> null[0m[0m
+                    }
+                }
+            }
+
+          [31m-[0m[0m scaling {
+              [31m-[0m[0m max_instance_count = 5 [90m-> null[0m[0m
+              [31m-[0m[0m min_instance_count = 0 [90m-> null[0m[0m
+            }
+
+          [31m-[0m[0m vpc_access {
+              [31m-[0m[0m connector = "projects/ulys-devops-take-home/locations/us-central1/connectors/ulys-vpc-conn" [90m-> null[0m[0m
+              [31m-[0m[0m egress    = "ALL_TRAFFIC" [90m-> null[0m[0m
+            }
+        }
+
+      [31m-[0m[0m traffic {
+          [31m-[0m[0m percent  = 100 [90m-> null[0m[0m
+          [31m-[0m[0m revision = "ulys-api-213fdfe2c3bb" [90m-> null[0m[0m
+          [31m-[0m[0m type     = "TRAFFIC_TARGET_ALLOCATION_TYPE_REVISION" [90m-> null[0m[0m
+            [90m# (1 unchanged attribute hidden)[0m[0m
+        }
+      [31m-[0m[0m traffic {
+          [31m-[0m[0m percent  = 0 [90m-> null[0m[0m
+          [31m-[0m[0m revision = "ulys-api-d7e9157e7f23" [90m-> null[0m[0m
+          [31m-[0m[0m tag      = "cand-d7e9157e7f23" [90m-> null[0m[0m
+          [31m-[0m[0m type     = "TRAFFIC_TARGET_ALLOCATION_TYPE_REVISION" [90m-> null[0m[0m
+        }
+      [31m-[0m[0m traffic {
+          [31m-[0m[0m percent  = 0 [90m-> null[0m[0m
+          [31m-[0m[0m revision = "ulys-api-a85a445cdfea" [90m-> null[0m[0m
+          [31m-[0m[0m tag      = "cand-a85a445cdfea" [90m-> null[0m[0m
+          [31m-[0m[0m type     = "TRAFFIC_TARGET_ALLOCATION_TYPE_REVISION" [90m-> null[0m[0m
+        }
+      [31m-[0m[0m traffic {
+          [31m-[0m[0m percent  = 0 [90m-> null[0m[0m
+          [31m-[0m[0m revision = "ulys-api-dc48c0467da4" [90m-> null[0m[0m
+          [31m-[0m[0m tag      = "cand-dc48c0467da4" [90m-> null[0m[0m
+          [31m-[0m[0m type     = "TRAFFIC_TARGET_ALLOCATION_TYPE_REVISION" [90m-> null[0m[0m
+        }
+      [31m-[0m[0m traffic {
+          [31m-[0m[0m percent  = 0 [90m-> null[0m[0m
+          [31m-[0m[0m revision = "ulys-api-544894cb45e8" [90m-> null[0m[0m
+          [31m-[0m[0m tag      = "cand-544894cb45e8" [90m-> null[0m[0m
+          [31m-[0m[0m type     = "TRAFFIC_TARGET_ALLOCATION_TYPE_REVISION" [90m-> null[0m[0m
+        }
+      [31m-[0m[0m traffic {
+          [31m-[0m[0m percent  = 0 [90m-> null[0m[0m
+          [31m-[0m[0m revision = "ulys-api-8d6796860894" [90m-> null[0m[0m
+          [31m-[0m[0m tag      = "cand-8d6796860894" [90m-> null[0m[0m
+          [31m-[0m[0m type     = "TRAFFIC_TARGET_ALLOCATION_TYPE_REVISION" [90m-> null[0m[0m
+        }
+      [31m-[0m[0m traffic {
+          [31m-[0m[0m percent  = 0 [90m-> null[0m[0m
+          [31m-[0m[0m revision = "ulys-api-213fdfe2c3bb" [90m-> null[0m[0m
+          [31m-[0m[0m tag      = "cand-213fdfe2c3bb" [90m-> null[0m[0m
+          [31m-[0m[0m type     = "TRAFFIC_TARGET_ALLOCATION_TYPE_REVISION" [90m-> null[0m[0m
+        }
+    }
+
+[1m  # google_cloud_run_v2_service.worker[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "google_cloud_run_v2_service" "worker" {
+      [31m-[0m[0m annotations             = {} [90m-> null[0m[0m
+      [31m-[0m[0m client                  = "gcloud" [90m-> null[0m[0m
+      [31m-[0m[0m client_version          = "564.0.0" [90m-> null[0m[0m
+      [31m-[0m[0m conditions              = [
+          [31m-[0m[0m {
+              [31m-[0m[0m last_transition_time = "2026-05-01T15:33:56.803778Z"
+              [31m-[0m[0m state                = "CONDITION_SUCCEEDED"
+              [31m-[0m[0m type                 = "RoutesReady"
+                [90m# (5 unchanged attributes hidden)[0m[0m
+            },
+          [31m-[0m[0m {
+              [31m-[0m[0m last_transition_time = "2026-05-01T15:33:53.144361Z"
+              [31m-[0m[0m state                = "CONDITION_SUCCEEDED"
+              [31m-[0m[0m type                 = "ConfigurationsReady"
+                [90m# (5 unchanged attributes hidden)[0m[0m
+            },
+        ] [90m-> null[0m[0m
+      [31m-[0m[0m create_time             = "2026-05-01T14:50:40.663481Z" [90m-> null[0m[0m
+      [31m-[0m[0m creator                 = "siddarthkay@gmail.com" [90m-> null[0m[0m
+      [31m-[0m[0m custom_audiences        = [] [90m-> null[0m[0m
+      [31m-[0m[0m deletion_protection     = true [90m-> null[0m[0m
+      [31m-[0m[0m effective_annotations   = {} [90m-> null[0m[0m
+      [31m-[0m[0m effective_labels        = {
+          [31m-[0m[0m "app"                        = "ulys"
+          [31m-[0m[0m "component"                  = "worker"
+          [31m-[0m[0m "goog-terraform-provisioned" = "true"
+          [31m-[0m[0m "managed"                    = "terraform"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m etag                    = "\"CN2P088GEMD9s9wD/cHJvamVjdHMvdWx5cy1kZXZvcHMtdGFrZS1ob21lL2xvY2F0aW9ucy91cy1jZW50cmFsMS9zZXJ2aWNlcy91bHlzLXdvcmtlcg\"" [90m-> null[0m[0m
+      [31m-[0m[0m generation              = "7" [90m-> null[0m[0m
+      [31m-[0m[0m id                      = "projects/ulys-devops-take-home/locations/us-central1/services/ulys-worker" [90m-> null[0m[0m
+      [31m-[0m[0m ingress                 = "INGRESS_TRAFFIC_INTERNAL_ONLY" [90m-> null[0m[0m
+      [31m-[0m[0m invoker_iam_disabled    = false [90m-> null[0m[0m
+      [31m-[0m[0m labels                  = {
+          [31m-[0m[0m "app"       = "ulys"
+          [31m-[0m[0m "component" = "worker"
+          [31m-[0m[0m "managed"   = "terraform"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m last_modifier           = "ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com" [90m-> null[0m[0m
+      [31m-[0m[0m latest_created_revision = "projects/ulys-devops-take-home/locations/us-central1/services/ulys-worker/revisions/ulys-worker-00007-sfz" [90m-> null[0m[0m
+      [31m-[0m[0m latest_ready_revision   = "projects/ulys-devops-take-home/locations/us-central1/services/ulys-worker/revisions/ulys-worker-00007-sfz" [90m-> null[0m[0m
+      [31m-[0m[0m launch_stage            = "GA" [90m-> null[0m[0m
+      [31m-[0m[0m location                = "us-central1" [90m-> null[0m[0m
+      [31m-[0m[0m name                    = "ulys-worker" [90m-> null[0m[0m
+      [31m-[0m[0m observed_generation     = "7" [90m-> null[0m[0m
+      [31m-[0m[0m project                 = "ulys-devops-take-home" [90m-> null[0m[0m
+      [31m-[0m[0m reconciling             = false [90m-> null[0m[0m
+      [31m-[0m[0m terminal_condition      = [
+          [31m-[0m[0m {
+              [31m-[0m[0m last_transition_time = "2026-05-01T15:33:56.828872Z"
+              [31m-[0m[0m state                = "CONDITION_SUCCEEDED"
+              [31m-[0m[0m type                 = "Ready"
+                [90m# (5 unchanged attributes hidden)[0m[0m
+            },
+        ] [90m-> null[0m[0m
+      [31m-[0m[0m terraform_labels        = {
+          [31m-[0m[0m "app"                        = "ulys"
+          [31m-[0m[0m "component"                  = "worker"
+          [31m-[0m[0m "goog-terraform-provisioned" = "true"
+          [31m-[0m[0m "managed"                    = "terraform"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m traffic_statuses        = [
+          [31m-[0m[0m {
+              [31m-[0m[0m percent  = 100
+              [31m-[0m[0m type     = "TRAFFIC_TARGET_ALLOCATION_TYPE_LATEST"
+                [90m# (3 unchanged attributes hidden)[0m[0m
+            },
+        ] [90m-> null[0m[0m
+      [31m-[0m[0m uid                     = "12150a47-cf50-49be-982c-99b6d5795d11" [90m-> null[0m[0m
+      [31m-[0m[0m update_time             = "2026-05-01T15:33:49.999096Z" [90m-> null[0m[0m
+      [31m-[0m[0m uri                     = "https://ulys-worker-abj7aux4ha-uc.a.run.app" [90m-> null[0m[0m
+      [31m-[0m[0m urls                    = [
+          [31m-[0m[0m "https://ulys-worker-80162569551.us-central1.run.app",
+          [31m-[0m[0m "https://ulys-worker-abj7aux4ha-uc.a.run.app",
+        ] [90m-> null[0m[0m
+        [90m# (3 unchanged attributes hidden)[0m[0m
+
+      [31m-[0m[0m scaling {
+          [31m-[0m[0m manual_instance_count = 0 [90m-> null[0m[0m
+          [31m-[0m[0m min_instance_count    = 0 [90m-> null[0m[0m
+            [90m# (1 unchanged attribute hidden)[0m[0m
+        }
+
+      [31m-[0m[0m template {
+          [31m-[0m[0m annotations                      = {} [90m-> null[0m[0m
+          [31m-[0m[0m gpu_zonal_redundancy_disabled    = false [90m-> null[0m[0m
+          [31m-[0m[0m labels                           = {} [90m-> null[0m[0m
+          [31m-[0m[0m max_instance_request_concurrency = 80 [90m-> null[0m[0m
+          [31m-[0m[0m service_account                  = "ulys-worker@ulys-devops-take-home.iam.gserviceaccount.com" [90m-> null[0m[0m
+          [31m-[0m[0m session_affinity                 = false [90m-> null[0m[0m
+          [31m-[0m[0m timeout                          = "10s" [90m-> null[0m[0m
+            [90m# (3 unchanged attributes hidden)[0m[0m
+
+          [31m-[0m[0m containers {
+              [31m-[0m[0m args           = [] [90m-> null[0m[0m
+              [31m-[0m[0m build_info     = [] [90m-> null[0m[0m
+              [31m-[0m[0m command        = [] [90m-> null[0m[0m
+              [31m-[0m[0m depends_on     = [] [90m-> null[0m[0m
+              [31m-[0m[0m image          = "us-central1-docker.pkg.dev/ulys-devops-take-home/ulys-images/worker:213fdfe2c3bb" [90m-> null[0m[0m
+                name           = [90mnull[0m[0m
+                [90m# (2 unchanged attributes hidden)[0m[0m
+
+              [31m-[0m[0m env {
+                  [31m-[0m[0m name  = "EXPECTED_INVOKER_EMAIL" [90m-> null[0m[0m
+                  [31m-[0m[0m value = "ulys-api@ulys-devops-take-home.iam.gserviceaccount.com" [90m-> null[0m[0m
+                }
+
+              [31m-[0m[0m ports {
+                  [31m-[0m[0m container_port = 8081 [90m-> null[0m[0m
+                  [31m-[0m[0m name           = "http1" [90m-> null[0m[0m
+                }
+
+              [31m-[0m[0m resources {
+                  [31m-[0m[0m cpu_idle          = true [90m-> null[0m[0m
+                  [31m-[0m[0m limits            = {
+                      [31m-[0m[0m "cpu"    = "1000m"
+                      [31m-[0m[0m "memory" = "512Mi"
+                    } [90m-> null[0m[0m
+                  [31m-[0m[0m startup_cpu_boost = false [90m-> null[0m[0m
+                }
+
+              [31m-[0m[0m startup_probe {
+                  [31m-[0m[0m failure_threshold     = 1 [90m-> null[0m[0m
+                  [31m-[0m[0m initial_delay_seconds = 0 [90m-> null[0m[0m
+                  [31m-[0m[0m period_seconds        = 240 [90m-> null[0m[0m
+                  [31m-[0m[0m timeout_seconds       = 240 [90m-> null[0m[0m
+
+                  [31m-[0m[0m tcp_socket {
+                      [31m-[0m[0m port = 8081 [90m-> null[0m[0m
+                    }
+                }
+            }
+
+          [31m-[0m[0m scaling {
+              [31m-[0m[0m max_instance_count = 5 [90m-> null[0m[0m
+              [31m-[0m[0m min_instance_count = 0 [90m-> null[0m[0m
+            }
+        }
+
+      [31m-[0m[0m traffic {
+          [31m-[0m[0m percent  = 100 [90m-> null[0m[0m
+          [31m-[0m[0m type     = "TRAFFIC_TARGET_ALLOCATION_TYPE_LATEST" [90m-> null[0m[0m
+            [90m# (2 unchanged attributes hidden)[0m[0m
+        }
+    }
+
+[1m  # google_cloud_run_v2_service_iam_member.api_invokes_worker[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "google_cloud_run_v2_service_iam_member" "api_invokes_worker" {
+      [31m-[0m[0m etag     = "BwZQwrVrpaU=" [90m-> null[0m[0m
+      [31m-[0m[0m id       = "projects/ulys-devops-take-home/locations/us-central1/services/ulys-worker/roles/run.invoker/serviceAccount:ulys-api@ulys-devops-take-home.iam.gserviceaccount.com" [90m-> null[0m[0m
+      [31m-[0m[0m location = "us-central1" [90m-> null[0m[0m
+      [31m-[0m[0m member   = "serviceAccount:ulys-api@ulys-devops-take-home.iam.gserviceaccount.com" [90m-> null[0m[0m
+      [31m-[0m[0m name     = "projects/ulys-devops-take-home/locations/us-central1/services/ulys-worker" [90m-> null[0m[0m
+      [31m-[0m[0m project  = "ulys-devops-take-home" [90m-> null[0m[0m
+      [31m-[0m[0m role     = "roles/run.invoker" [90m-> null[0m[0m
+    }
+
+[1m  # google_cloud_run_v2_service_iam_member.api_public[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "google_cloud_run_v2_service_iam_member" "api_public" {
+      [31m-[0m[0m etag     = "BwZQwravK+c=" [90m-> null[0m[0m
+      [31m-[0m[0m id       = "projects/ulys-devops-take-home/locations/us-central1/services/ulys-api/roles/run.invoker/allUsers" [90m-> null[0m[0m
+      [31m-[0m[0m location = "us-central1" [90m-> null[0m[0m
+      [31m-[0m[0m member   = "allUsers" [90m-> null[0m[0m
+      [31m-[0m[0m name     = "projects/ulys-devops-take-home/locations/us-central1/services/ulys-api" [90m-> null[0m[0m
+      [31m-[0m[0m project  = "ulys-devops-take-home" [90m-> null[0m[0m
+      [31m-[0m[0m role     = "roles/run.invoker" [90m-> null[0m[0m
+    }
+
+[1m  # google_compute_backend_bucket.web[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "google_compute_backend_bucket" "web" {
+      [31m-[0m[0m bucket_name             = "ulys-devops-take-home-web" [90m-> null[0m[0m
+      [31m-[0m[0m creation_timestamp      = "2026-05-01T07:40:59.984-07:00" [90m-> null[0m[0m
+      [31m-[0m[0m custom_response_headers = [] [90m-> null[0m[0m
+      [31m-[0m[0m enable_cdn              = true [90m-> null[0m[0m
+      [31m-[0m[0m id                      = "projects/ulys-devops-take-home/global/backendBuckets/ulys-web-backend" [90m-> null[0m[0m
+      [31m-[0m[0m name                    = "ulys-web-backend" [90m-> null[0m[0m
+      [31m-[0m[0m project                 = "ulys-devops-take-home" [90m-> null[0m[0m
+      [31m-[0m[0m self_link               = "https://www.googleapis.com/compute/v1/projects/ulys-devops-take-home/global/backendBuckets/ulys-web-backend" [90m-> null[0m[0m
+        [90m# (4 unchanged attributes hidden)[0m[0m
+
+      [31m-[0m[0m cdn_policy {
+          [31m-[0m[0m cache_mode                   = "CACHE_ALL_STATIC" [90m-> null[0m[0m
+          [31m-[0m[0m client_ttl                   = 3600 [90m-> null[0m[0m
+          [31m-[0m[0m default_ttl                  = 3600 [90m-> null[0m[0m
+          [31m-[0m[0m max_ttl                      = 86400 [90m-> null[0m[0m
+          [31m-[0m[0m negative_caching             = false [90m-> null[0m[0m
+          [31m-[0m[0m request_coalescing           = false [90m-> null[0m[0m
+          [31m-[0m[0m serve_while_stale            = 0 [90m-> null[0m[0m
+          [31m-[0m[0m signed_url_cache_max_age_sec = 0 [90m-> null[0m[0m
+        }
+    }
+
+[1m  # google_compute_backend_service.api[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "google_compute_backend_service" "api" {
+      [31m-[0m[0m affinity_cookie_ttl_sec                       = 0 [90m-> null[0m[0m
+      [31m-[0m[0m connection_draining_timeout_sec               = 300 [90m-> null[0m[0m
+      [31m-[0m[0m creation_timestamp                            = "2026-05-01T08:05:39.966-07:00" [90m-> null[0m[0m
+      [31m-[0m[0m custom_request_headers                        = [] [90m-> null[0m[0m
+      [31m-[0m[0m custom_response_headers                       = [] [90m-> null[0m[0m
+      [31m-[0m[0m enable_cdn                                    = false [90m-> null[0m[0m
+      [31m-[0m[0m external_managed_migration_testing_percentage = 0 [90m-> null[0m[0m
+      [31m-[0m[0m fingerprint                                   = "uP4V67rH31M=" [90m-> null[0m[0m
+      [31m-[0m[0m generated_id                                  = 5595672585319317420 [90m-> null[0m[0m
+      [31m-[0m[0m health_checks                                 = [] [90m-> null[0m[0m
+      [31m-[0m[0m id                                            = "projects/ulys-devops-take-home/global/backendServices/ulys-api-backend" [90m-> null[0m[0m
+      [31m-[0m[0m load_balancing_scheme                         = "EXTERNAL_MANAGED" [90m-> null[0m[0m
+      [31m-[0m[0m name                                          = "ulys-api-backend" [90m-> null[0m[0m
+      [31m-[0m[0m port_name                                     = "http" [90m-> null[0m[0m
+      [31m-[0m[0m project                                       = "ulys-devops-take-home" [90m-> null[0m[0m
+      [31m-[0m[0m protocol                                      = "HTTPS" [90m-> null[0m[0m
+      [31m-[0m[0m self_link                                     = "https://www.googleapis.com/compute/v1/projects/ulys-devops-take-home/global/backendServices/ulys-api-backend" [90m-> null[0m[0m
+      [31m-[0m[0m session_affinity                              = "NONE" [90m-> null[0m[0m
+      [31m-[0m[0m timeout_sec                                   = 30 [90m-> null[0m[0m
+        [90m# (8 unchanged attributes hidden)[0m[0m
+
+      [31m-[0m[0m backend {
+          [31m-[0m[0m balancing_mode               = "UTILIZATION" [90m-> null[0m[0m
+          [31m-[0m[0m capacity_scaler              = 1 [90m-> null[0m[0m
+          [31m-[0m[0m group                        = "https://www.googleapis.com/compute/v1/projects/ulys-devops-take-home/regions/us-central1/networkEndpointGroups/ulys-api-neg" [90m-> null[0m[0m
+          [31m-[0m[0m max_connections              = 0 [90m-> null[0m[0m
+          [31m-[0m[0m max_connections_per_endpoint = 0 [90m-> null[0m[0m
+          [31m-[0m[0m max_connections_per_instance = 0 [90m-> null[0m[0m
+          [31m-[0m[0m max_rate                     = 0 [90m-> null[0m[0m
+          [31m-[0m[0m max_rate_per_endpoint        = 0 [90m-> null[0m[0m
+          [31m-[0m[0m max_rate_per_instance        = 0 [90m-> null[0m[0m
+          [31m-[0m[0m max_utilization              = 0 [90m-> null[0m[0m
+            [90m# (2 unchanged attributes hidden)[0m[0m
+        }
+
+      [31m-[0m[0m log_config {
+          [31m-[0m[0m enable          = true [90m-> null[0m[0m
+          [31m-[0m[0m optional_fields = [] [90m-> null[0m[0m
+          [31m-[0m[0m optional_mode   = "EXCLUDE_ALL_OPTIONAL" [90m-> null[0m[0m
+          [31m-[0m[0m sample_rate     = 1 [90m-> null[0m[0m
+        }
+    }
+
+[1m  # google_compute_global_address.lb[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "google_compute_global_address" "lb" {
+      [31m-[0m[0m address            = "34.120.152.153" [90m-> null[0m[0m
+      [31m-[0m[0m address_type       = "EXTERNAL" [90m-> null[0m[0m
+      [31m-[0m[0m creation_timestamp = "2026-05-01T07:40:57.088-07:00" [90m-> null[0m[0m
+      [31m-[0m[0m effective_labels   = {
+          [31m-[0m[0m "goog-terraform-provisioned" = "true"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m id                 = "projects/ulys-devops-take-home/global/addresses/ulys-lb-ip" [90m-> null[0m[0m
+      [31m-[0m[0m label_fingerprint  = "vezUS-42LLM=" [90m-> null[0m[0m
+      [31m-[0m[0m labels             = {} [90m-> null[0m[0m
+      [31m-[0m[0m name               = "ulys-lb-ip" [90m-> null[0m[0m
+      [31m-[0m[0m prefix_length      = 0 [90m-> null[0m[0m
+      [31m-[0m[0m project            = "ulys-devops-take-home" [90m-> null[0m[0m
+      [31m-[0m[0m self_link          = "https://www.googleapis.com/compute/v1/projects/ulys-devops-take-home/global/addresses/ulys-lb-ip" [90m-> null[0m[0m
+      [31m-[0m[0m terraform_labels   = {
+          [31m-[0m[0m "goog-terraform-provisioned" = "true"
+        } [90m-> null[0m[0m
+        [90m# (4 unchanged attributes hidden)[0m[0m
+    }
+
+[1m  # google_compute_global_address.psa_range[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "google_compute_global_address" "psa_range" {
+      [31m-[0m[0m address            = "10.12.0.0" [90m-> null[0m[0m
+      [31m-[0m[0m address_type       = "INTERNAL" [90m-> null[0m[0m
+      [31m-[0m[0m creation_timestamp = "2026-05-01T07:41:19.954-07:00" [90m-> null[0m[0m
+      [31m-[0m[0m effective_labels   = {
+          [31m-[0m[0m "goog-terraform-provisioned" = "true"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m id                 = "projects/ulys-devops-take-home/global/addresses/ulys-psa-range" [90m-> null[0m[0m
+      [31m-[0m[0m label_fingerprint  = "vezUS-42LLM=" [90m-> null[0m[0m
+      [31m-[0m[0m labels             = {} [90m-> null[0m[0m
+      [31m-[0m[0m name               = "ulys-psa-range" [90m-> null[0m[0m
+      [31m-[0m[0m network            = "https://www.googleapis.com/compute/v1/projects/ulys-devops-take-home/global/networks/ulys-vpc" [90m-> null[0m[0m
+      [31m-[0m[0m prefix_length      = 16 [90m-> null[0m[0m
+      [31m-[0m[0m project            = "ulys-devops-take-home" [90m-> null[0m[0m
+      [31m-[0m[0m purpose            = "VPC_PEERING" [90m-> null[0m[0m
+      [31m-[0m[0m self_link          = "https://www.googleapis.com/compute/v1/projects/ulys-devops-take-home/global/addresses/ulys-psa-range" [90m-> null[0m[0m
+      [31m-[0m[0m terraform_labels   = {
+          [31m-[0m[0m "goog-terraform-provisioned" = "true"
+        } [90m-> null[0m[0m
+        [90m# (2 unchanged attributes hidden)[0m[0m
+    }
+
+[1m  # google_compute_global_forwarding_rule.lb_http[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "google_compute_global_forwarding_rule" "lb_http" {
+      [31m-[0m[0m effective_labels                                             = {} [90m-> null[0m[0m
+      [31m-[0m[0m external_managed_backend_bucket_migration_testing_percentage = 0 [90m-> null[0m[0m
+      [31m-[0m[0m forwarding_rule_id                                           = 991278472172733820 [90m-> null[0m[0m
+      [31m-[0m[0m id                                                           = "projects/ulys-devops-take-home/global/forwardingRules/ulys-fr-http" [90m-> null[0m[0m
+      [31m-[0m[0m ip_address                                                   = "34.120.152.153" [90m-> null[0m[0m
+      [31m-[0m[0m ip_protocol                                                  = "TCP" [90m-> null[0m[0m
+      [31m-[0m[0m label_fingerprint                                            = "42WmSpB8rSM=" [90m-> null[0m[0m
+      [31m-[0m[0m labels                                                       = {} [90m-> null[0m[0m
+      [31m-[0m[0m load_balancing_scheme                                        = "EXTERNAL_MANAGED" [90m-> null[0m[0m
+      [31m-[0m[0m name                                                         = "ulys-fr-http" [90m-> null[0m[0m
+      [31m-[0m[0m network_tier                                                 = "PREMIUM" [90m-> null[0m[0m
+      [31m-[0m[0m port_range                                                   = "80-80" [90m-> null[0m[0m
+      [31m-[0m[0m project                                                      = "ulys-devops-take-home" [90m-> null[0m[0m
+      [31m-[0m[0m self_link                                                    = "https://www.googleapis.com/compute/v1/projects/ulys-devops-take-home/global/forwardingRules/ulys-fr-http" [90m-> null[0m[0m
+      [31m-[0m[0m source_ip_ranges                                             = [] [90m-> null[0m[0m
+      [31m-[0m[0m target                                                       = "https://www.googleapis.com/compute/v1/projects/ulys-devops-take-home/global/targetHttpProxies/ulys-http-proxy" [90m-> null[0m[0m
+      [31m-[0m[0m terraform_labels                                             = {} [90m-> null[0m[0m
+        [90m# (8 unchanged attributes hidden)[0m[0m
+    }
+
+[1m  # google_compute_global_forwarding_rule.lb_https[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "google_compute_global_forwarding_rule" "lb_https" {
+      [31m-[0m[0m effective_labels                                             = {} [90m-> null[0m[0m
+      [31m-[0m[0m external_managed_backend_bucket_migration_testing_percentage = 0 [90m-> null[0m[0m
+      [31m-[0m[0m forwarding_rule_id                                           = 1453154565080317762 [90m-> null[0m[0m
+      [31m-[0m[0m id                                                           = "projects/ulys-devops-take-home/global/forwardingRules/ulys-fr-https" [90m-> null[0m[0m
+      [31m-[0m[0m ip_address                                                   = "34.120.152.153" [90m-> null[0m[0m
+      [31m-[0m[0m ip_protocol                                                  = "TCP" [90m-> null[0m[0m
+      [31m-[0m[0m label_fingerprint                                            = "42WmSpB8rSM=" [90m-> null[0m[0m
+      [31m-[0m[0m labels                                                       = {} [90m-> null[0m[0m
+      [31m-[0m[0m load_balancing_scheme                                        = "EXTERNAL_MANAGED" [90m-> null[0m[0m
+      [31m-[0m[0m name                                                         = "ulys-fr-https" [90m-> null[0m[0m
+      [31m-[0m[0m network_tier                                                 = "PREMIUM" [90m-> null[0m[0m
+      [31m-[0m[0m port_range                                                   = "443-443" [90m-> null[0m[0m
+      [31m-[0m[0m project                                                      = "ulys-devops-take-home" [90m-> null[0m[0m
+      [31m-[0m[0m self_link                                                    = "https://www.googleapis.com/compute/v1/projects/ulys-devops-take-home/global/forwardingRules/ulys-fr-https" [90m-> null[0m[0m
+      [31m-[0m[0m source_ip_ranges                                             = [] [90m-> null[0m[0m
+      [31m-[0m[0m target                                                       = "https://www.googleapis.com/compute/v1/projects/ulys-devops-take-home/global/targetHttpsProxies/ulys-https-proxy" [90m-> null[0m[0m
+      [31m-[0m[0m terraform_labels                                             = {} [90m-> null[0m[0m
+        [90m# (8 unchanged attributes hidden)[0m[0m
+    }
+
+[1m  # google_compute_managed_ssl_certificate.lb[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "google_compute_managed_ssl_certificate" "lb" {
+      [31m-[0m[0m certificate_id            = 412521789266658665 [90m-> null[0m[0m
+      [31m-[0m[0m creation_timestamp        = "2026-05-01T07:41:10.539-07:00" [90m-> null[0m[0m
+      [31m-[0m[0m expire_time               = "2026-07-30T07:41:13.000-07:00" [90m-> null[0m[0m
+      [31m-[0m[0m id                        = "projects/ulys-devops-take-home/global/sslCertificates/ulys-cert" [90m-> null[0m[0m
+      [31m-[0m[0m name                      = "ulys-cert" [90m-> null[0m[0m
+      [31m-[0m[0m project                   = "ulys-devops-take-home" [90m-> null[0m[0m
+      [31m-[0m[0m self_link                 = "https://www.googleapis.com/compute/v1/projects/ulys-devops-take-home/global/sslCertificates/ulys-cert" [90m-> null[0m[0m
+      [31m-[0m[0m subject_alternative_names = [
+          [31m-[0m[0m "34-120-152-153.sslip.io",
+        ] [90m-> null[0m[0m
+      [31m-[0m[0m type                      = "MANAGED" [90m-> null[0m[0m
+        [90m# (1 unchanged attribute hidden)[0m[0m
+
+      [31m-[0m[0m managed {
+          [31m-[0m[0m domains = [
+              [31m-[0m[0m "34-120-152-153.sslip.io",
+            ] [90m-> null[0m[0m
+        }
+    }
+
+[1m  # google_compute_network.vpc[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "google_compute_network" "vpc" {
+      [31m-[0m[0m auto_create_subnetworks                   = false [90m-> null[0m[0m
+      [31m-[0m[0m bgp_always_compare_med                    = false [90m-> null[0m[0m
+      [31m-[0m[0m bgp_best_path_selection_mode              = "LEGACY" [90m-> null[0m[0m
+      [31m-[0m[0m delete_default_routes_on_create           = false [90m-> null[0m[0m
+      [31m-[0m[0m enable_ula_internal_ipv6                  = false [90m-> null[0m[0m
+      [31m-[0m[0m id                                        = "projects/ulys-devops-take-home/global/networks/ulys-vpc" [90m-> null[0m[0m
+      [31m-[0m[0m mtu                                       = 0 [90m-> null[0m[0m
+      [31m-[0m[0m name                                      = "ulys-vpc" [90m-> null[0m[0m
+      [31m-[0m[0m network_firewall_policy_enforcement_order = "AFTER_CLASSIC_FIREWALL" [90m-> null[0m[0m
+      [31m-[0m[0m network_id                                = "7725725585289840023" [90m-> null[0m[0m
+      [31m-[0m[0m numeric_id                                = "7725725585289840023" [90m-> null[0m[0m
+      [31m-[0m[0m project                                   = "ulys-devops-take-home" [90m-> null[0m[0m
+      [31m-[0m[0m routing_mode                              = "REGIONAL" [90m-> null[0m[0m
+      [31m-[0m[0m self_link                                 = "https://www.googleapis.com/compute/v1/projects/ulys-devops-take-home/global/networks/ulys-vpc" [90m-> null[0m[0m
+        [90m# (5 unchanged attributes hidden)[0m[0m
+    }
+
+[1m  # google_compute_region_network_endpoint_group.api[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "google_compute_region_network_endpoint_group" "api" {
+      [31m-[0m[0m id                    = "projects/ulys-devops-take-home/regions/us-central1/networkEndpointGroups/ulys-api-neg" [90m-> null[0m[0m
+      [31m-[0m[0m name                  = "ulys-api-neg" [90m-> null[0m[0m
+      [31m-[0m[0m network_endpoint_type = "SERVERLESS" [90m-> null[0m[0m
+      [31m-[0m[0m project               = "ulys-devops-take-home" [90m-> null[0m[0m
+      [31m-[0m[0m region                = "https://www.googleapis.com/compute/v1/projects/ulys-devops-take-home/regions/us-central1" [90m-> null[0m[0m
+      [31m-[0m[0m self_link             = "https://www.googleapis.com/compute/v1/projects/ulys-devops-take-home/regions/us-central1/networkEndpointGroups/ulys-api-neg" [90m-> null[0m[0m
+        [90m# (4 unchanged attributes hidden)[0m[0m
+
+      [31m-[0m[0m cloud_run {
+          [31m-[0m[0m service  = "ulys-api" [90m-> null[0m[0m
+            [90m# (2 unchanged attributes hidden)[0m[0m
+        }
+    }
+
+[1m  # google_compute_subnetwork.subnet[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "google_compute_subnetwork" "subnet" {
+      [31m-[0m[0m creation_timestamp         = "2026-05-01T07:41:21.280-07:00" [90m-> null[0m[0m
+      [31m-[0m[0m enable_flow_logs           = false [90m-> null[0m[0m
+      [31m-[0m[0m gateway_address            = "10.10.0.1" [90m-> null[0m[0m
+      [31m-[0m[0m id                         = "projects/ulys-devops-take-home/regions/us-central1/subnetworks/ulys-subnet" [90m-> null[0m[0m
+      [31m-[0m[0m ip_cidr_range              = "10.10.0.0/24" [90m-> null[0m[0m
+      [31m-[0m[0m name                       = "ulys-subnet" [90m-> null[0m[0m
+      [31m-[0m[0m network                    = "https://www.googleapis.com/compute/v1/projects/ulys-devops-take-home/global/networks/ulys-vpc" [90m-> null[0m[0m
+      [31m-[0m[0m private_ip_google_access   = true [90m-> null[0m[0m
+      [31m-[0m[0m private_ipv6_google_access = "DISABLE_GOOGLE_ACCESS" [90m-> null[0m[0m
+      [31m-[0m[0m project                    = "ulys-devops-take-home" [90m-> null[0m[0m
+      [31m-[0m[0m purpose                    = "PRIVATE" [90m-> null[0m[0m
+      [31m-[0m[0m region                     = "us-central1" [90m-> null[0m[0m
+      [31m-[0m[0m self_link                  = "https://www.googleapis.com/compute/v1/projects/ulys-devops-take-home/regions/us-central1/subnetworks/ulys-subnet" [90m-> null[0m[0m
+      [31m-[0m[0m stack_type                 = "IPV4_ONLY" [90m-> null[0m[0m
+      [31m-[0m[0m subnetwork_id              = 8288324090127254910 [90m-> null[0m[0m
+        [90m# (9 unchanged attributes hidden)[0m[0m
+    }
+
+[1m  # google_compute_target_http_proxy.lb[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "google_compute_target_http_proxy" "lb" {
+      [31m-[0m[0m creation_timestamp          = "2026-05-01T07:41:10.282-07:00" [90m-> null[0m[0m
+      [31m-[0m[0m fingerprint                 = "lYAQCl6wUMU=" [90m-> null[0m[0m
+      [31m-[0m[0m http_keep_alive_timeout_sec = 0 [90m-> null[0m[0m
+      [31m-[0m[0m id                          = "projects/ulys-devops-take-home/global/targetHttpProxies/ulys-http-proxy" [90m-> null[0m[0m
+      [31m-[0m[0m name                        = "ulys-http-proxy" [90m-> null[0m[0m
+      [31m-[0m[0m project                     = "ulys-devops-take-home" [90m-> null[0m[0m
+      [31m-[0m[0m proxy_bind                  = false [90m-> null[0m[0m
+      [31m-[0m[0m proxy_id                    = 4762378466661827945 [90m-> null[0m[0m
+      [31m-[0m[0m self_link                   = "https://www.googleapis.com/compute/v1/projects/ulys-devops-take-home/global/targetHttpProxies/ulys-http-proxy" [90m-> null[0m[0m
+      [31m-[0m[0m url_map                     = "https://www.googleapis.com/compute/v1/projects/ulys-devops-take-home/global/urlMaps/ulys-http-redirect" [90m-> null[0m[0m
+        [90m# (1 unchanged attribute hidden)[0m[0m
+    }
+
+[1m  # google_compute_target_https_proxy.lb[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "google_compute_target_https_proxy" "lb" {
+      [31m-[0m[0m certificate_manager_certificates = [] [90m-> null[0m[0m
+      [31m-[0m[0m creation_timestamp               = "2026-05-01T08:07:12.238-07:00" [90m-> null[0m[0m
+      [31m-[0m[0m fingerprint                      = "rToCBTGcLoc=" [90m-> null[0m[0m
+      [31m-[0m[0m http_keep_alive_timeout_sec      = 0 [90m-> null[0m[0m
+      [31m-[0m[0m id                               = "projects/ulys-devops-take-home/global/targetHttpsProxies/ulys-https-proxy" [90m-> null[0m[0m
+      [31m-[0m[0m name                             = "ulys-https-proxy" [90m-> null[0m[0m
+      [31m-[0m[0m project                          = "ulys-devops-take-home" [90m-> null[0m[0m
+      [31m-[0m[0m proxy_bind                       = false [90m-> null[0m[0m
+      [31m-[0m[0m proxy_id                         = 8297346527925993295 [90m-> null[0m[0m
+      [31m-[0m[0m quic_override                    = "NONE" [90m-> null[0m[0m
+      [31m-[0m[0m self_link                        = "https://www.googleapis.com/compute/v1/projects/ulys-devops-take-home/global/targetHttpsProxies/ulys-https-proxy" [90m-> null[0m[0m
+      [31m-[0m[0m ssl_certificates                 = [
+          [31m-[0m[0m "https://www.googleapis.com/compute/v1/projects/ulys-devops-take-home/global/sslCertificates/ulys-cert",
+        ] [90m-> null[0m[0m
+      [31m-[0m[0m tls_early_data                   = "DISABLED" [90m-> null[0m[0m
+      [31m-[0m[0m url_map                          = "https://www.googleapis.com/compute/v1/projects/ulys-devops-take-home/global/urlMaps/ulys-url-map" [90m-> null[0m[0m
+        [90m# (4 unchanged attributes hidden)[0m[0m
+    }
+
+[1m  # google_compute_url_map.lb[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "google_compute_url_map" "lb" {
+      [31m-[0m[0m creation_timestamp = "2026-05-01T08:06:59.879-07:00" [90m-> null[0m[0m
+      [31m-[0m[0m default_service    = "https://www.googleapis.com/compute/v1/projects/ulys-devops-take-home/global/backendBuckets/ulys-web-backend" [90m-> null[0m[0m
+      [31m-[0m[0m fingerprint        = "gGe8vijDQu4=" [90m-> null[0m[0m
+      [31m-[0m[0m id                 = "projects/ulys-devops-take-home/global/urlMaps/ulys-url-map" [90m-> null[0m[0m
+      [31m-[0m[0m map_id             = 5555973820350300029 [90m-> null[0m[0m
+      [31m-[0m[0m name               = "ulys-url-map" [90m-> null[0m[0m
+      [31m-[0m[0m project            = "ulys-devops-take-home" [90m-> null[0m[0m
+      [31m-[0m[0m self_link          = "https://www.googleapis.com/compute/v1/projects/ulys-devops-take-home/global/urlMaps/ulys-url-map" [90m-> null[0m[0m
+        [90m# (1 unchanged attribute hidden)[0m[0m
+
+      [31m-[0m[0m host_rule {
+          [31m-[0m[0m hosts        = [
+              [31m-[0m[0m "*",
+            ] [90m-> null[0m[0m
+          [31m-[0m[0m path_matcher = "main" [90m-> null[0m[0m
+            [90m# (1 unchanged attribute hidden)[0m[0m
+        }
+
+      [31m-[0m[0m path_matcher {
+          [31m-[0m[0m default_service = "https://www.googleapis.com/compute/v1/projects/ulys-devops-take-home/global/backendBuckets/ulys-web-backend" [90m-> null[0m[0m
+          [31m-[0m[0m name            = "main" [90m-> null[0m[0m
+            [90m# (1 unchanged attribute hidden)[0m[0m
+
+          [31m-[0m[0m path_rule {
+              [31m-[0m[0m paths   = [
+                  [31m-[0m[0m "/api",
+                  [31m-[0m[0m "/api/*",
+                ] [90m-> null[0m[0m
+              [31m-[0m[0m service = "https://www.googleapis.com/compute/v1/projects/ulys-devops-take-home/global/backendServices/ulys-api-backend" [90m-> null[0m[0m
+
+              [31m-[0m[0m route_action {
+                  [31m-[0m[0m url_rewrite {
+                      [31m-[0m[0m path_prefix_rewrite = "/" [90m-> null[0m[0m
+                        [90m# (1 unchanged attribute hidden)[0m[0m
+                    }
+                }
+            }
+        }
+    }
+
+[1m  # google_compute_url_map.redirect[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "google_compute_url_map" "redirect" {
+      [31m-[0m[0m creation_timestamp = "2026-05-01T07:40:56.950-07:00" [90m-> null[0m[0m
+      [31m-[0m[0m fingerprint        = "FrnTGmVDGG8=" [90m-> null[0m[0m
+      [31m-[0m[0m id                 = "projects/ulys-devops-take-home/global/urlMaps/ulys-http-redirect" [90m-> null[0m[0m
+      [31m-[0m[0m map_id             = 5201513414198679 [90m-> null[0m[0m
+      [31m-[0m[0m name               = "ulys-http-redirect" [90m-> null[0m[0m
+      [31m-[0m[0m project            = "ulys-devops-take-home" [90m-> null[0m[0m
+      [31m-[0m[0m self_link          = "https://www.googleapis.com/compute/v1/projects/ulys-devops-take-home/global/urlMaps/ulys-http-redirect" [90m-> null[0m[0m
+        [90m# (2 unchanged attributes hidden)[0m[0m
+
+      [31m-[0m[0m default_url_redirect {
+          [31m-[0m[0m https_redirect         = true [90m-> null[0m[0m
+          [31m-[0m[0m redirect_response_code = "MOVED_PERMANENTLY_DEFAULT" [90m-> null[0m[0m
+          [31m-[0m[0m strip_query            = false [90m-> null[0m[0m
+            [90m# (3 unchanged attributes hidden)[0m[0m
+        }
+    }
+
+[1m  # google_redis_instance.cache[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "google_redis_instance" "cache" {
+      [31m-[0m[0m alternative_location_id     = "us-central1-c" [90m-> null[0m[0m
+      [31m-[0m[0m auth_enabled                = false [90m-> null[0m[0m
+      [31m-[0m[0m authorized_network          = "projects/ulys-devops-take-home/global/networks/ulys-vpc" [90m-> null[0m[0m
+      [31m-[0m[0m connect_mode                = "PRIVATE_SERVICE_ACCESS" [90m-> null[0m[0m
+      [31m-[0m[0m create_time                 = "2026-05-01T14:42:12.963392785Z" [90m-> null[0m[0m
+      [31m-[0m[0m current_location_id         = "us-central1-c" [90m-> null[0m[0m
+      [31m-[0m[0m display_name                = "ulys cache (HA)" [90m-> null[0m[0m
+      [31m-[0m[0m effective_labels            = {
+          [31m-[0m[0m "app"                        = "ulys"
+          [31m-[0m[0m "component"                  = "redis"
+          [31m-[0m[0m "goog-terraform-provisioned" = "true"
+          [31m-[0m[0m "managed"                    = "terraform"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m effective_reserved_ip_range = "10.12.0.0/29" [90m-> null[0m[0m
+      [31m-[0m[0m host                        = "10.12.0.4" [90m-> null[0m[0m
+      [31m-[0m[0m id                          = "projects/ulys-devops-take-home/locations/us-central1/instances/ulys-redis" [90m-> null[0m[0m
+      [31m-[0m[0m labels                      = {
+          [31m-[0m[0m "app"       = "ulys"
+          [31m-[0m[0m "component" = "redis"
+          [31m-[0m[0m "managed"   = "terraform"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m location_id                 = "us-central1-a" [90m-> null[0m[0m
+      [31m-[0m[0m maintenance_schedule        = [] [90m-> null[0m[0m
+      [31m-[0m[0m maintenance_version         = "20251007_00_00" [90m-> null[0m[0m
+      [31m-[0m[0m memory_size_gb              = 1 [90m-> null[0m[0m
+      [31m-[0m[0m name                        = "ulys-redis" [90m-> null[0m[0m
+      [31m-[0m[0m nodes                       = [
+          [31m-[0m[0m {
+              [31m-[0m[0m id   = "node-0"
+              [31m-[0m[0m zone = "us-central1-a"
+            },
+          [31m-[0m[0m {
+              [31m-[0m[0m id   = "node-1"
+              [31m-[0m[0m zone = "us-central1-c"
+            },
+        ] [90m-> null[0m[0m
+      [31m-[0m[0m persistence_iam_identity    = "serviceAccount:service-80162569551@cloud-redis.iam.gserviceaccount.com" [90m-> null[0m[0m
+      [31m-[0m[0m port                        = 6379 [90m-> null[0m[0m
+      [31m-[0m[0m project                     = "ulys-devops-take-home" [90m-> null[0m[0m
+      [31m-[0m[0m read_endpoint_port          = 0 [90m-> null[0m[0m
+      [31m-[0m[0m read_replicas_mode          = "READ_REPLICAS_DISABLED" [90m-> null[0m[0m
+      [31m-[0m[0m redis_configs               = {} [90m-> null[0m[0m
+      [31m-[0m[0m redis_version               = "REDIS_7_2" [90m-> null[0m[0m
+      [31m-[0m[0m region                      = "us-central1" [90m-> null[0m[0m
+      [31m-[0m[0m replica_count               = 1 [90m-> null[0m[0m
+      [31m-[0m[0m server_ca_certs             = [] [90m-> null[0m[0m
+      [31m-[0m[0m terraform_labels            = {
+          [31m-[0m[0m "app"                        = "ulys"
+          [31m-[0m[0m "component"                  = "redis"
+          [31m-[0m[0m "goog-terraform-provisioned" = "true"
+          [31m-[0m[0m "managed"                    = "terraform"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m tier                        = "STANDARD_HA" [90m-> null[0m[0m
+      [31m-[0m[0m transit_encryption_mode     = "DISABLED" [90m-> null[0m[0m
+        [90m# (4 unchanged attributes hidden)[0m[0m
+
+      [31m-[0m[0m persistence_config {
+          [31m-[0m[0m persistence_mode        = "DISABLED" [90m-> null[0m[0m
+            [90m# (3 unchanged attributes hidden)[0m[0m
+        }
+    }
+
+[1m  # google_secret_manager_secret_iam_member.api_reads_db_password[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "google_secret_manager_secret_iam_member" "api_reads_db_password" {
+      [31m-[0m[0m etag      = "BwZQwpKo+VQ=" [90m-> null[0m[0m
+      [31m-[0m[0m id        = "projects/ulys-devops-take-home/secrets/ulys-db-password/roles/secretmanager.secretAccessor/serviceAccount:ulys-api@ulys-devops-take-home.iam.gserviceaccount.com" [90m-> null[0m[0m
+      [31m-[0m[0m member    = "serviceAccount:ulys-api@ulys-devops-take-home.iam.gserviceaccount.com" [90m-> null[0m[0m
+      [31m-[0m[0m project   = "ulys-devops-take-home" [90m-> null[0m[0m
+      [31m-[0m[0m role      = "roles/secretmanager.secretAccessor" [90m-> null[0m[0m
+      [31m-[0m[0m secret_id = "projects/ulys-devops-take-home/secrets/ulys-db-password" [90m-> null[0m[0m
+    }
+
+[1m  # google_service_account.api[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "google_service_account" "api" {
+      [31m-[0m[0m account_id   = "ulys-api" [90m-> null[0m[0m
+      [31m-[0m[0m disabled     = false [90m-> null[0m[0m
+      [31m-[0m[0m display_name = "Cloud Run api" [90m-> null[0m[0m
+      [31m-[0m[0m email        = "ulys-api@ulys-devops-take-home.iam.gserviceaccount.com" [90m-> null[0m[0m
+      [31m-[0m[0m id           = "projects/ulys-devops-take-home/serviceAccounts/ulys-api@ulys-devops-take-home.iam.gserviceaccount.com" [90m-> null[0m[0m
+      [31m-[0m[0m member       = "serviceAccount:ulys-api@ulys-devops-take-home.iam.gserviceaccount.com" [90m-> null[0m[0m
+      [31m-[0m[0m name         = "projects/ulys-devops-take-home/serviceAccounts/ulys-api@ulys-devops-take-home.iam.gserviceaccount.com" [90m-> null[0m[0m
+      [31m-[0m[0m project      = "ulys-devops-take-home" [90m-> null[0m[0m
+      [31m-[0m[0m unique_id    = "104995154184026853414" [90m-> null[0m[0m
+        [90m# (1 unchanged attribute hidden)[0m[0m
+    }
+
+[1m  # google_service_account.worker[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "google_service_account" "worker" {
+      [31m-[0m[0m account_id   = "ulys-worker" [90m-> null[0m[0m
+      [31m-[0m[0m disabled     = false [90m-> null[0m[0m
+      [31m-[0m[0m display_name = "Cloud Run worker" [90m-> null[0m[0m
+      [31m-[0m[0m email        = "ulys-worker@ulys-devops-take-home.iam.gserviceaccount.com" [90m-> null[0m[0m
+      [31m-[0m[0m id           = "projects/ulys-devops-take-home/serviceAccounts/ulys-worker@ulys-devops-take-home.iam.gserviceaccount.com" [90m-> null[0m[0m
+      [31m-[0m[0m member       = "serviceAccount:ulys-worker@ulys-devops-take-home.iam.gserviceaccount.com" [90m-> null[0m[0m
+      [31m-[0m[0m name         = "projects/ulys-devops-take-home/serviceAccounts/ulys-worker@ulys-devops-take-home.iam.gserviceaccount.com" [90m-> null[0m[0m
+      [31m-[0m[0m project      = "ulys-devops-take-home" [90m-> null[0m[0m
+      [31m-[0m[0m unique_id    = "110047961017518311359" [90m-> null[0m[0m
+        [90m# (1 unchanged attribute hidden)[0m[0m
+    }
+
+[1m  # google_service_account_iam_member.gha_acts_as_api[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "google_service_account_iam_member" "gha_acts_as_api" {
+      [31m-[0m[0m etag               = "BwZQwpKCtLU=" [90m-> null[0m[0m
+      [31m-[0m[0m id                 = "projects/ulys-devops-take-home/serviceAccounts/ulys-api@ulys-devops-take-home.iam.gserviceaccount.com/roles/iam.serviceAccountUser/serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com" [90m-> null[0m[0m
+      [31m-[0m[0m member             = "serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com" [90m-> null[0m[0m
+      [31m-[0m[0m role               = "roles/iam.serviceAccountUser" [90m-> null[0m[0m
+      [31m-[0m[0m service_account_id = "projects/ulys-devops-take-home/serviceAccounts/ulys-api@ulys-devops-take-home.iam.gserviceaccount.com" [90m-> null[0m[0m
+    }
+
+[1m  # google_service_account_iam_member.gha_acts_as_worker[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "google_service_account_iam_member" "gha_acts_as_worker" {
+      [31m-[0m[0m etag               = "BwZQwpMkfCw=" [90m-> null[0m[0m
+      [31m-[0m[0m id                 = "projects/ulys-devops-take-home/serviceAccounts/ulys-worker@ulys-devops-take-home.iam.gserviceaccount.com/roles/iam.serviceAccountUser/serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com" [90m-> null[0m[0m
+      [31m-[0m[0m member             = "serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com" [90m-> null[0m[0m
+      [31m-[0m[0m role               = "roles/iam.serviceAccountUser" [90m-> null[0m[0m
+      [31m-[0m[0m service_account_id = "projects/ulys-devops-take-home/serviceAccounts/ulys-worker@ulys-devops-take-home.iam.gserviceaccount.com" [90m-> null[0m[0m
+    }
+
+[1m  # google_service_networking_connection.psa[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "google_service_networking_connection" "psa" {
+      [31m-[0m[0m deletion_policy         = "ABANDON" [90m-> null[0m[0m
+      [31m-[0m[0m id                      = "projects%2Fulys-devops-take-home%2Fglobal%2Fnetworks%2Fulys-vpc:servicenetworking.googleapis.com" [90m-> null[0m[0m
+      [31m-[0m[0m network                 = "projects/ulys-devops-take-home/global/networks/ulys-vpc" [90m-> null[0m[0m
+      [31m-[0m[0m peering                 = "servicenetworking-googleapis-com" [90m-> null[0m[0m
+      [31m-[0m[0m reserved_peering_ranges = [
+          [31m-[0m[0m "ulys-psa-range",
+        ] [90m-> null[0m[0m
+      [31m-[0m[0m service                 = "servicenetworking.googleapis.com" [90m-> null[0m[0m
+    }
+
+[1m  # google_sql_database.app[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "google_sql_database" "app" {
+      [31m-[0m[0m charset         = "UTF8" [90m-> null[0m[0m
+      [31m-[0m[0m collation       = "en_US.UTF8" [90m-> null[0m[0m
+      [31m-[0m[0m deletion_policy = "DELETE" [90m-> null[0m[0m
+      [31m-[0m[0m id              = "projects/ulys-devops-take-home/instances/ulys-pg/databases/app" [90m-> null[0m[0m
+      [31m-[0m[0m instance        = "ulys-pg" [90m-> null[0m[0m
+      [31m-[0m[0m name            = "app" [90m-> null[0m[0m
+      [31m-[0m[0m project         = "ulys-devops-take-home" [90m-> null[0m[0m
+      [31m-[0m[0m self_link       = "https://sqladmin.googleapis.com/sql/v1beta4/projects/ulys-devops-take-home/instances/ulys-pg/databases/app" [90m-> null[0m[0m
+    }
+
+[1m  # google_sql_database_instance.pg[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "google_sql_database_instance" "pg" {
+      [31m-[0m[0m available_maintenance_versions = [] [90m-> null[0m[0m
+      [31m-[0m[0m connection_name                = "ulys-devops-take-home:us-central1:ulys-pg" [90m-> null[0m[0m
+      [31m-[0m[0m database_version               = "POSTGRES_16" [90m-> null[0m[0m
+      [31m-[0m[0m deletion_protection            = false [90m-> null[0m[0m
+      [31m-[0m[0m dns_names                      = [] [90m-> null[0m[0m
+      [31m-[0m[0m first_ip_address               = "10.12.1.2" [90m-> null[0m[0m
+      [31m-[0m[0m id                             = "ulys-pg" [90m-> null[0m[0m
+      [31m-[0m[0m instance_type                  = "CLOUD_SQL_INSTANCE" [90m-> null[0m[0m
+      [31m-[0m[0m ip_address                     = [
+          [31m-[0m[0m {
+              [31m-[0m[0m ip_address     = "10.12.1.2"
+              [31m-[0m[0m type           = "PRIVATE"
+                [90m# (1 unchanged attribute hidden)[0m[0m
+            },
+        ] [90m-> null[0m[0m
+      [31m-[0m[0m maintenance_version            = "POSTGRES_16_13.R20260319.00_02" [90m-> null[0m[0m
+      [31m-[0m[0m name                           = "ulys-pg" [90m-> null[0m[0m
+      [31m-[0m[0m node_count                     = 0 [90m-> null[0m[0m
+      [31m-[0m[0m private_ip_address             = "10.12.1.2" [90m-> null[0m[0m
+      [31m-[0m[0m project                        = "ulys-devops-take-home" [90m-> null[0m[0m
+      [31m-[0m[0m region                         = "us-central1" [90m-> null[0m[0m
+      [31m-[0m[0m replica_names                  = [] [90m-> null[0m[0m
+      [31m-[0m[0m self_link                      = "https://sqladmin.googleapis.com/sql/v1beta4/projects/ulys-devops-take-home/instances/ulys-pg" [90m-> null[0m[0m
+      [31m-[0m[0m server_ca_cert                 = (sensitive value) [90m-> null[0m[0m
+      [31m-[0m[0m service_account_email_address  = "p80162569551-jg3kce@gcp-sa-cloud-sql.iam.gserviceaccount.com" [90m-> null[0m[0m
+        [90m# (4 unchanged attributes hidden)[0m[0m
+
+      [31m-[0m[0m replication_cluster {
+          [31m-[0m[0m dr_replica               = false [90m-> null[0m[0m
+            [90m# (2 unchanged attributes hidden)[0m[0m
+        }
+
+      [31m-[0m[0m settings {
+          [31m-[0m[0m activation_policy            = "ALWAYS" [90m-> null[0m[0m
+          [31m-[0m[0m availability_type            = "REGIONAL" [90m-> null[0m[0m
+          [31m-[0m[0m connector_enforcement        = "NOT_REQUIRED" [90m-> null[0m[0m
+          [31m-[0m[0m deletion_protection_enabled  = false [90m-> null[0m[0m
+          [31m-[0m[0m disk_autoresize              = true [90m-> null[0m[0m
+          [31m-[0m[0m disk_autoresize_limit        = 0 [90m-> null[0m[0m
+          [31m-[0m[0m disk_size                    = 10 [90m-> null[0m[0m
+          [31m-[0m[0m disk_type                    = "PD_SSD" [90m-> null[0m[0m
+          [31m-[0m[0m edition                      = "ENTERPRISE" [90m-> null[0m[0m
+          [31m-[0m[0m effective_availability_type  = "REGIONAL" [90m-> null[0m[0m
+          [31m-[0m[0m enable_dataplex_integration  = false [90m-> null[0m[0m
+          [31m-[0m[0m enable_google_ml_integration = false [90m-> null[0m[0m
+          [31m-[0m[0m pricing_plan                 = "PER_USE" [90m-> null[0m[0m
+          [31m-[0m[0m retain_backups_on_delete     = false [90m-> null[0m[0m
+          [31m-[0m[0m tier                         = "db-custom-1-3840" [90m-> null[0m[0m
+          [31m-[0m[0m user_labels                  = {
+              [31m-[0m[0m "app"       = "ulys"
+              [31m-[0m[0m "component" = "sql"
+              [31m-[0m[0m "managed"   = "terraform"
+            } [90m-> null[0m[0m
+          [31m-[0m[0m version                      = 5 [90m-> null[0m[0m
+            [90m# (2 unchanged attributes hidden)[0m[0m
+
+          [31m-[0m[0m backup_configuration {
+              [31m-[0m[0m binary_log_enabled             = false [90m-> null[0m[0m
+              [31m-[0m[0m enabled                        = true [90m-> null[0m[0m
+              [31m-[0m[0m point_in_time_recovery_enabled = true [90m-> null[0m[0m
+              [31m-[0m[0m start_time                     = "03:00" [90m-> null[0m[0m
+              [31m-[0m[0m transaction_log_retention_days = 7 [90m-> null[0m[0m
+                [90m# (1 unchanged attribute hidden)[0m[0m
+
+              [31m-[0m[0m backup_retention_settings {
+                  [31m-[0m[0m retained_backups = 7 [90m-> null[0m[0m
+                  [31m-[0m[0m retention_unit   = "COUNT" [90m-> null[0m[0m
+                }
+            }
+
+          [31m-[0m[0m data_cache_config {
+              [31m-[0m[0m data_cache_enabled = false [90m-> null[0m[0m
+            }
+
+          [31m-[0m[0m insights_config {
+              [31m-[0m[0m query_insights_enabled  = true [90m-> null[0m[0m
+              [31m-[0m[0m query_plans_per_minute  = 0 [90m-> null[0m[0m
+              [31m-[0m[0m query_string_length     = 1024 [90m-> null[0m[0m
+              [31m-[0m[0m record_application_tags = false [90m-> null[0m[0m
+              [31m-[0m[0m record_client_address   = false [90m-> null[0m[0m
+            }
+
+          [31m-[0m[0m ip_configuration {
+              [31m-[0m[0m custom_subject_alternative_names              = [] [90m-> null[0m[0m
+              [31m-[0m[0m enable_private_path_for_google_cloud_services = false [90m-> null[0m[0m
+              [31m-[0m[0m ipv4_enabled                                  = false [90m-> null[0m[0m
+              [31m-[0m[0m private_network                               = "projects/ulys-devops-take-home/global/networks/ulys-vpc" [90m-> null[0m[0m
+              [31m-[0m[0m server_ca_mode                                = "GOOGLE_MANAGED_INTERNAL_CA" [90m-> null[0m[0m
+              [31m-[0m[0m ssl_mode                                      = "ALLOW_UNENCRYPTED_AND_ENCRYPTED" [90m-> null[0m[0m
+                [90m# (2 unchanged attributes hidden)[0m[0m
+            }
+
+          [31m-[0m[0m location_preference {
+              [31m-[0m[0m zone                   = "us-central1-f" [90m-> null[0m[0m
+                [90m# (2 unchanged attributes hidden)[0m[0m
+            }
+        }
+    }
+
+[1m  # google_sql_user.app[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "google_sql_user" "app" {
+      [31m-[0m[0m deletion_policy         = "ABANDON" [90m-> null[0m[0m
+      [31m-[0m[0m id                      = "app//ulys-pg" [90m-> null[0m[0m
+      [31m-[0m[0m instance                = "ulys-pg" [90m-> null[0m[0m
+      [31m-[0m[0m name                    = "app" [90m-> null[0m[0m
+      [31m-[0m[0m password                = (sensitive value) [90m-> null[0m[0m
+      [31m-[0m[0m password_wo             = (write-only attribute) [90m-> null[0m[0m
+      [31m-[0m[0m project                 = "ulys-devops-take-home" [90m-> null[0m[0m
+      [31m-[0m[0m sql_server_user_details = [] [90m-> null[0m[0m
+        [90m# (2 unchanged attributes hidden)[0m[0m
+    }
+
+[1m  # google_storage_bucket.web[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "google_storage_bucket" "web" {
+      [31m-[0m[0m default_event_based_hold    = false [90m-> null[0m[0m
+      [31m-[0m[0m effective_labels            = {
+          [31m-[0m[0m "app"                        = "ulys"
+          [31m-[0m[0m "component"                  = "web"
+          [31m-[0m[0m "goog-terraform-provisioned" = "true"
+          [31m-[0m[0m "managed"                    = "terraform"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m enable_object_retention     = false [90m-> null[0m[0m
+      [31m-[0m[0m force_destroy               = true [90m-> null[0m[0m
+      [31m-[0m[0m id                          = "ulys-devops-take-home-web" [90m-> null[0m[0m
+      [31m-[0m[0m labels                      = {
+          [31m-[0m[0m "app"       = "ulys"
+          [31m-[0m[0m "component" = "web"
+          [31m-[0m[0m "managed"   = "terraform"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m location                    = "US-CENTRAL1" [90m-> null[0m[0m
+      [31m-[0m[0m name                        = "ulys-devops-take-home-web" [90m-> null[0m[0m
+      [31m-[0m[0m project                     = "ulys-devops-take-home" [90m-> null[0m[0m
+      [31m-[0m[0m project_number              = 80162569551 [90m-> null[0m[0m
+      [31m-[0m[0m public_access_prevention    = "inherited" [90m-> null[0m[0m
+      [31m-[0m[0m requester_pays              = false [90m-> null[0m[0m
+      [31m-[0m[0m self_link                   = "https://www.googleapis.com/storage/v1/b/ulys-devops-take-home-web" [90m-> null[0m[0m
+      [31m-[0m[0m storage_class               = "STANDARD" [90m-> null[0m[0m
+      [31m-[0m[0m terraform_labels            = {
+          [31m-[0m[0m "app"                        = "ulys"
+          [31m-[0m[0m "component"                  = "web"
+          [31m-[0m[0m "goog-terraform-provisioned" = "true"
+          [31m-[0m[0m "managed"                    = "terraform"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m time_created                = "2026-05-01T14:40:57.413Z" [90m-> null[0m[0m
+      [31m-[0m[0m uniform_bucket_level_access = true [90m-> null[0m[0m
+      [31m-[0m[0m updated                     = "2026-05-01T14:41:07.633Z" [90m-> null[0m[0m
+      [31m-[0m[0m url                         = "gs://ulys-devops-take-home-web" [90m-> null[0m[0m
+
+      [31m-[0m[0m hierarchical_namespace {
+          [31m-[0m[0m enabled = false [90m-> null[0m[0m
+        }
+
+      [31m-[0m[0m soft_delete_policy {
+          [31m-[0m[0m effective_time             = "2026-05-01T14:40:57.413Z" [90m-> null[0m[0m
+          [31m-[0m[0m retention_duration_seconds = 604800 [90m-> null[0m[0m
+        }
+
+      [31m-[0m[0m website {
+          [31m-[0m[0m main_page_suffix = "index.html" [90m-> null[0m[0m
+          [31m-[0m[0m not_found_page   = "index.html" [90m-> null[0m[0m
+        }
+    }
+
+[1m  # google_storage_bucket_iam_member.gha_writes_web[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "google_storage_bucket_iam_member" "gha_writes_web" {
+      [31m-[0m[0m bucket = "b/ulys-devops-take-home-web" [90m-> null[0m[0m
+      [31m-[0m[0m etag   = "CAM=" [90m-> null[0m[0m
+      [31m-[0m[0m id     = "b/ulys-devops-take-home-web/roles/storage.objectAdmin/serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com" [90m-> null[0m[0m
+      [31m-[0m[0m member = "serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com" [90m-> null[0m[0m
+      [31m-[0m[0m role   = "roles/storage.objectAdmin" [90m-> null[0m[0m
+    }
+
+[1m  # google_storage_bucket_iam_member.web_public_read[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "google_storage_bucket_iam_member" "web_public_read" {
+      [31m-[0m[0m bucket = "b/ulys-devops-take-home-web" [90m-> null[0m[0m
+      [31m-[0m[0m etag   = "CAM=" [90m-> null[0m[0m
+      [31m-[0m[0m id     = "b/ulys-devops-take-home-web/roles/storage.objectViewer/allUsers" [90m-> null[0m[0m
+      [31m-[0m[0m member = "allUsers" [90m-> null[0m[0m
+      [31m-[0m[0m role   = "roles/storage.objectViewer" [90m-> null[0m[0m
+    }
+
+[1m  # google_vpc_access_connector.connector[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "google_vpc_access_connector" "connector" {
+      [31m-[0m[0m connected_projects = [
+          [31m-[0m[0m "ulys-devops-take-home",
+        ] [90m-> null[0m[0m
+      [31m-[0m[0m id                 = "projects/ulys-devops-take-home/locations/us-central1/connectors/ulys-vpc-conn" [90m-> null[0m[0m
+      [31m-[0m[0m ip_cidr_range      = "10.20.0.0/28" [90m-> null[0m[0m
+      [31m-[0m[0m machine_type       = "e2-micro" [90m-> null[0m[0m
+      [31m-[0m[0m max_instances      = 3 [90m-> null[0m[0m
+      [31m-[0m[0m max_throughput     = 300 [90m-> null[0m[0m
+      [31m-[0m[0m min_instances      = 2 [90m-> null[0m[0m
+      [31m-[0m[0m min_throughput     = 200 [90m-> null[0m[0m
+      [31m-[0m[0m name               = "ulys-vpc-conn" [90m-> null[0m[0m
+      [31m-[0m[0m network            = "ulys-vpc" [90m-> null[0m[0m
+      [31m-[0m[0m project            = "ulys-devops-take-home" [90m-> null[0m[0m
+      [31m-[0m[0m region             = "us-central1" [90m-> null[0m[0m
+      [31m-[0m[0m self_link          = "projects/ulys-devops-take-home/locations/us-central1/connectors/ulys-vpc-conn" [90m-> null[0m[0m
+      [31m-[0m[0m state              = "READY" [90m-> null[0m[0m
+    }
+
+[1m  # random_password.transient_db[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "random_password" "transient_db" {
+      [31m-[0m[0m bcrypt_hash = (sensitive value) [90m-> null[0m[0m
+      [31m-[0m[0m id          = "none" [90m-> null[0m[0m
+      [31m-[0m[0m length      = 32 [90m-> null[0m[0m
+      [31m-[0m[0m lower       = true [90m-> null[0m[0m
+      [31m-[0m[0m min_lower   = 0 [90m-> null[0m[0m
+      [31m-[0m[0m min_numeric = 0 [90m-> null[0m[0m
+      [31m-[0m[0m min_special = 0 [90m-> null[0m[0m
+      [31m-[0m[0m min_upper   = 0 [90m-> null[0m[0m
+      [31m-[0m[0m number      = true [90m-> null[0m[0m
+      [31m-[0m[0m numeric     = true [90m-> null[0m[0m
+      [31m-[0m[0m result      = (sensitive value) [90m-> null[0m[0m
+      [31m-[0m[0m special     = false [90m-> null[0m[0m
+      [31m-[0m[0m upper       = true [90m-> null[0m[0m
+    }
+
+[1mPlan:[0m [0m0 to add, 0 to change, 37 to destroy.
+
+Changes to Outputs:
+  [31m-[0m[0m api_base_url            = "https://34-120-152-153.sslip.io/api" [90m-> null[0m[0m
+  [31m-[0m[0m api_service_account     = "ulys-api@ulys-devops-take-home.iam.gserviceaccount.com" [90m-> null[0m[0m
+  [31m-[0m[0m api_service_name        = "ulys-api" [90m-> null[0m[0m
+  [31m-[0m[0m db_instance_name        = "ulys-pg" [90m-> null[0m[0m
+  [31m-[0m[0m db_password_secret_name = "ulys-db-password" [90m-> null[0m[0m
+  [31m-[0m[0m domain                  = "34-120-152-153.sslip.io" [90m-> null[0m[0m
+  [31m-[0m[0m lb_ip                   = "34.120.152.153" [90m-> null[0m[0m
+  [31m-[0m[0m registry_repo           = "us-central1-docker.pkg.dev/ulys-devops-take-home/ulys-images" [90m-> null[0m[0m
+  [31m-[0m[0m vpc_connector           = "ulys-vpc-conn" [90m-> null[0m[0m
+  [31m-[0m[0m web_bucket              = "ulys-devops-take-home-web" [90m-> null[0m[0m
+  [31m-[0m[0m web_url                 = "https://34-120-152-153.sslip.io" [90m-> null[0m[0m
+  [31m-[0m[0m worker_service_account  = "ulys-worker@ulys-devops-take-home.iam.gserviceaccount.com" [90m-> null[0m[0m
+  [31m-[0m[0m worker_service_name     = "ulys-worker" [90m-> null[0m[0m
+[0m[1mgoogle_cloud_run_v2_service_iam_member.api_invokes_worker: Destroying... [id=projects/ulys-devops-take-home/locations/us-central1/services/ulys-worker/roles/run.invoker/serviceAccount:ulys-api@ulys-devops-take-home.iam.gserviceaccount.com][0m[0m
+[0m[1mgoogle_artifact_registry_repository_iam_member.gha_writer: Destroying... [id=projects/ulys-devops-take-home/locations/us-central1/repositories/ulys-images/roles/artifactregistry.writer/serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com][0m[0m
+[0m[1mgoogle_service_account_iam_member.gha_acts_as_worker: Destroying... [id=projects/ulys-devops-take-home/serviceAccounts/ulys-worker@ulys-devops-take-home.iam.gserviceaccount.com/roles/iam.serviceAccountUser/serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com][0m[0m
+[0m[1mgoogle_cloud_run_v2_service_iam_member.api_public: Destroying... [id=projects/ulys-devops-take-home/locations/us-central1/services/ulys-api/roles/run.invoker/allUsers][0m[0m
+[0m[1mgoogle_service_account_iam_member.gha_acts_as_api: Destroying... [id=projects/ulys-devops-take-home/serviceAccounts/ulys-api@ulys-devops-take-home.iam.gserviceaccount.com/roles/iam.serviceAccountUser/serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com][0m[0m
+[0m[1mgoogle_artifact_registry_repository_iam_member.api_reads: Destroying... [id=projects/ulys-devops-take-home/locations/us-central1/repositories/ulys-images/roles/artifactregistry.reader/serviceAccount:ulys-api@ulys-devops-take-home.iam.gserviceaccount.com][0m[0m
+[0m[1mgoogle_secret_manager_secret_iam_member.api_reads_db_password: Destroying... [id=projects/ulys-devops-take-home/secrets/ulys-db-password/roles/secretmanager.secretAccessor/serviceAccount:ulys-api@ulys-devops-take-home.iam.gserviceaccount.com][0m[0m
+[0m[1mgoogle_storage_bucket_iam_member.web_public_read: Destroying... [id=b/ulys-devops-take-home-web/roles/storage.objectViewer/allUsers][0m[0m
+[0m[1mgoogle_artifact_registry_repository_iam_member.worker_reads: Destroying... [id=projects/ulys-devops-take-home/locations/us-central1/repositories/ulys-images/roles/artifactregistry.reader/serviceAccount:ulys-worker@ulys-devops-take-home.iam.gserviceaccount.com][0m[0m
+[0m[1mgoogle_compute_subnetwork.subnet: Destroying... [id=projects/ulys-devops-take-home/regions/us-central1/subnetworks/ulys-subnet][0m[0m
+[0m[1mgoogle_secret_manager_secret_iam_member.api_reads_db_password: Destruction complete after 8s[0m
+[0m[1mgoogle_compute_global_forwarding_rule.lb_https: Destroying... [id=projects/ulys-devops-take-home/global/forwardingRules/ulys-fr-https][0m[0m
+[0m[1mgoogle_storage_bucket_iam_member.web_public_read: Destruction complete after 8s[0m
+[0m[1mgoogle_storage_bucket_iam_member.gha_writes_web: Destroying... [id=b/ulys-devops-take-home-web/roles/storage.objectAdmin/serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com][0m[0m
+[0m[1mgoogle_service_account_iam_member.gha_acts_as_api: Destruction complete after 8s[0m
+[0m[1mgoogle_service_account_iam_member.gha_acts_as_worker: Destruction complete after 8s[0m
+[0m[1mgoogle_compute_global_forwarding_rule.lb_http: Destroying... [id=projects/ulys-devops-take-home/global/forwardingRules/ulys-fr-http][0m[0m
+[0m[1mgoogle_artifact_registry_repository_iam_member.api_reads: Still destroying... [id=projects/ulys-devops-take-home/location...vops-take-home.iam.gserviceaccount.com, 00m10s elapsed][0m[0m
+[0m[1mgoogle_cloud_run_v2_service_iam_member.api_invokes_worker: Still destroying... [id=projects/ulys-devops-take-home/location...vops-take-home.iam.gserviceaccount.com, 00m10s elapsed][0m[0m
+[0m[1mgoogle_cloud_run_v2_service_iam_member.api_public: Still destroying... [id=projects/ulys-devops-take-home/location...es/ulys-api/roles/run.invoker/allUsers, 00m10s elapsed][0m[0m
+[0m[1mgoogle_artifact_registry_repository_iam_member.worker_reads: Still destroying... [id=projects/ulys-devops-take-home/location...vops-take-home.iam.gserviceaccount.com, 00m10s elapsed][0m[0m
+[0m[1mgoogle_artifact_registry_repository_iam_member.gha_writer: Still destroying... [id=projects/ulys-devops-take-home/location...vops-take-home.iam.gserviceaccount.com, 00m10s elapsed][0m[0m
+[0m[1mgoogle_compute_subnetwork.subnet: Still destroying... [id=projects/ulys-devops-take-home/regions/us-central1/subnetworks/ulys-subnet, 00m10s elapsed][0m[0m
+[0m[1mgoogle_cloud_run_v2_service_iam_member.api_invokes_worker: Destruction complete after 11s[0m
+[0m[1mgoogle_cloud_run_v2_service_iam_member.api_public: Destruction complete after 11s[0m
+[0m[1mgoogle_storage_bucket_iam_member.gha_writes_web: Destruction complete after 7s[0m
+[0m[1mgoogle_compute_global_forwarding_rule.lb_https: Still destroying... [id=projects/ulys-devops-take-home/global/forwardingRules/ulys-fr-https, 00m10s elapsed][0m[0m
+[0m[1mgoogle_compute_global_forwarding_rule.lb_http: Still destroying... [id=projects/ulys-devops-take-home/global/forwardingRules/ulys-fr-http, 00m10s elapsed][0m[0m
+[0m[1mgoogle_artifact_registry_repository_iam_member.api_reads: Still destroying... [id=projects/ulys-devops-take-home/location...vops-take-home.iam.gserviceaccount.com, 00m20s elapsed][0m[0m
+[0m[1mgoogle_compute_subnetwork.subnet: Still destroying... [id=projects/ulys-devops-take-home/regions/us-central1/subnetworks/ulys-subnet, 00m20s elapsed][0m[0m
+[0m[1mgoogle_artifact_registry_repository_iam_member.worker_reads: Still destroying... [id=projects/ulys-devops-take-home/location...vops-take-home.iam.gserviceaccount.com, 00m20s elapsed][0m[0m
+[0m[1mgoogle_artifact_registry_repository_iam_member.gha_writer: Still destroying... [id=projects/ulys-devops-take-home/location...vops-take-home.iam.gserviceaccount.com, 00m20s elapsed][0m[0m
+[0m[1mgoogle_compute_subnetwork.subnet: Destruction complete after 27s[0m
+[0m[1mgoogle_compute_global_forwarding_rule.lb_https: Still destroying... [id=projects/ulys-devops-take-home/global/forwardingRules/ulys-fr-https, 00m20s elapsed][0m[0m
+[0m[1mgoogle_compute_global_forwarding_rule.lb_http: Still destroying... [id=projects/ulys-devops-take-home/global/forwardingRules/ulys-fr-http, 00m20s elapsed][0m[0m
+[0m[1mgoogle_artifact_registry_repository_iam_member.gha_writer: Still destroying... [id=projects/ulys-devops-take-home/location...vops-take-home.iam.gserviceaccount.com, 00m30s elapsed][0m[0m
+[0m[1mgoogle_artifact_registry_repository_iam_member.api_reads: Still destroying... [id=projects/ulys-devops-take-home/location...vops-take-home.iam.gserviceaccount.com, 00m30s elapsed][0m[0m
+[0m[1mgoogle_artifact_registry_repository_iam_member.worker_reads: Still destroying... [id=projects/ulys-devops-take-home/location...vops-take-home.iam.gserviceaccount.com, 00m30s elapsed][0m[0m
+[0m[1mgoogle_artifact_registry_repository_iam_member.worker_reads: Destruction complete after 31s[0m
+[0m[1mgoogle_artifact_registry_repository_iam_member.gha_writer: Destruction complete after 33s[0m
+[0m[1mgoogle_artifact_registry_repository_iam_member.api_reads: Destruction complete after 33s[0m
+[0m[1mgoogle_artifact_registry_repository.images: Destroying... [id=projects/ulys-devops-take-home/locations/us-central1/repositories/ulys-images][0m[0m
+[0m[1mgoogle_artifact_registry_repository.images: Destruction complete after 3s[0m
+[0m[1mgoogle_compute_global_forwarding_rule.lb_https: Still destroying... [id=projects/ulys-devops-take-home/global/forwardingRules/ulys-fr-https, 00m30s elapsed][0m[0m
+[0m[1mgoogle_compute_global_forwarding_rule.lb_http: Still destroying... [id=projects/ulys-devops-take-home/global/forwardingRules/ulys-fr-http, 00m30s elapsed][0m[0m
+[0m[1mgoogle_compute_global_forwarding_rule.lb_https: Destruction complete after 32s[0m
+[0m[1mgoogle_compute_target_https_proxy.lb: Destroying... [id=projects/ulys-devops-take-home/global/targetHttpsProxies/ulys-https-proxy][0m[0m
+[0m[1mgoogle_compute_global_forwarding_rule.lb_http: Destruction complete after 33s[0m
+[0m[1mgoogle_compute_target_http_proxy.lb: Destroying... [id=projects/ulys-devops-take-home/global/targetHttpProxies/ulys-http-proxy][0m[0m
+[0m[1mgoogle_compute_target_https_proxy.lb: Still destroying... [id=projects/ulys-devops-take-home/global/targetHttpsProxies/ulys-https-proxy, 00m10s elapsed][0m[0m
+[0m[1mgoogle_compute_target_http_proxy.lb: Still destroying... [id=projects/ulys-devops-take-home/global/targetHttpProxies/ulys-http-proxy, 00m10s elapsed][0m[0m
+[0m[1mgoogle_compute_target_https_proxy.lb: Destruction complete after 12s[0m
+[0m[1mgoogle_compute_target_http_proxy.lb: Destruction complete after 12s[0m
+[0m[1mgoogle_compute_managed_ssl_certificate.lb: Destroying... [id=projects/ulys-devops-take-home/global/sslCertificates/ulys-cert][0m[0m
+[0m[1mgoogle_compute_url_map.redirect: Destroying... [id=projects/ulys-devops-take-home/global/urlMaps/ulys-http-redirect][0m[0m
+[0m[1mgoogle_compute_url_map.lb: Destroying... [id=projects/ulys-devops-take-home/global/urlMaps/ulys-url-map][0m[0m
+[0m[1mgoogle_compute_managed_ssl_certificate.lb: Still destroying... [id=projects/ulys-devops-take-home/global/sslCertificates/ulys-cert, 00m10s elapsed][0m[0m
+[0m[1mgoogle_compute_url_map.redirect: Still destroying... [id=projects/ulys-devops-take-home/global/urlMaps/ulys-http-redirect, 00m10s elapsed][0m[0m
+[0m[1mgoogle_compute_url_map.lb: Still destroying... [id=projects/ulys-devops-take-home/global/urlMaps/ulys-url-map, 00m10s elapsed][0m[0m
+[0m[1mgoogle_compute_managed_ssl_certificate.lb: Destruction complete after 12s[0m
+[0m[1mgoogle_compute_url_map.redirect: Destruction complete after 12s[0m
+[0m[1mgoogle_compute_global_address.lb: Destroying... [id=projects/ulys-devops-take-home/global/addresses/ulys-lb-ip][0m[0m
+[0m[1mgoogle_compute_url_map.lb: Destruction complete after 12s[0m
+[0m[1mgoogle_compute_backend_bucket.web: Destroying... [id=projects/ulys-devops-take-home/global/backendBuckets/ulys-web-backend][0m[0m
+[0m[1mgoogle_compute_backend_service.api: Destroying... [id=projects/ulys-devops-take-home/global/backendServices/ulys-api-backend][0m[0m
+[0m[1mgoogle_compute_global_address.lb: Still destroying... [id=projects/ulys-devops-take-home/global/addresses/ulys-lb-ip, 00m10s elapsed][0m[0m
+[0m[1mgoogle_compute_backend_bucket.web: Still destroying... [id=projects/ulys-devops-take-home/global/backendBuckets/ulys-web-backend, 00m10s elapsed][0m[0m
+[0m[1mgoogle_compute_backend_service.api: Still destroying... [id=projects/ulys-devops-take-home/global/backendServices/ulys-api-backend, 00m10s elapsed][0m[0m
+[0m[1mgoogle_compute_global_address.lb: Destruction complete after 12s[0m
+[0m[1mgoogle_compute_backend_bucket.web: Still destroying... [id=projects/ulys-devops-take-home/global/backendBuckets/ulys-web-backend, 00m20s elapsed][0m[0m
+[0m[1mgoogle_compute_backend_service.api: Still destroying... [id=projects/ulys-devops-take-home/global/backendServices/ulys-api-backend, 00m20s elapsed][0m[0m
+[0m[1mgoogle_compute_backend_service.api: Still destroying... [id=projects/ulys-devops-take-home/global/backendServices/ulys-api-backend, 00m30s elapsed][0m[0m
+[0m[1mgoogle_compute_backend_bucket.web: Still destroying... [id=projects/ulys-devops-take-home/global/backendBuckets/ulys-web-backend, 00m30s elapsed][0m[0m
+[0m[1mgoogle_compute_backend_service.api: Still destroying... [id=projects/ulys-devops-take-home/global/backendServices/ulys-api-backend, 00m40s elapsed][0m[0m
+[0m[1mgoogle_compute_backend_bucket.web: Still destroying... [id=projects/ulys-devops-take-home/global/backendBuckets/ulys-web-backend, 00m40s elapsed][0m[0m
+[0m[1mgoogle_compute_backend_bucket.web: Still destroying... [id=projects/ulys-devops-take-home/global/backendBuckets/ulys-web-backend, 00m50s elapsed][0m[0m
+[0m[1mgoogle_compute_backend_service.api: Still destroying... [id=projects/ulys-devops-take-home/global/backendServices/ulys-api-backend, 00m50s elapsed][0m[0m
+[0m[1mgoogle_compute_backend_bucket.web: Destruction complete after 54s[0m
+[0m[1mgoogle_compute_backend_service.api: Destruction complete after 55s[0m
+[0m[1mgoogle_compute_region_network_endpoint_group.api: Destroying... [id=projects/ulys-devops-take-home/regions/us-central1/networkEndpointGroups/ulys-api-neg][0m[0m
+[0m[1mgoogle_storage_bucket.web: Destroying... [id=ulys-devops-take-home-web][0m[0m
+[0m[1mgoogle_storage_bucket.web: Destruction complete after 2s[0m
+[0m[1mgoogle_compute_region_network_endpoint_group.api: Destruction complete after 3s[0m
+[0m[1mgoogle_cloud_run_v2_service.api: Destroying... [id=projects/ulys-devops-take-home/locations/us-central1/services/ulys-api][0m[0m
+Releasing state lock. This may take a few moments...

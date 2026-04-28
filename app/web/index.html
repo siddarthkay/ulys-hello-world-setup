@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>ulys-devops-take-home</title>
+<style>
+  body { font-family: system-ui, sans-serif; max-width: 1200px; margin: 3rem auto; padding: 0 1rem; }
+  pre { background: #f4f4f4; padding: 1rem; border-radius: 4px; white-space: pre-wrap; word-break: break-word; font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 0.95rem; line-height: 1.4; }
+  button { padding: 0.5rem 1rem; font-size: 1rem; cursor: pointer; margin-right: .25rem; }
+  .ok { color: #060; } .err { color: #c00; }
+  .meta { color: #888; font-size: .85em; }
+</style>
+</head>
+<body>
+<h1>ulys-devops-take-home</h1>
+<p class="meta">Static site served from a GCS bucket via Cloud CDN behind an HTTPS Load Balancer. <code>/api/*</code> is routed by the LB to the api Cloud Run service.</p>
+<p>
+  <button onclick="call('healthz')">/api/healthz</button>
+  <button onclick="call('readyz')">/api/readyz</button>
+  <button onclick="call('version')">/api/version</button>
+  <button onclick="call('work')">/api/work</button>
+</p>
+<pre id="out">click a button</pre>
+<script>
+  async function call(path) {
+    const out = document.getElementById("out");
+    out.textContent = "loading /api/" + path + " ...";
+    out.className = "";
+    try {
+      const r = await fetch("/api/" + path);
+      const text = await r.text();
+      let body = text;
+      try { body = JSON.stringify(JSON.parse(text), null, 2); } catch (_) {}
+      out.textContent = "HTTP " + r.status + "\n\n" + body;
+      out.className = r.ok ? "ok" : "err";
+    } catch (e) {
+      out.textContent = "fetch failed: " + e;
+      out.className = "err";
+    }
+  }
+</script>
+</body>
+</html>
