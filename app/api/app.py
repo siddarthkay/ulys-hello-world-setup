@@ -5,7 +5,7 @@ import psycopg2, redis, requests
 app = Flask(__name__)
 
 DB_DSN = os.environ["DATABASE_URL"]
-REDIS_URL = "https://wrongurldotcomforredis"
+REDIS_URL = os.environ["REDIS_URL"]
 WORKER_URL = os.environ["WORKER_URL"]
 WORKER_SECRET = os.environ["WORKER_SECRET"].encode()
 GIT_SHA = os.environ.get("GIT_SHA", "unknown")
