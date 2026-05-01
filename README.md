@@ -144,6 +144,14 @@ Open the web URL in a browser. The buttons hit `/api/healthz`, `/api/readyz`, `/
  
 ---
 
+## Useful Links
+
+- successful deploy : https://github.com/siddarthkay/ulys-hello-world-setup/actions/runs/25215786143
+- failure run : https://github.com/siddarthkay/ulys-hello-world-setup/actions/runs/25215915474
+- fixed run : https://github.com/siddarthkay/ulys-hello-world-setup/actions/runs/25216220927i
+- terraform destroy output : [`docs/destroy.txt`](docs/destroy.txt)
+---
+
 ## Service-to-service auth
  
 ### How `web` reaches `api`

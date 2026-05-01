@@ -1,30 +1,32 @@
 === terraform destroy: main ===
 --- pre-destroy: stop ulys-vm (so attached_disk detach is fast) ---
 Stopping instance(s) ulys-vm...
-....................................................................................................................................................................................................................................................done.
+.....................................................................................................................................................................................................................................................done.
 Updated [https://compute.googleapis.com/compute/v1/projects/ulys-devops-take-home/zones/us-central1-a/instances/ulys-vm].
 Acquiring state lock. This may take a few moments...
-[0m[1mgoogle_compute_network.vpc: Refreshing state... [id=projects/ulys-devops-take-home/global/networks/ulys-vpc][0m
-[0m[1mgoogle_project_iam_member.gha_os_admin_login: Refreshing state... [id=ulys-devops-take-home/roles/compute.osAdminLogin/serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com][0m
 [0m[1mgoogle_project_iam_member.gha_iap_tunnel: Refreshing state... [id=ulys-devops-take-home/roles/iap.tunnelResourceAccessor/serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com][0m
-[0m[1mgoogle_service_account.vm: Refreshing state... [id=projects/ulys-devops-take-home/serviceAccounts/ulys-vm@ulys-devops-take-home.iam.gserviceaccount.com][0m
-[0m[1mdata.google_secret_manager_secret.db_password: Reading...[0m[0m
 [0m[1mdata.google_secret_manager_secret.worker_secret: Reading...[0m[0m
-[0m[1mgoogle_compute_disk.pgdata: Refreshing state... [id=projects/ulys-devops-take-home/zones/us-central1-a/disks/ulys-pgdata][0m
 [0m[1mgoogle_compute_address.vm_ip: Refreshing state... [id=projects/ulys-devops-take-home/regions/us-central1/addresses/ulys-vm-ip][0m
-[0m[1mgoogle_storage_bucket.deploy_state: Refreshing state... [id=ulys-devops-take-home-deploy-state][0m
+[0m[1mdata.google_compute_zones.available: Reading...[0m[0m
+[0m[1mdata.google_secret_manager_secret.db_password: Reading...[0m[0m
+[0m[1mgoogle_project_iam_member.gha_os_admin_login: Refreshing state... [id=ulys-devops-take-home/roles/compute.osAdminLogin/serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com][0m
+[0m[1mgoogle_service_account.vm: Refreshing state... [id=projects/ulys-devops-take-home/serviceAccounts/ulys-vm@ulys-devops-take-home.iam.gserviceaccount.com][0m
 [0m[1mgoogle_artifact_registry_repository.images: Refreshing state... [id=projects/ulys-devops-take-home/locations/us-central1/repositories/ulys-images][0m
-[0m[1mdata.google_secret_manager_secret.db_password: Read complete after 1s [id=projects/ulys-devops-take-home/secrets/ulys-db-password][0m
-[0m[1mdata.google_secret_manager_secret.worker_secret: Read complete after 1s [id=projects/ulys-devops-take-home/secrets/ulys-worker-secret][0m
-[0m[1mgoogle_compute_firewall.allow_iap_ssh: Refreshing state... [id=projects/ulys-devops-take-home/global/firewalls/ulys-allow-iap-ssh][0m
-[0m[1mgoogle_compute_subnetwork.subnet: Refreshing state... [id=projects/ulys-devops-take-home/regions/us-central1/subnetworks/ulys-subnet][0m
+[0m[1mgoogle_compute_network.vpc: Refreshing state... [id=projects/ulys-devops-take-home/global/networks/ulys-vpc][0m
+[0m[1mgoogle_storage_bucket.deploy_state: Refreshing state... [id=ulys-devops-take-home-deploy-state][0m
+[0m[1mdata.google_compute_zones.available: Read complete after 1s [id=projects/ulys-devops-take-home/regions/us-central1][0m
+[0m[1mgoogle_compute_disk.pgdata: Refreshing state... [id=projects/ulys-devops-take-home/zones/us-central1-a/disks/ulys-pgdata][0m
 [0m[1mgoogle_compute_firewall.allow_http_https: Refreshing state... [id=projects/ulys-devops-take-home/global/firewalls/ulys-allow-http-https][0m
-[0m[1mgoogle_artifact_registry_repository_iam_member.gha_writer: Refreshing state... [id=projects/ulys-devops-take-home/locations/us-central1/repositories/ulys-images/roles/artifactregistry.writer/serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com][0m
-[0m[1mgoogle_artifact_registry_repository_iam_member.vm_reader: Refreshing state... [id=projects/ulys-devops-take-home/locations/us-central1/repositories/ulys-images/roles/artifactregistry.reader/serviceAccount:ulys-vm@ulys-devops-take-home.iam.gserviceaccount.com][0m
-[0m[1mgoogle_secret_manager_secret_iam_member.vm_reads_worker: Refreshing state... [id=projects/ulys-devops-take-home/secrets/ulys-worker-secret/roles/secretmanager.secretAccessor/serviceAccount:ulys-vm@ulys-devops-take-home.iam.gserviceaccount.com][0m
+[0m[1mdata.google_secret_manager_secret.db_password: Read complete after 1s [id=projects/ulys-devops-take-home/secrets/ulys-db-password][0m
+[0m[1mgoogle_compute_firewall.allow_iap_ssh: Refreshing state... [id=projects/ulys-devops-take-home/global/firewalls/ulys-allow-iap-ssh][0m
+[0m[1mdata.google_secret_manager_secret.worker_secret: Read complete after 1s [id=projects/ulys-devops-take-home/secrets/ulys-worker-secret][0m
+[0m[1mgoogle_compute_subnetwork.subnet: Refreshing state... [id=projects/ulys-devops-take-home/regions/us-central1/subnetworks/ulys-subnet][0m
 [0m[1mgoogle_service_account_iam_member.gha_can_use_vm_sa: Refreshing state... [id=projects/ulys-devops-take-home/serviceAccounts/ulys-vm@ulys-devops-take-home.iam.gserviceaccount.com/roles/iam.serviceAccountUser/serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com][0m
 [0m[1mgoogle_secret_manager_secret_iam_member.vm_reads_db: Refreshing state... [id=projects/ulys-devops-take-home/secrets/ulys-db-password/roles/secretmanager.secretAccessor/serviceAccount:ulys-vm@ulys-devops-take-home.iam.gserviceaccount.com][0m
+[0m[1mgoogle_secret_manager_secret_iam_member.vm_reads_worker: Refreshing state... [id=projects/ulys-devops-take-home/secrets/ulys-worker-secret/roles/secretmanager.secretAccessor/serviceAccount:ulys-vm@ulys-devops-take-home.iam.gserviceaccount.com][0m
 [0m[1mgoogle_storage_bucket_iam_member.vm_deploy_state: Refreshing state... [id=b/ulys-devops-take-home-deploy-state/roles/storage.objectUser/serviceAccount:ulys-vm@ulys-devops-take-home.iam.gserviceaccount.com][0m
+[0m[1mgoogle_artifact_registry_repository_iam_member.vm_reader: Refreshing state... [id=projects/ulys-devops-take-home/locations/us-central1/repositories/ulys-images/roles/artifactregistry.reader/serviceAccount:ulys-vm@ulys-devops-take-home.iam.gserviceaccount.com][0m
+[0m[1mgoogle_artifact_registry_repository_iam_member.gha_writer: Refreshing state... [id=projects/ulys-devops-take-home/locations/us-central1/repositories/ulys-images/roles/artifactregistry.writer/serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com][0m
 [0m[1mgoogle_compute_instance.vm: Refreshing state... [id=projects/ulys-devops-take-home/zones/us-central1-a/instances/ulys-vm][0m
 [0m[1mgoogle_compute_attached_disk.pgdata: Refreshing state... [id=projects/ulys-devops-take-home/zones/us-central1-a/instances/ulys-vm/ulys-pgdata][0m
 
@@ -37,23 +39,33 @@ Terraform will perform the following actions:
 [1m  # google_artifact_registry_repository.images[0m will be [1m[31mdestroyed[0m
 [0m  [31m-[0m[0m resource "google_artifact_registry_repository" "images" {
       [31m-[0m[0m cleanup_policy_dry_run = false [90m-> null[0m[0m
-      [31m-[0m[0m create_time            = "2026-04-30T18:13:10.456918Z" [90m-> null[0m[0m
-      [31m-[0m[0m description            = "Container images for api + worker" [90m-> null[0m[0m
+      [31m-[0m[0m create_time            = "2026-05-01T06:57:13.998390Z" [90m-> null[0m[0m
+      [31m-[0m[0m description            = "Container images for api, worker, caddy-app, and deploy-tools." [90m-> null[0m[0m
       [31m-[0m[0m effective_labels       = {
+          [31m-[0m[0m "app"                        = "ulys"
+          [31m-[0m[0m "component"                  = "registry"
           [31m-[0m[0m "goog-terraform-provisioned" = "true"
+          [31m-[0m[0m "managed"                    = "terraform"
         } [90m-> null[0m[0m
       [31m-[0m[0m format                 = "DOCKER" [90m-> null[0m[0m
       [31m-[0m[0m id                     = "projects/ulys-devops-take-home/locations/us-central1/repositories/ulys-images" [90m-> null[0m[0m
-      [31m-[0m[0m labels                 = {} [90m-> null[0m[0m
+      [31m-[0m[0m labels                 = {
+          [31m-[0m[0m "app"       = "ulys"
+          [31m-[0m[0m "component" = "registry"
+          [31m-[0m[0m "managed"   = "terraform"
+        } [90m-> null[0m[0m
       [31m-[0m[0m location               = "us-central1" [90m-> null[0m[0m
       [31m-[0m[0m mode                   = "STANDARD_REPOSITORY" [90m-> null[0m[0m
       [31m-[0m[0m name                   = "ulys-images" [90m-> null[0m[0m
       [31m-[0m[0m project                = "ulys-devops-take-home" [90m-> null[0m[0m
       [31m-[0m[0m repository_id          = "ulys-images" [90m-> null[0m[0m
       [31m-[0m[0m terraform_labels       = {
+          [31m-[0m[0m "app"                        = "ulys"
+          [31m-[0m[0m "component"                  = "registry"
           [31m-[0m[0m "goog-terraform-provisioned" = "true"
+          [31m-[0m[0m "managed"                    = "terraform"
         } [90m-> null[0m[0m
-      [31m-[0m[0m update_time            = "2026-04-30T19:04:23.069849Z" [90m-> null[0m[0m
+      [31m-[0m[0m update_time            = "2026-05-01T13:35:32.317615Z" [90m-> null[0m[0m
         [90m# (1 unchanged attribute hidden)[0m[0m
 
       [31m-[0m[0m cleanup_policies {
@@ -88,7 +100,7 @@ Terraform will perform the following actions:
 
 [1m  # google_artifact_registry_repository_iam_member.gha_writer[0m will be [1m[31mdestroyed[0m
 [0m  [31m-[0m[0m resource "google_artifact_registry_repository_iam_member" "gha_writer" {
-      [31m-[0m[0m etag       = "BwZQsWu9tCo=" [90m-> null[0m[0m
+      [31m-[0m[0m etag       = "BwZQvBgtpNQ=" [90m-> null[0m[0m
       [31m-[0m[0m id         = "projects/ulys-devops-take-home/locations/us-central1/repositories/ulys-images/roles/artifactregistry.writer/serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com" [90m-> null[0m[0m
       [31m-[0m[0m location   = "us-central1" [90m-> null[0m[0m
       [31m-[0m[0m member     = "serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com" [90m-> null[0m[0m
@@ -99,7 +111,7 @@ Terraform will perform the following actions:
 
 [1m  # google_artifact_registry_repository_iam_member.vm_reader[0m will be [1m[31mdestroyed[0m
 [0m  [31m-[0m[0m resource "google_artifact_registry_repository_iam_member" "vm_reader" {
-      [31m-[0m[0m etag       = "BwZQsWu9tCo=" [90m-> null[0m[0m
+      [31m-[0m[0m etag       = "BwZQvBgtpNQ=" [90m-> null[0m[0m
       [31m-[0m[0m id         = "projects/ulys-devops-take-home/locations/us-central1/repositories/ulys-images/roles/artifactregistry.reader/serviceAccount:ulys-vm@ulys-devops-take-home.iam.gserviceaccount.com" [90m-> null[0m[0m
       [31m-[0m[0m location   = "us-central1" [90m-> null[0m[0m
       [31m-[0m[0m member     = "serviceAccount:ulys-vm@ulys-devops-take-home.iam.gserviceaccount.com" [90m-> null[0m[0m
@@ -110,9 +122,9 @@ Terraform will perform the following actions:
 
 [1m  # google_compute_address.vm_ip[0m will be [1m[31mdestroyed[0m
 [0m  [31m-[0m[0m resource "google_compute_address" "vm_ip" {
-      [31m-[0m[0m address            = "34.66.234.94" [90m-> null[0m[0m
+      [31m-[0m[0m address            = "34.134.61.34" [90m-> null[0m[0m
       [31m-[0m[0m address_type       = "EXTERNAL" [90m-> null[0m[0m
-      [31m-[0m[0m creation_timestamp = "2026-04-30T11:13:08.822-07:00" [90m-> null[0m[0m
+      [31m-[0m[0m creation_timestamp = "2026-04-30T23:57:13.824-07:00" [90m-> null[0m[0m
       [31m-[0m[0m effective_labels   = {
           [31m-[0m[0m "goog-terraform-provisioned" = "true"
         } [90m-> null[0m[0m
@@ -148,16 +160,23 @@ Terraform will perform the following actions:
 [1m  # google_compute_disk.pgdata[0m will be [1m[31mdestroyed[0m
 [0m  [31m-[0m[0m resource "google_compute_disk" "pgdata" {
       [31m-[0m[0m create_snapshot_before_destroy = false [90m-> null[0m[0m
-      [31m-[0m[0m creation_timestamp             = "2026-04-30T11:13:09.954-07:00" [90m-> null[0m[0m
-      [31m-[0m[0m disk_id                        = "3991561274459563354" [90m-> null[0m[0m
+      [31m-[0m[0m creation_timestamp             = "2026-04-30T23:57:13.729-07:00" [90m-> null[0m[0m
+      [31m-[0m[0m disk_id                        = "2776738777037140006" [90m-> null[0m[0m
       [31m-[0m[0m effective_labels               = {
+          [31m-[0m[0m "app"                        = "ulys"
+          [31m-[0m[0m "component"                  = "pgdata"
           [31m-[0m[0m "goog-terraform-provisioned" = "true"
+          [31m-[0m[0m "managed"                    = "terraform"
         } [90m-> null[0m[0m
       [31m-[0m[0m enable_confidential_compute    = false [90m-> null[0m[0m
       [31m-[0m[0m id                             = "projects/ulys-devops-take-home/zones/us-central1-a/disks/ulys-pgdata" [90m-> null[0m[0m
-      [31m-[0m[0m label_fingerprint              = "vezUS-42LLM=" [90m-> null[0m[0m
-      [31m-[0m[0m labels                         = {} [90m-> null[0m[0m
-      [31m-[0m[0m last_attach_timestamp          = "2026-04-30T11:14:40.695-07:00" [90m-> null[0m[0m
+      [31m-[0m[0m label_fingerprint              = "AcztEvVDKHk=" [90m-> null[0m[0m
+      [31m-[0m[0m labels                         = {
+          [31m-[0m[0m "app"       = "ulys"
+          [31m-[0m[0m "component" = "pgdata"
+          [31m-[0m[0m "managed"   = "terraform"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m last_attach_timestamp          = "2026-04-30T23:58:26.721-07:00" [90m-> null[0m[0m
       [31m-[0m[0m licenses                       = [] [90m-> null[0m[0m
       [31m-[0m[0m name                           = "ulys-pgdata" [90m-> null[0m[0m
       [31m-[0m[0m physical_block_size_bytes      = 4096 [90m-> null[0m[0m
@@ -167,7 +186,10 @@ Terraform will perform the following actions:
       [31m-[0m[0m self_link                      = "https://www.googleapis.com/compute/v1/projects/ulys-devops-take-home/zones/us-central1-a/disks/ulys-pgdata" [90m-> null[0m[0m
       [31m-[0m[0m size                           = 10 [90m-> null[0m[0m
       [31m-[0m[0m terraform_labels               = {
+          [31m-[0m[0m "app"                        = "ulys"
+          [31m-[0m[0m "component"                  = "pgdata"
           [31m-[0m[0m "goog-terraform-provisioned" = "true"
+          [31m-[0m[0m "managed"                    = "terraform"
         } [90m-> null[0m[0m
       [31m-[0m[0m type                           = "pd-balanced" [90m-> null[0m[0m
       [31m-[0m[0m users                          = [
@@ -179,7 +201,7 @@ Terraform will perform the following actions:
 
 [1m  # google_compute_firewall.allow_http_https[0m will be [1m[31mdestroyed[0m
 [0m  [31m-[0m[0m resource "google_compute_firewall" "allow_http_https" {
-      [31m-[0m[0m creation_timestamp      = "2026-04-30T11:13:32.703-07:00" [90m-> null[0m[0m
+      [31m-[0m[0m creation_timestamp      = "2026-04-30T23:57:36.327-07:00" [90m-> null[0m[0m
       [31m-[0m[0m destination_ranges      = [] [90m-> null[0m[0m
       [31m-[0m[0m direction               = "INGRESS" [90m-> null[0m[0m
       [31m-[0m[0m disabled                = false [90m-> null[0m[0m
@@ -211,7 +233,7 @@ Terraform will perform the following actions:
 
 [1m  # google_compute_firewall.allow_iap_ssh[0m will be [1m[31mdestroyed[0m
 [0m  [31m-[0m[0m resource "google_compute_firewall" "allow_iap_ssh" {
-      [31m-[0m[0m creation_timestamp      = "2026-04-30T11:13:34.245-07:00" [90m-> null[0m[0m
+      [31m-[0m[0m creation_timestamp      = "2026-04-30T23:57:35.245-07:00" [90m-> null[0m[0m
       [31m-[0m[0m destination_ranges      = [] [90m-> null[0m[0m
       [31m-[0m[0m direction               = "INGRESS" [90m-> null[0m[0m
       [31m-[0m[0m disabled                = false [90m-> null[0m[0m
@@ -244,69 +266,90 @@ Terraform will perform the following actions:
 [0m  [31m-[0m[0m resource "google_compute_instance" "vm" {
       [31m-[0m[0m can_ip_forward             = false [90m-> null[0m[0m
       [31m-[0m[0m cpu_platform               = "Unknown CPU Platform" [90m-> null[0m[0m
-      [31m-[0m[0m creation_timestamp         = "2026-04-30T11:14:14.752-07:00" [90m-> null[0m[0m
+      [31m-[0m[0m creation_timestamp         = "2026-04-30T23:57:53.509-07:00" [90m-> null[0m[0m
       [31m-[0m[0m current_status             = "TERMINATED" [90m-> null[0m[0m
       [31m-[0m[0m deletion_protection        = false [90m-> null[0m[0m
       [31m-[0m[0m effective_labels           = {
+          [31m-[0m[0m "app"                        = "ulys"
+          [31m-[0m[0m "component"                  = "vm"
           [31m-[0m[0m "goog-terraform-provisioned" = "true"
+          [31m-[0m[0m "managed"                    = "terraform"
         } [90m-> null[0m[0m
       [31m-[0m[0m enable_display             = false [90m-> null[0m[0m
       [31m-[0m[0m id                         = "projects/ulys-devops-take-home/zones/us-central1-a/instances/ulys-vm" [90m-> null[0m[0m
-      [31m-[0m[0m instance_id                = "4072724190575076633" [90m-> null[0m[0m
-      [31m-[0m[0m label_fingerprint          = "vezUS-42LLM=" [90m-> null[0m[0m
-      [31m-[0m[0m labels                     = {} [90m-> null[0m[0m
+      [31m-[0m[0m instance_id                = "6110263139722981406" [90m-> null[0m[0m
+      [31m-[0m[0m label_fingerprint          = "cQ7Q1T7r0Ug=" [90m-> null[0m[0m
+      [31m-[0m[0m labels                     = {
+          [31m-[0m[0m "app"       = "ulys"
+          [31m-[0m[0m "component" = "vm"
+          [31m-[0m[0m "managed"   = "terraform"
+        } [90m-> null[0m[0m
       [31m-[0m[0m machine_type               = "e2-small" [90m-> null[0m[0m
       [31m-[0m[0m metadata                   = {
           [31m-[0m[0m "enable-oslogin" = "TRUE"
+          [31m-[0m[0m "user-data"      = <<-EOT
+                #cloud-config
+                #
+                # Ubuntu cloud-init config for the GCE VM. Rendered by terraform/main/vm.tf
+                # via templatefile() and delivered as the `user-data` metadata key.
+                # cloud-init's GCE datasource reads it on first boot.
+                #
+                # Cloud-init expands $RELEASE to the Ubuntu codename (e.g. "jammy" for
+                # 22.04). That's a cloud-init template variable, not a TF one (no curly
+                # braces), so Terraform leaves it alone.
+                
+                # ---- 1. Docker via the official apt repo ---------------------------------
+                # Pinned to amd64 because we pin the machine type to e2-small (x86).
+                # keyid is fetched from cloud-init's default keyserver (keys.openpgp.org
+                # on modern cloud-init, with fallback to keyserver.ubuntu.com).
+                apt:
+                  sources:
+                    docker.list:
+                      source: "deb [arch=amd64] https://download.docker.com/linux/ubuntu $RELEASE stable"
+                      keyid: 9DC858229FC7DD38854AE2D88D81803C0EBFCD88
+                
+                package_update: true
+                packages:
+                  - docker-ce
+                  - docker-ce-cli
+                  - containerd.io
+                  - docker-compose-plugin
+                
+                # ---- 2. Persistent data disk for Postgres --------------------------------
+                # fs_setup formats the disk if it has no filesystem signature.
+                # overwrite=false protects against accidentally formatting a disk that
+                # already has data on it. mounts adds an fstab entry and mounts at
+                # /opt/app/pgdata; the mountpoint is created automatically.
+                fs_setup:
+                  - device: /dev/disk/by-id/google-pgdata
+                    filesystem: ext4
+                    label: pgdata
+                    overwrite: false
+                
+                mounts:
+                  - [/dev/disk/by-id/google-pgdata, /opt/app/pgdata, ext4, "discard,defaults,nofail"]
+                
+                # ---- 3. Discovery file: infra.env ----------------------------------------
+                # deploy-tools sources this on every deploy. write_files runs early in
+                # cloud-init's config stage, before runcmd, and creates parent dirs.
+                write_files:
+                  - path: /opt/app/state/infra.env
+                    permissions: "0644"
+                    content: |
+                      REGISTRY=us-central1-docker.pkg.dev/ulys-devops-take-home/ulys-images
+                      DOMAIN=34-134-61-34.sslip.io
+                      DEPLOY_STATE_BUCKET=ulys-devops-take-home-deploy-state
+                
+                # ---- 4. Final imperative steps -------------------------------------------
+                # - Postgres official image runs as uid 999; the data dir must be
+                #   writable by it. Set ownership AFTER mounts has populated /opt/app/pgdata.
+                # - Authenticate docker for Artifact Registry pulls using the VM SA.
+                runcmd:
+                  - [ chown, -R, "999:999", /opt/app/pgdata ]
+                  - [ sh, -c, "gcloud auth configure-docker us-central1-docker.pkg.dev --quiet || true" ]
+            EOT
         } [90m-> null[0m[0m
-      [31m-[0m[0m metadata_fingerprint       = "9OVmnHLFI0o=" [90m-> null[0m[0m
-      [31m-[0m[0m metadata_startup_script    = <<-EOT
-            #!/bin/bash
-            set -euxo pipefail
-            exec > >(tee /var/log/startup.log) 2>&1
-            
-            if ! command -v docker >/dev/null 2>&1; then
-              apt-get update
-              apt-get install -y ca-certificates curl gnupg jq
-              install -m 0755 -d /etc/apt/keyrings
-              curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg
-              chmod a+r /etc/apt/keyrings/docker.gpg
-              ARCH=$(dpkg --print-architecture)
-              CODENAME=$(. /etc/os-release && echo $VERSION_CODENAME)
-              echo "deb [arch=$ARCH signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian $CODENAME stable" > /etc/apt/sources.list.d/docker.list
-              apt-get update
-              apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
-            fi
-            
-            mkdir -p /opt/app/caddy /opt/app/state /opt/app/pgdata
-            
-            # Format + mount the attached pgdata disk on first boot. The device is
-            # exposed by GCE as /dev/disk/by-id/google-pgdata thanks to device_name.
-            DISK_DEV=/dev/disk/by-id/google-pgdata
-            if [ -e "$DISK_DEV" ]; then
-              if ! blkid "$DISK_DEV" >/dev/null 2>&1; then
-                mkfs.ext4 -F -E lazy_itable_init=0,lazy_journal_init=0,discard "$DISK_DEV"
-              fi
-              DISK_UUID=$(blkid -s UUID -o value "$DISK_DEV")
-              grep -q "$DISK_UUID" /etc/fstab || \
-                echo "UUID=$DISK_UUID /opt/app/pgdata ext4 discard,defaults,nofail 0 2" >> /etc/fstab
-              mountpoint -q /opt/app/pgdata || mount /opt/app/pgdata
-              # Postgres official image runs as uid 999.
-              chown -R 999:999 /opt/app/pgdata
-            fi
-            
-            # Auth docker for Artifact Registry pulls (uses the VM's SA).
-            gcloud auth configure-docker us-central1-docker.pkg.dev --quiet || true
-            
-            # infra.env: only registry + domain + state-bucket discovery values now.
-            # DB and Redis run on the appnet bridge so the api talks to them at fixed
-            # hostnames (postgres:5432, redis:6379) — no host indirection required.
-            cat > /opt/app/state/infra.env <<EOF
-            REGISTRY=us-central1-docker.pkg.dev/ulys-devops-take-home/ulys-images
-            DOMAIN=34-66-234-94.sslip.io
-            DEPLOY_STATE_BUCKET=ulys-devops-take-home-deploy-state
-            EOF
-        EOT [90m-> null[0m[0m
+      [31m-[0m[0m metadata_fingerprint       = "wTNuftNm1Ng=" [90m-> null[0m[0m
       [31m-[0m[0m name                       = "ulys-vm" [90m-> null[0m[0m
       [31m-[0m[0m project                    = "ulys-devops-take-home" [90m-> null[0m[0m
       [31m-[0m[0m resource_policies          = [] [90m-> null[0m[0m
@@ -316,7 +359,10 @@ Terraform will perform the following actions:
         ] [90m-> null[0m[0m
       [31m-[0m[0m tags_fingerprint           = "bBcQI0meUJ0=" [90m-> null[0m[0m
       [31m-[0m[0m terraform_labels           = {
+          [31m-[0m[0m "app"                        = "ulys"
+          [31m-[0m[0m "component"                  = "vm"
           [31m-[0m[0m "goog-terraform-provisioned" = "true"
+          [31m-[0m[0m "managed"                    = "terraform"
         } [90m-> null[0m[0m
       [31m-[0m[0m zone                       = "us-central1-a" [90m-> null[0m[0m
         [90m# (4 unchanged attributes hidden)[0m[0m
@@ -334,11 +380,15 @@ Terraform will perform the following actions:
           [31m-[0m[0m device_name                     = "persistent-disk-0" [90m-> null[0m[0m
           [31m-[0m[0m force_attach                    = false [90m-> null[0m[0m
           [31m-[0m[0m guest_os_features               = [
-              [31m-[0m[0m "UEFI_COMPATIBLE",
               [31m-[0m[0m "VIRTIO_SCSI_MULTIQUEUE",
-              [31m-[0m[0m "GVNIC",
               [31m-[0m[0m "SEV_CAPABLE",
+              [31m-[0m[0m "SEV_SNP_CAPABLE",
+              [31m-[0m[0m "SEV_LIVE_MIGRATABLE",
               [31m-[0m[0m "SEV_LIVE_MIGRATABLE_V2",
+              [31m-[0m[0m "IDPF",
+              [31m-[0m[0m "TDX_CAPABLE",
+              [31m-[0m[0m "UEFI_COMPATIBLE",
+              [31m-[0m[0m "GVNIC",
             ] [90m-> null[0m[0m
           [31m-[0m[0m mode                            = "READ_WRITE" [90m-> null[0m[0m
           [31m-[0m[0m source                          = "https://www.googleapis.com/compute/v1/projects/ulys-devops-take-home/zones/us-central1-a/disks/ulys-vm" [90m-> null[0m[0m
@@ -347,8 +397,12 @@ Terraform will perform the following actions:
           [31m-[0m[0m initialize_params {
               [31m-[0m[0m architecture                = "X86_64" [90m-> null[0m[0m
               [31m-[0m[0m enable_confidential_compute = false [90m-> null[0m[0m
-              [31m-[0m[0m image                       = "https://www.googleapis.com/compute/v1/projects/debian-cloud/global/images/debian-12-bookworm-v20260428" [90m-> null[0m[0m
-              [31m-[0m[0m labels                      = {} [90m-> null[0m[0m
+              [31m-[0m[0m image                       = "https://www.googleapis.com/compute/v1/projects/ubuntu-os-cloud/global/images/ubuntu-2204-jammy-v20260427" [90m-> null[0m[0m
+              [31m-[0m[0m labels                      = {
+                  [31m-[0m[0m "app"       = "ulys"
+                  [31m-[0m[0m "component" = "vm-boot"
+                  [31m-[0m[0m "managed"   = "terraform"
+                } [90m-> null[0m[0m
               [31m-[0m[0m provisioned_iops            = 0 [90m-> null[0m[0m
               [31m-[0m[0m provisioned_throughput      = 0 [90m-> null[0m[0m
               [31m-[0m[0m resource_manager_tags       = {} [90m-> null[0m[0m
@@ -371,7 +425,7 @@ Terraform will perform the following actions:
             [90m# (4 unchanged attributes hidden)[0m[0m
 
           [31m-[0m[0m access_config {
-              [31m-[0m[0m nat_ip                 = "34.66.234.94" [90m-> null[0m[0m
+              [31m-[0m[0m nat_ip                 = "34.134.61.34" [90m-> null[0m[0m
               [31m-[0m[0m network_tier           = "PREMIUM" [90m-> null[0m[0m
                 [90m# (1 unchanged attribute hidden)[0m[0m
             }
@@ -412,8 +466,8 @@ Terraform will perform the following actions:
       [31m-[0m[0m mtu                                       = 0 [90m-> null[0m[0m
       [31m-[0m[0m name                                      = "ulys-vpc" [90m-> null[0m[0m
       [31m-[0m[0m network_firewall_policy_enforcement_order = "AFTER_CLASSIC_FIREWALL" [90m-> null[0m[0m
-      [31m-[0m[0m network_id                                = "5564536516260013402" [90m-> null[0m[0m
-      [31m-[0m[0m numeric_id                                = "5564536516260013402" [90m-> null[0m[0m
+      [31m-[0m[0m network_id                                = "1063343878756233255" [90m-> null[0m[0m
+      [31m-[0m[0m numeric_id                                = "1063343878756233255" [90m-> null[0m[0m
       [31m-[0m[0m project                                   = "ulys-devops-take-home" [90m-> null[0m[0m
       [31m-[0m[0m routing_mode                              = "REGIONAL" [90m-> null[0m[0m
       [31m-[0m[0m self_link                                 = "https://www.googleapis.com/compute/v1/projects/ulys-devops-take-home/global/networks/ulys-vpc" [90m-> null[0m[0m
@@ -422,7 +476,7 @@ Terraform will perform the following actions:
 
 [1m  # google_compute_subnetwork.subnet[0m will be [1m[31mdestroyed[0m
 [0m  [31m-[0m[0m resource "google_compute_subnetwork" "subnet" {
-      [31m-[0m[0m creation_timestamp         = "2026-04-30T11:13:33.766-07:00" [90m-> null[0m[0m
+      [31m-[0m[0m creation_timestamp         = "2026-04-30T23:57:36.318-07:00" [90m-> null[0m[0m
       [31m-[0m[0m enable_flow_logs           = false [90m-> null[0m[0m
       [31m-[0m[0m gateway_address            = "10.10.0.1" [90m-> null[0m[0m
       [31m-[0m[0m id                         = "projects/ulys-devops-take-home/regions/us-central1/subnetworks/ulys-subnet" [90m-> null[0m[0m
@@ -436,13 +490,13 @@ Terraform will perform the following actions:
       [31m-[0m[0m region                     = "us-central1" [90m-> null[0m[0m
       [31m-[0m[0m self_link                  = "https://www.googleapis.com/compute/v1/projects/ulys-devops-take-home/regions/us-central1/subnetworks/ulys-subnet" [90m-> null[0m[0m
       [31m-[0m[0m stack_type                 = "IPV4_ONLY" [90m-> null[0m[0m
-      [31m-[0m[0m subnetwork_id              = 6400930007872316706 [90m-> null[0m[0m
+      [31m-[0m[0m subnetwork_id              = 3846556847764533263 [90m-> null[0m[0m
         [90m# (9 unchanged attributes hidden)[0m[0m
     }
 
 [1m  # google_project_iam_member.gha_iap_tunnel[0m will be [1m[31mdestroyed[0m
 [0m  [31m-[0m[0m resource "google_project_iam_member" "gha_iap_tunnel" {
-      [31m-[0m[0m etag    = "BwZQsWrsDxo=" [90m-> null[0m[0m
+      [31m-[0m[0m etag    = "BwZQvBdx+fY=" [90m-> null[0m[0m
       [31m-[0m[0m id      = "ulys-devops-take-home/roles/iap.tunnelResourceAccessor/serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com" [90m-> null[0m[0m
       [31m-[0m[0m member  = "serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com" [90m-> null[0m[0m
       [31m-[0m[0m project = "ulys-devops-take-home" [90m-> null[0m[0m
@@ -451,7 +505,7 @@ Terraform will perform the following actions:
 
 [1m  # google_project_iam_member.gha_os_admin_login[0m will be [1m[31mdestroyed[0m
 [0m  [31m-[0m[0m resource "google_project_iam_member" "gha_os_admin_login" {
-      [31m-[0m[0m etag    = "BwZQsWrsDxo=" [90m-> null[0m[0m
+      [31m-[0m[0m etag    = "BwZQvBdx+fY=" [90m-> null[0m[0m
       [31m-[0m[0m id      = "ulys-devops-take-home/roles/compute.osAdminLogin/serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com" [90m-> null[0m[0m
       [31m-[0m[0m member  = "serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com" [90m-> null[0m[0m
       [31m-[0m[0m project = "ulys-devops-take-home" [90m-> null[0m[0m
@@ -460,7 +514,7 @@ Terraform will perform the following actions:
 
 [1m  # google_secret_manager_secret_iam_member.vm_reads_db[0m will be [1m[31mdestroyed[0m
 [0m  [31m-[0m[0m resource "google_secret_manager_secret_iam_member" "vm_reads_db" {
-      [31m-[0m[0m etag      = "BwZQsWulDyU=" [90m-> null[0m[0m
+      [31m-[0m[0m etag      = "BwZQvBgpHpA=" [90m-> null[0m[0m
       [31m-[0m[0m id        = "projects/ulys-devops-take-home/secrets/ulys-db-password/roles/secretmanager.secretAccessor/serviceAccount:ulys-vm@ulys-devops-take-home.iam.gserviceaccount.com" [90m-> null[0m[0m
       [31m-[0m[0m member    = "serviceAccount:ulys-vm@ulys-devops-take-home.iam.gserviceaccount.com" [90m-> null[0m[0m
       [31m-[0m[0m project   = "ulys-devops-take-home" [90m-> null[0m[0m
@@ -470,7 +524,7 @@ Terraform will perform the following actions:
 
 [1m  # google_secret_manager_secret_iam_member.vm_reads_worker[0m will be [1m[31mdestroyed[0m
 [0m  [31m-[0m[0m resource "google_secret_manager_secret_iam_member" "vm_reads_worker" {
-      [31m-[0m[0m etag      = "BwZQsWulIN4=" [90m-> null[0m[0m
+      [31m-[0m[0m etag      = "BwZQvBgpGtc=" [90m-> null[0m[0m
       [31m-[0m[0m id        = "projects/ulys-devops-take-home/secrets/ulys-worker-secret/roles/secretmanager.secretAccessor/serviceAccount:ulys-vm@ulys-devops-take-home.iam.gserviceaccount.com" [90m-> null[0m[0m
       [31m-[0m[0m member    = "serviceAccount:ulys-vm@ulys-devops-take-home.iam.gserviceaccount.com" [90m-> null[0m[0m
       [31m-[0m[0m project   = "ulys-devops-take-home" [90m-> null[0m[0m
@@ -488,13 +542,13 @@ Terraform will perform the following actions:
       [31m-[0m[0m member       = "serviceAccount:ulys-vm@ulys-devops-take-home.iam.gserviceaccount.com" [90m-> null[0m[0m
       [31m-[0m[0m name         = "projects/ulys-devops-take-home/serviceAccounts/ulys-vm@ulys-devops-take-home.iam.gserviceaccount.com" [90m-> null[0m[0m
       [31m-[0m[0m project      = "ulys-devops-take-home" [90m-> null[0m[0m
-      [31m-[0m[0m unique_id    = "101821326305953219988" [90m-> null[0m[0m
+      [31m-[0m[0m unique_id    = "102983613149091210369" [90m-> null[0m[0m
         [90m# (1 unchanged attribute hidden)[0m[0m
     }
 
 [1m  # google_service_account_iam_member.gha_can_use_vm_sa[0m will be [1m[31mdestroyed[0m
 [0m  [31m-[0m[0m resource "google_service_account_iam_member" "gha_can_use_vm_sa" {
-      [31m-[0m[0m etag               = "BwZQsWuoGt4=" [90m-> null[0m[0m
+      [31m-[0m[0m etag               = "BwZQvBgfyYw=" [90m-> null[0m[0m
       [31m-[0m[0m id                 = "projects/ulys-devops-take-home/serviceAccounts/ulys-vm@ulys-devops-take-home.iam.gserviceaccount.com/roles/iam.serviceAccountUser/serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com" [90m-> null[0m[0m
       [31m-[0m[0m member             = "serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com" [90m-> null[0m[0m
       [31m-[0m[0m role               = "roles/iam.serviceAccountUser" [90m-> null[0m[0m
@@ -505,12 +559,19 @@ Terraform will perform the following actions:
 [0m  [31m-[0m[0m resource "google_storage_bucket" "deploy_state" {
       [31m-[0m[0m default_event_based_hold    = false [90m-> null[0m[0m
       [31m-[0m[0m effective_labels            = {
+          [31m-[0m[0m "app"                        = "ulys"
+          [31m-[0m[0m "component"                  = "deploy-state"
           [31m-[0m[0m "goog-terraform-provisioned" = "true"
+          [31m-[0m[0m "managed"                    = "terraform"
         } [90m-> null[0m[0m
       [31m-[0m[0m enable_object_retention     = false [90m-> null[0m[0m
       [31m-[0m[0m force_destroy               = true [90m-> null[0m[0m
       [31m-[0m[0m id                          = "ulys-devops-take-home-deploy-state" [90m-> null[0m[0m
-      [31m-[0m[0m labels                      = {} [90m-> null[0m[0m
+      [31m-[0m[0m labels                      = {
+          [31m-[0m[0m "app"       = "ulys"
+          [31m-[0m[0m "component" = "deploy-state"
+          [31m-[0m[0m "managed"   = "terraform"
+        } [90m-> null[0m[0m
       [31m-[0m[0m location                    = "US-CENTRAL1" [90m-> null[0m[0m
       [31m-[0m[0m name                        = "ulys-devops-take-home-deploy-state" [90m-> null[0m[0m
       [31m-[0m[0m project                     = "ulys-devops-take-home" [90m-> null[0m[0m
@@ -520,11 +581,14 @@ Terraform will perform the following actions:
       [31m-[0m[0m self_link                   = "https://www.googleapis.com/storage/v1/b/ulys-devops-take-home-deploy-state" [90m-> null[0m[0m
       [31m-[0m[0m storage_class               = "STANDARD" [90m-> null[0m[0m
       [31m-[0m[0m terraform_labels            = {
+          [31m-[0m[0m "app"                        = "ulys"
+          [31m-[0m[0m "component"                  = "deploy-state"
           [31m-[0m[0m "goog-terraform-provisioned" = "true"
+          [31m-[0m[0m "managed"                    = "terraform"
         } [90m-> null[0m[0m
-      [31m-[0m[0m time_created                = "2026-04-30T18:13:09.049Z" [90m-> null[0m[0m
+      [31m-[0m[0m time_created                = "2026-05-01T06:57:13.059Z" [90m-> null[0m[0m
       [31m-[0m[0m uniform_bucket_level_access = true [90m-> null[0m[0m
-      [31m-[0m[0m updated                     = "2026-04-30T18:13:26.136Z" [90m-> null[0m[0m
+      [31m-[0m[0m updated                     = "2026-05-01T06:57:30.059Z" [90m-> null[0m[0m
       [31m-[0m[0m url                         = "gs://ulys-devops-take-home-deploy-state" [90m-> null[0m[0m
 
       [31m-[0m[0m hierarchical_namespace {
@@ -532,7 +596,7 @@ Terraform will perform the following actions:
         }
 
       [31m-[0m[0m soft_delete_policy {
-          [31m-[0m[0m effective_time             = "2026-04-30T18:13:09.049Z" [90m-> null[0m[0m
+          [31m-[0m[0m effective_time             = "2026-05-01T06:57:13.059Z" [90m-> null[0m[0m
           [31m-[0m[0m retention_duration_seconds = 604800 [90m-> null[0m[0m
         }
     }
@@ -549,57 +613,58 @@ Terraform will perform the following actions:
 [1mPlan:[0m [0m0 to add, 0 to change, 19 to destroy.
 
 Changes to Outputs:
-  [31m-[0m[0m api_base_url            = "https://34-66-234-94.sslip.io/api" [90m-> null[0m[0m
-  [31m-[0m[0m db_password_secret_id   = "ulys-db-password" [90m-> null[0m[0m
+  [31m-[0m[0m api_base_url            = "https://34-134-61-34.sslip.io/api" [90m-> null[0m[0m
   [31m-[0m[0m db_password_secret_name = "ulys-db-password" [90m-> null[0m[0m
   [31m-[0m[0m deploy_state_bucket     = "ulys-devops-take-home-deploy-state" [90m-> null[0m[0m
-  [31m-[0m[0m domain                  = "34-66-234-94.sslip.io" [90m-> null[0m[0m
+  [31m-[0m[0m domain                  = "34-134-61-34.sslip.io" [90m-> null[0m[0m
   [31m-[0m[0m registry_repo           = "us-central1-docker.pkg.dev/ulys-devops-take-home/ulys-images" [90m-> null[0m[0m
-  [31m-[0m[0m vm_external_ip          = "34.66.234.94" [90m-> null[0m[0m
+  [31m-[0m[0m vm_external_ip          = "34.134.61.34" [90m-> null[0m[0m
   [31m-[0m[0m vm_name                 = "ulys-vm" [90m-> null[0m[0m
   [31m-[0m[0m vm_service_account      = "ulys-vm@ulys-devops-take-home.iam.gserviceaccount.com" [90m-> null[0m[0m
   [31m-[0m[0m vm_zone                 = "us-central1-a" [90m-> null[0m[0m
-  [31m-[0m[0m web_url                 = "https://34-66-234-94.sslip.io" [90m-> null[0m[0m
+  [31m-[0m[0m web_url                 = "https://34-134-61-34.sslip.io" [90m-> null[0m[0m
   [31m-[0m[0m worker_secret_name      = "ulys-worker-secret" [90m-> null[0m[0m
-  [31m-[0m[0m worker_secret_secret_id = "ulys-worker-secret" [90m-> null[0m[0m
+[0m[1mgoogle_secret_manager_secret_iam_member.vm_reads_worker: Destroying... [id=projects/ulys-devops-take-home/secrets/ulys-worker-secret/roles/secretmanager.secretAccessor/serviceAccount:ulys-vm@ulys-devops-take-home.iam.gserviceaccount.com][0m[0m
 [0m[1mgoogle_artifact_registry_repository_iam_member.vm_reader: Destroying... [id=projects/ulys-devops-take-home/locations/us-central1/repositories/ulys-images/roles/artifactregistry.reader/serviceAccount:ulys-vm@ulys-devops-take-home.iam.gserviceaccount.com][0m[0m
-[0m[1mgoogle_compute_firewall.allow_iap_ssh: Destroying... [id=projects/ulys-devops-take-home/global/firewalls/ulys-allow-iap-ssh][0m[0m
-[0m[1mgoogle_compute_firewall.allow_http_https: Destroying... [id=projects/ulys-devops-take-home/global/firewalls/ulys-allow-http-https][0m[0m
-[0m[1mgoogle_service_account_iam_member.gha_can_use_vm_sa: Destroying... [id=projects/ulys-devops-take-home/serviceAccounts/ulys-vm@ulys-devops-take-home.iam.gserviceaccount.com/roles/iam.serviceAccountUser/serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com][0m[0m
 [0m[1mgoogle_storage_bucket_iam_member.vm_deploy_state: Destroying... [id=b/ulys-devops-take-home-deploy-state/roles/storage.objectUser/serviceAccount:ulys-vm@ulys-devops-take-home.iam.gserviceaccount.com][0m[0m
+[0m[1mgoogle_compute_firewall.allow_http_https: Destroying... [id=projects/ulys-devops-take-home/global/firewalls/ulys-allow-http-https][0m[0m
+[0m[1mgoogle_artifact_registry_repository_iam_member.gha_writer: Destroying... [id=projects/ulys-devops-take-home/locations/us-central1/repositories/ulys-images/roles/artifactregistry.writer/serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com][0m[0m
+[0m[1mgoogle_compute_firewall.allow_iap_ssh: Destroying... [id=projects/ulys-devops-take-home/global/firewalls/ulys-allow-iap-ssh][0m[0m
 [0m[1mgoogle_compute_attached_disk.pgdata: Destroying... [id=projects/ulys-devops-take-home/zones/us-central1-a/instances/ulys-vm/ulys-pgdata][0m[0m
 [0m[1mgoogle_secret_manager_secret_iam_member.vm_reads_db: Destroying... [id=projects/ulys-devops-take-home/secrets/ulys-db-password/roles/secretmanager.secretAccessor/serviceAccount:ulys-vm@ulys-devops-take-home.iam.gserviceaccount.com][0m[0m
-[0m[1mgoogle_secret_manager_secret_iam_member.vm_reads_worker: Destroying... [id=projects/ulys-devops-take-home/secrets/ulys-worker-secret/roles/secretmanager.secretAccessor/serviceAccount:ulys-vm@ulys-devops-take-home.iam.gserviceaccount.com][0m[0m
-[0m[1mgoogle_artifact_registry_repository_iam_member.gha_writer: Destroying... [id=projects/ulys-devops-take-home/locations/us-central1/repositories/ulys-images/roles/artifactregistry.writer/serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com][0m[0m
-[0m[1mgoogle_compute_attached_disk.pgdata: Destruction complete after 4s[0m
-[0m[1mgoogle_compute_disk.pgdata: Destroying... [id=projects/ulys-devops-take-home/zones/us-central1-a/disks/ulys-pgdata][0m[0m
-[0m[1mgoogle_compute_instance.vm: Destroying... [id=projects/ulys-devops-take-home/zones/us-central1-a/instances/ulys-vm][0m[0m
-[0m[1mgoogle_service_account_iam_member.gha_can_use_vm_sa: Destruction complete after 7s[0m
-[0m[1mgoogle_secret_manager_secret_iam_member.vm_reads_db: Destruction complete after 8s[0m
-[0m[1mgoogle_secret_manager_secret_iam_member.vm_reads_worker: Destruction complete after 8s[0m
-[0m[1mgoogle_compute_disk.pgdata: Destruction complete after 5s[0m
-[0m[1mgoogle_storage_bucket_iam_member.vm_deploy_state: Destruction complete after 10s[0m
+[0m[1mgoogle_service_account_iam_member.gha_can_use_vm_sa: Destroying... [id=projects/ulys-devops-take-home/serviceAccounts/ulys-vm@ulys-devops-take-home.iam.gserviceaccount.com/roles/iam.serviceAccountUser/serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com][0m[0m
+[0m[1mgoogle_secret_manager_secret_iam_member.vm_reads_worker: Destruction complete after 7s[0m
+[0m[1mgoogle_secret_manager_secret_iam_member.vm_reads_db: Destruction complete after 7s[0m
+[0m[1mgoogle_storage_bucket_iam_member.vm_deploy_state: Destruction complete after 8s[0m
+[0m[1mgoogle_service_account_iam_member.gha_can_use_vm_sa: Destruction complete after 9s[0m
 [0m[1mgoogle_artifact_registry_repository_iam_member.gha_writer: Still destroying... [id=projects/ulys-devops-take-home/location...vops-take-home.iam.gserviceaccount.com, 00m10s elapsed][0m[0m
-[0m[1mgoogle_compute_firewall.allow_iap_ssh: Still destroying... [id=projects/ulys-devops-take-home/global/firewalls/ulys-allow-iap-ssh, 00m10s elapsed][0m[0m
 [0m[1mgoogle_compute_firewall.allow_http_https: Still destroying... [id=projects/ulys-devops-take-home/global/firewalls/ulys-allow-http-https, 00m10s elapsed][0m[0m
 [0m[1mgoogle_artifact_registry_repository_iam_member.vm_reader: Still destroying... [id=projects/ulys-devops-take-home/location...vops-take-home.iam.gserviceaccount.com, 00m10s elapsed][0m[0m
+[0m[1mgoogle_compute_attached_disk.pgdata: Still destroying... [id=projects/ulys-devops-take-home/zones/us-central1-a/instances/ulys-vm/ulys-pgdata, 00m10s elapsed][0m[0m
+[0m[1mgoogle_compute_firewall.allow_iap_ssh: Still destroying... [id=projects/ulys-devops-take-home/global/firewalls/ulys-allow-iap-ssh, 00m10s elapsed][0m[0m
 [0m[1mgoogle_compute_firewall.allow_iap_ssh: Destruction complete after 12s[0m
+[0m[1mgoogle_compute_firewall.allow_http_https: Destruction complete after 12s[0m
+[0m[1mgoogle_compute_attached_disk.pgdata: Destruction complete after 15s[0m
+[0m[1mgoogle_compute_disk.pgdata: Destroying... [id=projects/ulys-devops-take-home/zones/us-central1-a/disks/ulys-pgdata][0m[0m
+[0m[1mgoogle_compute_instance.vm: Destroying... [id=projects/ulys-devops-take-home/zones/us-central1-a/instances/ulys-vm][0m[0m
+[0m[1mgoogle_compute_disk.pgdata: Destruction complete after 4s[0m
+[0m[1mgoogle_artifact_registry_repository_iam_member.gha_writer: Still destroying... [id=projects/ulys-devops-take-home/location...vops-take-home.iam.gserviceaccount.com, 00m20s elapsed][0m[0m
+[0m[1mgoogle_artifact_registry_repository_iam_member.vm_reader: Still destroying... [id=projects/ulys-devops-take-home/location...vops-take-home.iam.gserviceaccount.com, 00m20s elapsed][0m[0m
 [0m[1mgoogle_compute_instance.vm: Still destroying... [id=projects/ulys-devops-take-home/zones/us-central1-a/instances/ulys-vm, 00m10s elapsed][0m[0m
-[0m[1mgoogle_compute_firewall.allow_http_https: Destruction complete after 14s[0m
-[0m[1mgoogle_compute_instance.vm: Destruction complete after 13s[0m
+[0m[1mgoogle_compute_instance.vm: Destruction complete after 14s[0m
+[0m[1mgoogle_artifact_registry_repository_iam_member.vm_reader: Still destroying... [id=projects/ulys-devops-take-home/location...vops-take-home.iam.gserviceaccount.com, 00m30s elapsed][0m[0m
+[0m[1mgoogle_artifact_registry_repository_iam_member.gha_writer: Still destroying... [id=projects/ulys-devops-take-home/location...vops-take-home.iam.gserviceaccount.com, 00m30s elapsed][0m[0m
 [0m[1mgoogle_project_iam_member.gha_os_admin_login: Destroying... [id=ulys-devops-take-home/roles/compute.osAdminLogin/serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com][0m[0m
-[0m[1mgoogle_compute_address.vm_ip: Destroying... [id=projects/ulys-devops-take-home/regions/us-central1/addresses/ulys-vm-ip][0m[0m
 [0m[1mgoogle_project_iam_member.gha_iap_tunnel: Destroying... [id=ulys-devops-take-home/roles/iap.tunnelResourceAccessor/serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com][0m[0m
+[0m[1mgoogle_compute_address.vm_ip: Destroying... [id=projects/ulys-devops-take-home/regions/us-central1/addresses/ulys-vm-ip][0m[0m
 [0m[1mgoogle_compute_subnetwork.subnet: Destroying... [id=projects/ulys-devops-take-home/regions/us-central1/subnetworks/ulys-subnet][0m[0m
 [0m[1mgoogle_storage_bucket.deploy_state: Destroying... [id=ulys-devops-take-home-deploy-state][0m[0m
-[0m[1mgoogle_compute_address.vm_ip: Destruction complete after 2s[0m
-[0m[1mgoogle_artifact_registry_repository_iam_member.vm_reader: Still destroying... [id=projects/ulys-devops-take-home/location...vops-take-home.iam.gserviceaccount.com, 00m20s elapsed][0m[0m
-[0m[1mgoogle_artifact_registry_repository_iam_member.gha_writer: Still destroying... [id=projects/ulys-devops-take-home/location...vops-take-home.iam.gserviceaccount.com, 00m20s elapsed][0m[0m
-[0m[1mgoogle_artifact_registry_repository_iam_member.vm_reader: Destruction complete after 23s[0m
+[0m[1mgoogle_compute_address.vm_ip: Destruction complete after 3s[0m
+[0m[1mgoogle_storage_bucket.deploy_state: Destruction complete after 5s[0m
+[0m[1mgoogle_artifact_registry_repository_iam_member.vm_reader: Destruction complete after 36s[0m
 [0m[1mgoogle_service_account.vm: Destroying... [id=projects/ulys-devops-take-home/serviceAccounts/ulys-vm@ulys-devops-take-home.iam.gserviceaccount.com][0m[0m
-[0m[1mgoogle_storage_bucket.deploy_state: Destruction complete after 6s[0m
 [0m[1mgoogle_service_account.vm: Destruction complete after 0s[0m
-[0m[1mgoogle_artifact_registry_repository_iam_member.gha_writer: Destruction complete after 24s[0m
+[0m[1mgoogle_artifact_registry_repository_iam_member.gha_writer: Destruction complete after 38s[0m
 [0m[1mgoogle_artifact_registry_repository.images: Destroying... [id=projects/ulys-devops-take-home/locations/us-central1/repositories/ulys-images][0m[0m
 [0m[1mgoogle_artifact_registry_repository.images: Destruction complete after 2s[0m
 [0m[1mgoogle_project_iam_member.gha_os_admin_login: Still destroying... [id=ulys-devops-take-home/roles/compute.osA...vops-take-home.iam.gserviceaccount.com, 00m10s elapsed][0m[0m
@@ -612,43 +677,41 @@ Changes to Outputs:
 [0m[1mgoogle_compute_network.vpc: Still destroying... [id=projects/ulys-devops-take-home/global/networks/ulys-vpc, 00m10s elapsed][0m[0m
 [0m[1mgoogle_compute_network.vpc: Still destroying... [id=projects/ulys-devops-take-home/global/networks/ulys-vpc, 00m20s elapsed][0m[0m
 [0m[1mgoogle_compute_network.vpc: Destruction complete after 22s[0m
-Releasing state lock. This may take a few moments...
 [0m[1m[32m
 Destroy complete! Resources: 19 destroyed.[0m
 === terraform destroy: bootstrap ===
-[0m[1mgoogle_project_service.apis["secretmanager.googleapis.com"]: Refreshing state... [id=ulys-devops-take-home/secretmanager.googleapis.com][0m
 [0m[1mdata.google_billing_account.this: Reading...[0m[0m
-[0m[1mgoogle_project_service.apis["oslogin.googleapis.com"]: Refreshing state... [id=ulys-devops-take-home/oslogin.googleapis.com][0m
-[0m[1mgoogle_project_service.apis["iamcredentials.googleapis.com"]: Refreshing state... [id=ulys-devops-take-home/iamcredentials.googleapis.com][0m
-[0m[1mgoogle_project_service.apis["sts.googleapis.com"]: Refreshing state... [id=ulys-devops-take-home/sts.googleapis.com][0m
-[0m[1mgoogle_project_service.apis["iam.googleapis.com"]: Refreshing state... [id=ulys-devops-take-home/iam.googleapis.com][0m
-[0m[1mgoogle_storage_bucket_iam_member.gha_state_bucket: Refreshing state... [id=b/ulys-devops-take-home-tfstate/roles/storage.objectAdmin/serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com][0m
-[0m[1mgoogle_project_service.apis["artifactregistry.googleapis.com"]: Refreshing state... [id=ulys-devops-take-home/artifactregistry.googleapis.com][0m
-[0m[1mgoogle_project_service.apis["iap.googleapis.com"]: Refreshing state... [id=ulys-devops-take-home/iap.googleapis.com][0m
 [0m[1mgoogle_project_service.apis["compute.googleapis.com"]: Refreshing state... [id=ulys-devops-take-home/compute.googleapis.com][0m
+[0m[1mgoogle_project_service.apis["sts.googleapis.com"]: Refreshing state... [id=ulys-devops-take-home/sts.googleapis.com][0m
 [0m[1mgoogle_project_service.apis["cloudresourcemanager.googleapis.com"]: Refreshing state... [id=ulys-devops-take-home/cloudresourcemanager.googleapis.com][0m
-[0m[1mdata.google_billing_account.this: Read complete after 2s [id=0173B7-2222E4-C78B53][0m
+[0m[1mgoogle_project_service.apis["iamcredentials.googleapis.com"]: Refreshing state... [id=ulys-devops-take-home/iamcredentials.googleapis.com][0m
 [0m[1mgoogle_project_service.apis["serviceusage.googleapis.com"]: Refreshing state... [id=ulys-devops-take-home/serviceusage.googleapis.com][0m
+[0m[1mgoogle_project_service.apis["iap.googleapis.com"]: Refreshing state... [id=ulys-devops-take-home/iap.googleapis.com][0m
+[0m[1mgoogle_project_service.apis["artifactregistry.googleapis.com"]: Refreshing state... [id=ulys-devops-take-home/artifactregistry.googleapis.com][0m
 [0m[1mgoogle_project_service.apis["storage.googleapis.com"]: Refreshing state... [id=ulys-devops-take-home/storage.googleapis.com][0m
+[0m[1mgoogle_project_service.apis["iam.googleapis.com"]: Refreshing state... [id=ulys-devops-take-home/iam.googleapis.com][0m
+[0m[1mdata.google_billing_account.this: Read complete after 2s [id=0173B7-2222E4-C78B53][0m
 [0m[1mgoogle_project_service.apis["billingbudgets.googleapis.com"]: Refreshing state... [id=ulys-devops-take-home/billingbudgets.googleapis.com][0m
-[0m[1mgoogle_iam_workload_identity_pool.github: Refreshing state... [id=projects/ulys-devops-take-home/locations/global/workloadIdentityPools/ulys-github-pool][0m
-[0m[1mgoogle_monitoring_notification_channel.budget_email: Refreshing state... [id=projects/ulys-devops-take-home/notificationChannels/12687070351988451475][0m
+[0m[1mgoogle_project_service.apis["oslogin.googleapis.com"]: Refreshing state... [id=ulys-devops-take-home/oslogin.googleapis.com][0m
+[0m[1mgoogle_project_service.apis["secretmanager.googleapis.com"]: Refreshing state... [id=ulys-devops-take-home/secretmanager.googleapis.com][0m
 [0m[1mgoogle_service_account.gha: Refreshing state... [id=projects/ulys-devops-take-home/serviceAccounts/ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com][0m
+[0m[1mgoogle_monitoring_notification_channel.budget_email: Refreshing state... [id=projects/ulys-devops-take-home/notificationChannels/8337736197844484717][0m
+[0m[1mgoogle_iam_workload_identity_pool.github: Refreshing state... [id=projects/ulys-devops-take-home/locations/global/workloadIdentityPools/ulys-github-pool][0m
 [0m[1mgoogle_storage_bucket.tfstate: Refreshing state... [id=ulys-devops-take-home-tfstate][0m
-[0m[1mgoogle_billing_budget.twenty_dollar: Refreshing state... [id=billingAccounts/0173B7-2222E4-C78B53/budgets/644b2cc3-fb2f-44e0-aaec-01af49c74105][0m
-[0m[1mgoogle_project_iam_member.gha_roles["roles/iap.tunnelResourceAccessor"]: Refreshing state... [id=ulys-devops-take-home/roles/iap.tunnelResourceAccessor/serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com][0m
-[0m[1mgoogle_project_iam_member.gha_roles["roles/resourcemanager.projectIamAdmin"]: Refreshing state... [id=ulys-devops-take-home/roles/resourcemanager.projectIamAdmin/serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com][0m
-[0m[1mgoogle_project_iam_member.gha_roles["roles/artifactregistry.admin"]: Refreshing state... [id=ulys-devops-take-home/roles/artifactregistry.admin/serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com][0m
-[0m[1mgoogle_project_iam_member.gha_roles["roles/compute.networkAdmin"]: Refreshing state... [id=ulys-devops-take-home/roles/compute.networkAdmin/serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com][0m
-[0m[1mgoogle_project_iam_member.gha_roles["roles/compute.instanceAdmin.v1"]: Refreshing state... [id=ulys-devops-take-home/roles/compute.instanceAdmin.v1/serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com][0m
-[0m[1mgoogle_project_iam_member.gha_roles["roles/serviceusage.serviceUsageConsumer"]: Refreshing state... [id=ulys-devops-take-home/roles/serviceusage.serviceUsageConsumer/serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com][0m
-[0m[1mgoogle_project_iam_member.gha_roles["roles/compute.osAdminLogin"]: Refreshing state... [id=ulys-devops-take-home/roles/compute.osAdminLogin/serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com][0m
-[0m[1mgoogle_project_iam_member.gha_roles["roles/iam.serviceAccountAdmin"]: Refreshing state... [id=ulys-devops-take-home/roles/iam.serviceAccountAdmin/serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com][0m
+[0m[1mgoogle_billing_budget.twenty_dollar: Refreshing state... [id=billingAccounts/0173B7-2222E4-C78B53/budgets/ff3bcd3b-6fef-4baa-8763-60da5305affb][0m
+[0m[1mgoogle_project_iam_member.gha_roles["roles/secretmanager.admin"]: Refreshing state... [id=ulys-devops-take-home/roles/secretmanager.admin/serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com][0m
 [0m[1mgoogle_project_iam_member.gha_roles["roles/storage.admin"]: Refreshing state... [id=ulys-devops-take-home/roles/storage.admin/serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com][0m
 [0m[1mgoogle_project_iam_member.gha_roles["roles/compute.securityAdmin"]: Refreshing state... [id=ulys-devops-take-home/roles/compute.securityAdmin/serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com][0m
-[0m[1mgoogle_project_iam_member.gha_roles["roles/secretmanager.admin"]: Refreshing state... [id=ulys-devops-take-home/roles/secretmanager.admin/serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com][0m
-[0m[1mgoogle_service_account_iam_member.gha_wif_binding: Refreshing state... [id=projects/ulys-devops-take-home/serviceAccounts/ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com/roles/iam.workloadIdentityUser/principalSet://iam.googleapis.com/projects/80162569551/locations/global/workloadIdentityPools/ulys-github-pool/attribute.repository/siddarthkay/ulys-hello-world-setup][0m
+[0m[1mgoogle_project_iam_member.gha_roles["roles/iam.serviceAccountAdmin"]: Refreshing state... [id=ulys-devops-take-home/roles/iam.serviceAccountAdmin/serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com][0m
+[0m[1mgoogle_project_iam_member.gha_roles["roles/compute.networkAdmin"]: Refreshing state... [id=ulys-devops-take-home/roles/compute.networkAdmin/serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com][0m
+[0m[1mgoogle_project_iam_member.gha_roles["roles/iap.tunnelResourceAccessor"]: Refreshing state... [id=ulys-devops-take-home/roles/iap.tunnelResourceAccessor/serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com][0m
+[0m[1mgoogle_project_iam_member.gha_roles["roles/compute.osAdminLogin"]: Refreshing state... [id=ulys-devops-take-home/roles/compute.osAdminLogin/serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com][0m
+[0m[1mgoogle_project_iam_member.gha_roles["roles/resourcemanager.projectIamAdmin"]: Refreshing state... [id=ulys-devops-take-home/roles/resourcemanager.projectIamAdmin/serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com][0m
+[0m[1mgoogle_project_iam_member.gha_roles["roles/artifactregistry.admin"]: Refreshing state... [id=ulys-devops-take-home/roles/artifactregistry.admin/serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com][0m
+[0m[1mgoogle_project_iam_member.gha_roles["roles/compute.instanceAdmin.v1"]: Refreshing state... [id=ulys-devops-take-home/roles/compute.instanceAdmin.v1/serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com][0m
+[0m[1mgoogle_project_iam_member.gha_roles["roles/serviceusage.serviceUsageConsumer"]: Refreshing state... [id=ulys-devops-take-home/roles/serviceusage.serviceUsageConsumer/serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com][0m
 [0m[1mgoogle_iam_workload_identity_pool_provider.github: Refreshing state... [id=projects/ulys-devops-take-home/locations/global/workloadIdentityPools/ulys-github-pool/providers/ulys-github-provider][0m
+[0m[1mgoogle_service_account_iam_member.gha_wif_binding: Refreshing state... [id=projects/ulys-devops-take-home/serviceAccounts/ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com/roles/iam.workloadIdentityUser/principalSet://iam.googleapis.com/projects/80162569551/locations/global/workloadIdentityPools/ulys-github-pool/attribute.repository/siddarthkay/ulys-hello-world-setup][0m
 
 Terraform used the selected providers to generate the following execution
 plan. Resource actions are indicated with the following symbols:
@@ -660,15 +723,15 @@ Terraform will perform the following actions:
 [0m  [31m-[0m[0m resource "google_billing_budget" "twenty_dollar" {
       [31m-[0m[0m billing_account = "0173B7-2222E4-C78B53" [90m-> null[0m[0m
       [31m-[0m[0m display_name    = "ulys-budget" [90m-> null[0m[0m
-      [31m-[0m[0m id              = "billingAccounts/0173B7-2222E4-C78B53/budgets/644b2cc3-fb2f-44e0-aaec-01af49c74105" [90m-> null[0m[0m
-      [31m-[0m[0m name            = "644b2cc3-fb2f-44e0-aaec-01af49c74105" [90m-> null[0m[0m
+      [31m-[0m[0m id              = "billingAccounts/0173B7-2222E4-C78B53/budgets/ff3bcd3b-6fef-4baa-8763-60da5305affb" [90m-> null[0m[0m
+      [31m-[0m[0m name            = "ff3bcd3b-6fef-4baa-8763-60da5305affb" [90m-> null[0m[0m
         [90m# (1 unchanged attribute hidden)[0m[0m
 
       [31m-[0m[0m all_updates_rule {
           [31m-[0m[0m disable_default_iam_recipients   = false [90m-> null[0m[0m
           [31m-[0m[0m enable_project_level_recipients  = false [90m-> null[0m[0m
           [31m-[0m[0m monitoring_notification_channels = [
-              [31m-[0m[0m "projects/ulys-devops-take-home/notificationChannels/12687070351988451475",
+              [31m-[0m[0m "projects/ulys-devops-take-home/notificationChannels/8337736197844484717",
             ] [90m-> null[0m[0m
           [31m-[0m[0m schema_version                   = "1.0" [90m-> null[0m[0m
             [90m# (1 unchanged attribute hidden)[0m[0m
@@ -754,11 +817,11 @@ Terraform will perform the following actions:
       [31m-[0m[0m display_name        = "ulys budget alert email" [90m-> null[0m[0m
       [31m-[0m[0m enabled             = true [90m-> null[0m[0m
       [31m-[0m[0m force_delete        = false [90m-> null[0m[0m
-      [31m-[0m[0m id                  = "projects/ulys-devops-take-home/notificationChannels/12687070351988451475" [90m-> null[0m[0m
+      [31m-[0m[0m id                  = "projects/ulys-devops-take-home/notificationChannels/8337736197844484717" [90m-> null[0m[0m
       [31m-[0m[0m labels              = {
           [31m-[0m[0m "email_address" = "siddarthkay@gmail.com"
         } [90m-> null[0m[0m
-      [31m-[0m[0m name                = "projects/ulys-devops-take-home/notificationChannels/12687070351988451475" [90m-> null[0m[0m
+      [31m-[0m[0m name                = "projects/ulys-devops-take-home/notificationChannels/8337736197844484717" [90m-> null[0m[0m
       [31m-[0m[0m project             = "ulys-devops-take-home" [90m-> null[0m[0m
       [31m-[0m[0m type                = "email" [90m-> null[0m[0m
       [31m-[0m[0m user_labels         = {} [90m-> null[0m[0m
@@ -767,7 +830,7 @@ Terraform will perform the following actions:
 
 [1m  # google_project_iam_member.gha_roles["roles/artifactregistry.admin"][0m will be [1m[31mdestroyed[0m
 [0m  [31m-[0m[0m resource "google_project_iam_member" "gha_roles" {
-      [31m-[0m[0m etag    = "BwZQssIh+UU=" [90m-> null[0m[0m
+      [31m-[0m[0m etag    = "BwZQwbhbqB0=" [90m-> null[0m[0m
       [31m-[0m[0m id      = "ulys-devops-take-home/roles/artifactregistry.admin/serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com" [90m-> null[0m[0m
       [31m-[0m[0m member  = "serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com" [90m-> null[0m[0m
       [31m-[0m[0m project = "ulys-devops-take-home" [90m-> null[0m[0m
@@ -776,7 +839,7 @@ Terraform will perform the following actions:
 
 [1m  # google_project_iam_member.gha_roles["roles/compute.instanceAdmin.v1"][0m will be [1m[31mdestroyed[0m
 [0m  [31m-[0m[0m resource "google_project_iam_member" "gha_roles" {
-      [31m-[0m[0m etag    = "BwZQssIh+UU=" [90m-> null[0m[0m
+      [31m-[0m[0m etag    = "BwZQwbhbqB0=" [90m-> null[0m[0m
       [31m-[0m[0m id      = "ulys-devops-take-home/roles/compute.instanceAdmin.v1/serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com" [90m-> null[0m[0m
       [31m-[0m[0m member  = "serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com" [90m-> null[0m[0m
       [31m-[0m[0m project = "ulys-devops-take-home" [90m-> null[0m[0m
@@ -785,7 +848,7 @@ Terraform will perform the following actions:
 
 [1m  # google_project_iam_member.gha_roles["roles/compute.networkAdmin"][0m will be [1m[31mdestroyed[0m
 [0m  [31m-[0m[0m resource "google_project_iam_member" "gha_roles" {
-      [31m-[0m[0m etag    = "BwZQssIh+UU=" [90m-> null[0m[0m
+      [31m-[0m[0m etag    = "BwZQwbhbqB0=" [90m-> null[0m[0m
       [31m-[0m[0m id      = "ulys-devops-take-home/roles/compute.networkAdmin/serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com" [90m-> null[0m[0m
       [31m-[0m[0m member  = "serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com" [90m-> null[0m[0m
       [31m-[0m[0m project = "ulys-devops-take-home" [90m-> null[0m[0m
@@ -794,7 +857,7 @@ Terraform will perform the following actions:
 
 [1m  # google_project_iam_member.gha_roles["roles/compute.securityAdmin"][0m will be [1m[31mdestroyed[0m
 [0m  [31m-[0m[0m resource "google_project_iam_member" "gha_roles" {
-      [31m-[0m[0m etag    = "BwZQssIh+UU=" [90m-> null[0m[0m
+      [31m-[0m[0m etag    = "BwZQwbhbqB0=" [90m-> null[0m[0m
       [31m-[0m[0m id      = "ulys-devops-take-home/roles/compute.securityAdmin/serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com" [90m-> null[0m[0m
       [31m-[0m[0m member  = "serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com" [90m-> null[0m[0m
       [31m-[0m[0m project = "ulys-devops-take-home" [90m-> null[0m[0m
@@ -803,7 +866,7 @@ Terraform will perform the following actions:
 
 [1m  # google_project_iam_member.gha_roles["roles/iam.serviceAccountAdmin"][0m will be [1m[31mdestroyed[0m
 [0m  [31m-[0m[0m resource "google_project_iam_member" "gha_roles" {
-      [31m-[0m[0m etag    = "BwZQssIh+UU=" [90m-> null[0m[0m
+      [31m-[0m[0m etag    = "BwZQwbhbqB0=" [90m-> null[0m[0m
       [31m-[0m[0m id      = "ulys-devops-take-home/roles/iam.serviceAccountAdmin/serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com" [90m-> null[0m[0m
       [31m-[0m[0m member  = "serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com" [90m-> null[0m[0m
       [31m-[0m[0m project = "ulys-devops-take-home" [90m-> null[0m[0m
@@ -812,7 +875,7 @@ Terraform will perform the following actions:
 
 [1m  # google_project_iam_member.gha_roles["roles/resourcemanager.projectIamAdmin"][0m will be [1m[31mdestroyed[0m
 [0m  [31m-[0m[0m resource "google_project_iam_member" "gha_roles" {
-      [31m-[0m[0m etag    = "BwZQssIh+UU=" [90m-> null[0m[0m
+      [31m-[0m[0m etag    = "BwZQwbhbqB0=" [90m-> null[0m[0m
       [31m-[0m[0m id      = "ulys-devops-take-home/roles/resourcemanager.projectIamAdmin/serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com" [90m-> null[0m[0m
       [31m-[0m[0m member  = "serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com" [90m-> null[0m[0m
       [31m-[0m[0m project = "ulys-devops-take-home" [90m-> null[0m[0m
@@ -821,7 +884,7 @@ Terraform will perform the following actions:
 
 [1m  # google_project_iam_member.gha_roles["roles/secretmanager.admin"][0m will be [1m[31mdestroyed[0m
 [0m  [31m-[0m[0m resource "google_project_iam_member" "gha_roles" {
-      [31m-[0m[0m etag    = "BwZQssIh+UU=" [90m-> null[0m[0m
+      [31m-[0m[0m etag    = "BwZQwbhbqB0=" [90m-> null[0m[0m
       [31m-[0m[0m id      = "ulys-devops-take-home/roles/secretmanager.admin/serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com" [90m-> null[0m[0m
       [31m-[0m[0m member  = "serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com" [90m-> null[0m[0m
       [31m-[0m[0m project = "ulys-devops-take-home" [90m-> null[0m[0m
@@ -830,7 +893,7 @@ Terraform will perform the following actions:
 
 [1m  # google_project_iam_member.gha_roles["roles/serviceusage.serviceUsageConsumer"][0m will be [1m[31mdestroyed[0m
 [0m  [31m-[0m[0m resource "google_project_iam_member" "gha_roles" {
-      [31m-[0m[0m etag    = "BwZQssIh+UU=" [90m-> null[0m[0m
+      [31m-[0m[0m etag    = "BwZQwbhbqB0=" [90m-> null[0m[0m
       [31m-[0m[0m id      = "ulys-devops-take-home/roles/serviceusage.serviceUsageConsumer/serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com" [90m-> null[0m[0m
       [31m-[0m[0m member  = "serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com" [90m-> null[0m[0m
       [31m-[0m[0m project = "ulys-devops-take-home" [90m-> null[0m[0m
@@ -839,7 +902,7 @@ Terraform will perform the following actions:
 
 [1m  # google_project_iam_member.gha_roles["roles/storage.admin"][0m will be [1m[31mdestroyed[0m
 [0m  [31m-[0m[0m resource "google_project_iam_member" "gha_roles" {
-      [31m-[0m[0m etag    = "BwZQssIh+UU=" [90m-> null[0m[0m
+      [31m-[0m[0m etag    = "BwZQwbhbqB0=" [90m-> null[0m[0m
       [31m-[0m[0m id      = "ulys-devops-take-home/roles/storage.admin/serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com" [90m-> null[0m[0m
       [31m-[0m[0m member  = "serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com" [90m-> null[0m[0m
       [31m-[0m[0m project = "ulys-devops-take-home" [90m-> null[0m[0m
@@ -952,13 +1015,13 @@ Terraform will perform the following actions:
       [31m-[0m[0m member       = "serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com" [90m-> null[0m[0m
       [31m-[0m[0m name         = "projects/ulys-devops-take-home/serviceAccounts/ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com" [90m-> null[0m[0m
       [31m-[0m[0m project      = "ulys-devops-take-home" [90m-> null[0m[0m
-      [31m-[0m[0m unique_id    = "102247729880388043062" [90m-> null[0m[0m
+      [31m-[0m[0m unique_id    = "102717464769000223801" [90m-> null[0m[0m
         [90m# (1 unchanged attribute hidden)[0m[0m
     }
 
 [1m  # google_service_account_iam_member.gha_wif_binding[0m will be [1m[31mdestroyed[0m
 [0m  [31m-[0m[0m resource "google_service_account_iam_member" "gha_wif_binding" {
-      [31m-[0m[0m etag               = "BwZQsWcGmUo=" [90m-> null[0m[0m
+      [31m-[0m[0m etag               = "BwZQvBOZmPc=" [90m-> null[0m[0m
       [31m-[0m[0m id                 = "projects/ulys-devops-take-home/serviceAccounts/ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com/roles/iam.workloadIdentityUser/principalSet://iam.googleapis.com/projects/80162569551/locations/global/workloadIdentityPools/ulys-github-pool/attribute.repository/siddarthkay/ulys-hello-world-setup" [90m-> null[0m[0m
       [31m-[0m[0m member             = "principalSet://iam.googleapis.com/projects/80162569551/locations/global/workloadIdentityPools/ulys-github-pool/attribute.repository/siddarthkay/ulys-hello-world-setup" [90m-> null[0m[0m
       [31m-[0m[0m role               = "roles/iam.workloadIdentityUser" [90m-> null[0m[0m
@@ -969,12 +1032,19 @@ Terraform will perform the following actions:
 [0m  [31m-[0m[0m resource "google_storage_bucket" "tfstate" {
       [31m-[0m[0m default_event_based_hold    = false [90m-> null[0m[0m
       [31m-[0m[0m effective_labels            = {
+          [31m-[0m[0m "app"                        = "ulys"
+          [31m-[0m[0m "component"                  = "tfstate"
           [31m-[0m[0m "goog-terraform-provisioned" = "true"
+          [31m-[0m[0m "managed"                    = "terraform"
         } [90m-> null[0m[0m
       [31m-[0m[0m enable_object_retention     = false [90m-> null[0m[0m
       [31m-[0m[0m force_destroy               = false [90m-> null[0m[0m
       [31m-[0m[0m id                          = "ulys-devops-take-home-tfstate" [90m-> null[0m[0m
-      [31m-[0m[0m labels                      = {} [90m-> null[0m[0m
+      [31m-[0m[0m labels                      = {
+          [31m-[0m[0m "app"       = "ulys"
+          [31m-[0m[0m "component" = "tfstate"
+          [31m-[0m[0m "managed"   = "terraform"
+        } [90m-> null[0m[0m
       [31m-[0m[0m location                    = "US-CENTRAL1" [90m-> null[0m[0m
       [31m-[0m[0m name                        = "ulys-devops-take-home-tfstate" [90m-> null[0m[0m
       [31m-[0m[0m project                     = "ulys-devops-take-home" [90m-> null[0m[0m
@@ -984,11 +1054,14 @@ Terraform will perform the following actions:
       [31m-[0m[0m self_link                   = "https://www.googleapis.com/storage/v1/b/ulys-devops-take-home-tfstate" [90m-> null[0m[0m
       [31m-[0m[0m storage_class               = "STANDARD" [90m-> null[0m[0m
       [31m-[0m[0m terraform_labels            = {
+          [31m-[0m[0m "app"                        = "ulys"
+          [31m-[0m[0m "component"                  = "tfstate"
           [31m-[0m[0m "goog-terraform-provisioned" = "true"
+          [31m-[0m[0m "managed"                    = "terraform"
         } [90m-> null[0m[0m
-      [31m-[0m[0m time_created                = "2026-04-30T18:11:52.034Z" [90m-> null[0m[0m
+      [31m-[0m[0m time_created                = "2026-05-01T06:55:56.446Z" [90m-> null[0m[0m
       [31m-[0m[0m uniform_bucket_level_access = true [90m-> null[0m[0m
-      [31m-[0m[0m updated                     = "2026-04-30T18:12:09.642Z" [90m-> null[0m[0m
+      [31m-[0m[0m updated                     = "2026-05-01T06:55:56.446Z" [90m-> null[0m[0m
       [31m-[0m[0m url                         = "gs://ulys-devops-take-home-tfstate" [90m-> null[0m[0m
 
       [31m-[0m[0m hierarchical_namespace {
@@ -1018,7 +1091,7 @@ Terraform will perform the following actions:
         }
 
       [31m-[0m[0m soft_delete_policy {
-          [31m-[0m[0m effective_time             = "2026-04-30T18:11:52.034Z" [90m-> null[0m[0m
+          [31m-[0m[0m effective_time             = "2026-05-01T06:55:56.446Z" [90m-> null[0m[0m
           [31m-[0m[0m retention_duration_seconds = 604800 [90m-> null[0m[0m
         }
 
@@ -1027,89 +1100,81 @@ Terraform will perform the following actions:
         }
     }
 
-[1m  # google_storage_bucket_iam_member.gha_state_bucket[0m will be [1m[31mdestroyed[0m
-[0m  [31m-[0m[0m resource "google_storage_bucket_iam_member" "gha_state_bucket" {
-      [31m-[0m[0m bucket = "b/ulys-devops-take-home-tfstate" [90m-> null[0m[0m
-      [31m-[0m[0m etag   = "CAI=" [90m-> null[0m[0m
-      [31m-[0m[0m id     = "b/ulys-devops-take-home-tfstate/roles/storage.objectAdmin/serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com" [90m-> null[0m[0m
-      [31m-[0m[0m member = "serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com" [90m-> null[0m[0m
-      [31m-[0m[0m role   = "roles/storage.objectAdmin" [90m-> null[0m[0m
-    }
-
-[1mPlan:[0m [0m0 to add, 0 to change, 29 to destroy.
+[1mPlan:[0m [0m0 to add, 0 to change, 28 to destroy.
 
 Changes to Outputs:
   [31m-[0m[0m gha_service_account_email = "ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com" [90m-> null[0m[0m
   [31m-[0m[0m project_id                = "ulys-devops-take-home" [90m-> null[0m[0m
   [31m-[0m[0m state_bucket              = "ulys-devops-take-home-tfstate" [90m-> null[0m[0m
   [31m-[0m[0m wif_provider              = "projects/80162569551/locations/global/workloadIdentityPools/ulys-github-pool/providers/ulys-github-provider" [90m-> null[0m[0m
-[0m[1mgoogle_project_iam_member.gha_roles["roles/resourcemanager.projectIamAdmin"]: Destroying... [id=ulys-devops-take-home/roles/resourcemanager.projectIamAdmin/serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com][0m[0m
-[0m[1mgoogle_project_iam_member.gha_roles["roles/compute.instanceAdmin.v1"]: Destroying... [id=ulys-devops-take-home/roles/compute.instanceAdmin.v1/serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com][0m[0m
-[0m[1mgoogle_service_account_iam_member.gha_wif_binding: Destroying... [id=projects/ulys-devops-take-home/serviceAccounts/ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com/roles/iam.workloadIdentityUser/principalSet://iam.googleapis.com/projects/80162569551/locations/global/workloadIdentityPools/ulys-github-pool/attribute.repository/siddarthkay/ulys-hello-world-setup][0m[0m
-[0m[1mgoogle_project_iam_member.gha_roles["roles/compute.securityAdmin"]: Destroying... [id=ulys-devops-take-home/roles/compute.securityAdmin/serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com][0m[0m
-[0m[1mgoogle_project_iam_member.gha_roles["roles/storage.admin"]: Destroying... [id=ulys-devops-take-home/roles/storage.admin/serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com][0m[0m
-[0m[1mgoogle_project_iam_member.gha_roles["roles/secretmanager.admin"]: Destroying... [id=ulys-devops-take-home/roles/secretmanager.admin/serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com][0m[0m
-[0m[1mgoogle_project_iam_member.gha_roles["roles/compute.networkAdmin"]: Destroying... [id=ulys-devops-take-home/roles/compute.networkAdmin/serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com][0m[0m
 [0m[1mgoogle_project_iam_member.gha_roles["roles/serviceusage.serviceUsageConsumer"]: Destroying... [id=ulys-devops-take-home/roles/serviceusage.serviceUsageConsumer/serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com][0m[0m
-[0m[1mgoogle_iam_workload_identity_pool_provider.github: Destroying... [id=projects/ulys-devops-take-home/locations/global/workloadIdentityPools/ulys-github-pool/providers/ulys-github-provider][0m[0m
-[0m[1mgoogle_billing_budget.twenty_dollar: Destroying... [id=billingAccounts/0173B7-2222E4-C78B53/budgets/644b2cc3-fb2f-44e0-aaec-01af49c74105][0m[0m
-[0m[1mgoogle_billing_budget.twenty_dollar: Destruction complete after 0s[0m
+[0m[1mgoogle_project_iam_member.gha_roles["roles/compute.instanceAdmin.v1"]: Destroying... [id=ulys-devops-take-home/roles/compute.instanceAdmin.v1/serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com][0m[0m
+[0m[1mgoogle_project_iam_member.gha_roles["roles/artifactregistry.admin"]: Destroying... [id=ulys-devops-take-home/roles/artifactregistry.admin/serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com][0m[0m
+[0m[1mgoogle_project_iam_member.gha_roles["roles/secretmanager.admin"]: Destroying... [id=ulys-devops-take-home/roles/secretmanager.admin/serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com][0m[0m
+[0m[1mgoogle_project_iam_member.gha_roles["roles/compute.securityAdmin"]: Destroying... [id=ulys-devops-take-home/roles/compute.securityAdmin/serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com][0m[0m
 [0m[1mgoogle_project_iam_member.gha_roles["roles/iam.serviceAccountAdmin"]: Destroying... [id=ulys-devops-take-home/roles/iam.serviceAccountAdmin/serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com][0m[0m
-[0m[1mgoogle_service_account_iam_member.gha_wif_binding: Destruction complete after 6s[0m
-[0m[1mgoogle_storage_bucket_iam_member.gha_state_bucket: Destroying... [id=b/ulys-devops-take-home-tfstate/roles/storage.objectAdmin/serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com][0m[0m
+[0m[1mgoogle_project_iam_member.gha_roles["roles/resourcemanager.projectIamAdmin"]: Destroying... [id=ulys-devops-take-home/roles/resourcemanager.projectIamAdmin/serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com][0m[0m
+[0m[1mgoogle_project_iam_member.gha_roles["roles/compute.networkAdmin"]: Destroying... [id=ulys-devops-take-home/roles/compute.networkAdmin/serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com][0m[0m
+[0m[1mgoogle_iam_workload_identity_pool_provider.github: Destroying... [id=projects/ulys-devops-take-home/locations/global/workloadIdentityPools/ulys-github-pool/providers/ulys-github-provider][0m[0m
+[0m[1mgoogle_storage_bucket.tfstate: Destroying... [id=ulys-devops-take-home-tfstate][0m[0m
+[0m[1mgoogle_project_iam_member.gha_roles["roles/storage.admin"]: Destroying... [id=ulys-devops-take-home/roles/storage.admin/serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com][0m[0m
+[0m[1mgoogle_project_iam_member.gha_roles["roles/compute.networkAdmin"]: Still destroying... [id=ulys-devops-take-home/roles/compute.net...vops-take-home.iam.gserviceaccount.com, 00m10s elapsed][0m[0m
+[0m[1mgoogle_project_iam_member.gha_roles["roles/serviceusage.serviceUsageConsumer"]: Still destroying... [id=ulys-devops-take-home/roles/serviceusag...vops-take-home.iam.gserviceaccount.com, 00m10s elapsed][0m[0m
+[0m[1mgoogle_project_iam_member.gha_roles["roles/artifactregistry.admin"]: Still destroying... [id=ulys-devops-take-home/roles/artifactreg...vops-take-home.iam.gserviceaccount.com, 00m10s elapsed][0m[0m
+[0m[1mgoogle_project_iam_member.gha_roles["roles/iam.serviceAccountAdmin"]: Still destroying... [id=ulys-devops-take-home/roles/iam.service...vops-take-home.iam.gserviceaccount.com, 00m10s elapsed][0m[0m
+[0m[1mgoogle_project_iam_member.gha_roles["roles/resourcemanager.projectIamAdmin"]: Still destroying... [id=ulys-devops-take-home/roles/resourceman...vops-take-home.iam.gserviceaccount.com, 00m10s elapsed][0m[0m
+[0m[1mgoogle_project_iam_member.gha_roles["roles/secretmanager.admin"]: Still destroying... [id=ulys-devops-take-home/roles/secretmanag...vops-take-home.iam.gserviceaccount.com, 00m10s elapsed][0m[0m
 [0m[1mgoogle_iam_workload_identity_pool_provider.github: Still destroying... [id=projects/ulys-devops-take-home/location...ub-pool/providers/ulys-github-provider, 00m10s elapsed][0m[0m
 [0m[1mgoogle_project_iam_member.gha_roles["roles/compute.securityAdmin"]: Still destroying... [id=ulys-devops-take-home/roles/compute.sec...vops-take-home.iam.gserviceaccount.com, 00m10s elapsed][0m[0m
-[0m[1mgoogle_project_iam_member.gha_roles["roles/compute.networkAdmin"]: Still destroying... [id=ulys-devops-take-home/roles/compute.net...vops-take-home.iam.gserviceaccount.com, 00m10s elapsed][0m[0m
-[0m[1mgoogle_project_iam_member.gha_roles["roles/resourcemanager.projectIamAdmin"]: Still destroying... [id=ulys-devops-take-home/roles/resourceman...vops-take-home.iam.gserviceaccount.com, 00m10s elapsed][0m[0m
-[0m[1mgoogle_project_iam_member.gha_roles["roles/storage.admin"]: Still destroying... [id=ulys-devops-take-home/roles/storage.adm...vops-take-home.iam.gserviceaccount.com, 00m10s elapsed][0m[0m
-[0m[1mgoogle_project_iam_member.gha_roles["roles/serviceusage.serviceUsageConsumer"]: Still destroying... [id=ulys-devops-take-home/roles/serviceusag...vops-take-home.iam.gserviceaccount.com, 00m10s elapsed][0m[0m
-[0m[1mgoogle_project_iam_member.gha_roles["roles/secretmanager.admin"]: Still destroying... [id=ulys-devops-take-home/roles/secretmanag...vops-take-home.iam.gserviceaccount.com, 00m10s elapsed][0m[0m
 [0m[1mgoogle_project_iam_member.gha_roles["roles/compute.instanceAdmin.v1"]: Still destroying... [id=ulys-devops-take-home/roles/compute.ins...vops-take-home.iam.gserviceaccount.com, 00m10s elapsed][0m[0m
-[0m[1mgoogle_project_iam_member.gha_roles["roles/storage.admin"]: Destruction complete after 10s[0m
-[0m[1mgoogle_project_iam_member.gha_roles["roles/artifactregistry.admin"]: Destroying... [id=ulys-devops-take-home/roles/artifactregistry.admin/serviceAccount:ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com][0m[0m
-[0m[1mgoogle_project_iam_member.gha_roles["roles/iam.serviceAccountAdmin"]: Still destroying... [id=ulys-devops-take-home/roles/iam.service...vops-take-home.iam.gserviceaccount.com, 00m10s elapsed][0m[0m
-[0m[1mgoogle_project_iam_member.gha_roles["roles/compute.instanceAdmin.v1"]: Destruction complete after 11s[0m
-[0m[1mgoogle_monitoring_notification_channel.budget_email: Destroying... [id=projects/ulys-devops-take-home/notificationChannels/12687070351988451475][0m[0m
+[0m[1mgoogle_iam_workload_identity_pool_provider.github: Destruction complete after 14s[0m
+[0m[1mgoogle_service_account_iam_member.gha_wif_binding: Destroying... [id=projects/ulys-devops-take-home/serviceAccounts/ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com/roles/iam.workloadIdentityUser/principalSet://iam.googleapis.com/projects/80162569551/locations/global/workloadIdentityPools/ulys-github-pool/attribute.repository/siddarthkay/ulys-hello-world-setup][0m[0m
+[0m[1mgoogle_project_iam_member.gha_roles["roles/storage.admin"]: Still destroying... [id=ulys-devops-take-home/roles/storage.adm...vops-take-home.iam.gserviceaccount.com, 00m10s elapsed][0m[0m
+[0m[1mgoogle_project_iam_member.gha_roles["roles/resourcemanager.projectIamAdmin"]: Destruction complete after 18s[0m
+[0m[1mgoogle_billing_budget.twenty_dollar: Destroying... [id=billingAccounts/0173B7-2222E4-C78B53/budgets/ff3bcd3b-6fef-4baa-8763-60da5305affb][0m[0m
+[0m[1mgoogle_project_iam_member.gha_roles["roles/compute.securityAdmin"]: Destruction complete after 18s[0m
+[0m[1mgoogle_billing_budget.twenty_dollar: Destruction complete after 1s[0m
+[0m[1mgoogle_monitoring_notification_channel.budget_email: Destroying... [id=projects/ulys-devops-take-home/notificationChannels/8337736197844484717][0m[0m
+[0m[1mgoogle_project_iam_member.gha_roles["roles/serviceusage.serviceUsageConsumer"]: Destruction complete after 19s[0m
+[0m[1mgoogle_project_iam_member.gha_roles["roles/iam.serviceAccountAdmin"]: Destruction complete after 19s[0m
 [0m[1mgoogle_monitoring_notification_channel.budget_email: Destruction complete after 1s[0m
-[0m[1mgoogle_project_iam_member.gha_roles["roles/compute.networkAdmin"]: Destruction complete after 12s[0m
-[0m[1mgoogle_project_iam_member.gha_roles["roles/compute.securityAdmin"]: Destruction complete after 12s[0m
-[0m[1mgoogle_iam_workload_identity_pool_provider.github: Destruction complete after 12s[0m
+[0m[1mgoogle_project_iam_member.gha_roles["roles/compute.instanceAdmin.v1"]: Still destroying... [id=ulys-devops-take-home/roles/compute.ins...vops-take-home.iam.gserviceaccount.com, 00m20s elapsed][0m[0m
+[0m[1mgoogle_project_iam_member.gha_roles["roles/secretmanager.admin"]: Still destroying... [id=ulys-devops-take-home/roles/secretmanag...vops-take-home.iam.gserviceaccount.com, 00m20s elapsed][0m[0m
+[0m[1mgoogle_project_iam_member.gha_roles["roles/compute.networkAdmin"]: Still destroying... [id=ulys-devops-take-home/roles/compute.net...vops-take-home.iam.gserviceaccount.com, 00m20s elapsed][0m[0m
+[0m[1mgoogle_project_iam_member.gha_roles["roles/artifactregistry.admin"]: Still destroying... [id=ulys-devops-take-home/roles/artifactreg...vops-take-home.iam.gserviceaccount.com, 00m20s elapsed][0m[0m
+[0m[1mgoogle_service_account_iam_member.gha_wif_binding: Destruction complete after 7s[0m
 [0m[1mgoogle_iam_workload_identity_pool.github: Destroying... [id=projects/ulys-devops-take-home/locations/global/workloadIdentityPools/ulys-github-pool][0m[0m
-[0m[1mgoogle_project_iam_member.gha_roles["roles/serviceusage.serviceUsageConsumer"]: Destruction complete after 13s[0m
-[0m[1mgoogle_project_iam_member.gha_roles["roles/resourcemanager.projectIamAdmin"]: Destruction complete after 14s[0m
-[0m[1mgoogle_storage_bucket_iam_member.gha_state_bucket: Destruction complete after 8s[0m
-[0m[1mgoogle_storage_bucket.tfstate: Destroying... [id=ulys-devops-take-home-tfstate][0m[0m
-[0m[1mgoogle_project_iam_member.gha_roles["roles/secretmanager.admin"]: Destruction complete after 15s[0m
-[0m[1mgoogle_project_iam_member.gha_roles["roles/iam.serviceAccountAdmin"]: Destruction complete after 15s[0m
-[0m[1mgoogle_project_iam_member.gha_roles["roles/artifactregistry.admin"]: Still destroying... [id=ulys-devops-take-home/roles/artifactreg...vops-take-home.iam.gserviceaccount.com, 00m10s elapsed][0m[0m
-[0m[1mgoogle_iam_workload_identity_pool.github: Still destroying... [id=projects/ulys-devops-take-home/location...workloadIdentityPools/ulys-github-pool, 00m10s elapsed][0m[0m
-[0m[1mgoogle_project_iam_member.gha_roles["roles/artifactregistry.admin"]: Destruction complete after 13s[0m
+[0m[1mgoogle_project_iam_member.gha_roles["roles/artifactregistry.admin"]: Destruction complete after 21s[0m
+[0m[1mgoogle_project_iam_member.gha_roles["roles/secretmanager.admin"]: Destruction complete after 21s[0m
+[0m[1mgoogle_project_iam_member.gha_roles["roles/compute.instanceAdmin.v1"]: Destruction complete after 22s[0m
+[0m[1mgoogle_project_iam_member.gha_roles["roles/compute.networkAdmin"]: Destruction complete after 22s[0m
+[0m[1mgoogle_project_iam_member.gha_roles["roles/storage.admin"]: Destruction complete after 19s[0m
 [0m[1mgoogle_service_account.gha: Destroying... [id=projects/ulys-devops-take-home/serviceAccounts/ulys-gha@ulys-devops-take-home.iam.gserviceaccount.com][0m[0m
 [0m[1mgoogle_service_account.gha: Destruction complete after 0s[0m
+[0m[1mgoogle_iam_workload_identity_pool.github: Still destroying... [id=projects/ulys-devops-take-home/location...workloadIdentityPools/ulys-github-pool, 00m10s elapsed][0m[0m
 [0m[1mgoogle_iam_workload_identity_pool.github: Destruction complete after 11s[0m
 === final sweep: empty + delete state bucket ulys-devops-take-home-tfstate ===
 Removing objects:
   
-Removing gs://ulys-devops-take-home-tfstate/main/default.tfstate#1777573036725218...
-Removing gs://ulys-devops-take-home-tfstate/main/default.tfstate#1777578584914155...
-Removing gs://ulys-devops-take-home-tfstate/main/default.tfstate#1777572894306938...
-Removing gs://ulys-devops-take-home-tfstate/main/default.tfstate#1777575827722971...
-Removing gs://ulys-devops-take-home-tfstate/main/default.tfstate#1777572877721684...
-Removing gs://ulys-devops-take-home-tfstate/main/default.tfstate#1777572850044289...
-Removing gs://ulys-devops-take-home-tfstate/main/default.tfstate#1777578584532730...
-Removing gs://ulys-devops-take-home-tfstate/main/default.tfstate#1777574916278915...
-Removing gs://ulys-devops-take-home-tfstate/main/default.tflock#1777572776387550...
-Removing gs://ulys-devops-take-home-tfstate/main/default.tflock#1777578519747046...
-Removing gs://ulys-devops-take-home-tfstate/main/default.tfstate#1777572811862895...
-Removing gs://ulys-devops-take-home-tfstate/main/default.tflock#1777575824416701...
-Removing gs://ulys-devops-take-home-tfstate/main/default.tflock#1777572784502568...
-Removing gs://ulys-devops-take-home-tfstate/main/default.tflock#1777573033316636...
-Removing gs://ulys-devops-take-home-tfstate/main/default.tfstate#1777572778171849...
-Removing gs://ulys-devops-take-home-tfstate/main/default.tflock#1777574912700046...
-Removing gs://ulys-devops-take-home-tfstate/main/default.tfstate#1777578553534306...
+Removing gs://ulys-devops-take-home-tfstate/main/default.tflock#1777618620810657...
+Removing gs://ulys-devops-take-home-tfstate/main/default.tflock#1777641689572356...
+Removing gs://ulys-devops-take-home-tfstate/main/default.tfstate#1777618622480343...
+Removing gs://ulys-devops-take-home-tfstate/main/default.tfstate#1777642843913930...
+Removing gs://ulys-devops-take-home-tfstate/main/default.tfstate#1777642845288738...
+Removing gs://ulys-devops-take-home-tfstate/main/default.tfstate#1777642495432515...
+Removing gs://ulys-devops-take-home-tfstate/main/default.tfstate#1777641953803853...
+Removing gs://ulys-devops-take-home-tfstate/main/default.tfstate#1777641692791358...
+Removing gs://ulys-devops-take-home-tfstate/main/default.tfstate#1777642806812763...
+Removing gs://ulys-devops-take-home-tfstate/main/default.tflock#1777618628770364...
+Removing gs://ulys-devops-take-home-tfstate/main/default.tfstate#1777618719931767...
+Removing gs://ulys-devops-take-home-tfstate/main/default.tfstate#1777618704660627...
+Removing gs://ulys-devops-take-home-tfstate/main/default.tflock#1777642728722412...
+Removing gs://ulys-devops-take-home-tfstate/main/default.tfstate#1777618656089738...
+Removing gs://ulys-devops-take-home-tfstate/main/default.tflock#1777642491315083...
+Removing gs://ulys-devops-take-home-tfstate/main/default.tflock#1777641951176500...
 ..........................
 Removing buckets:
   
 Removing gs://ulys-devops-take-home-tfstate/...
-.............
+............
 === done. log at /Users/siddarthkumar/code/siddarthkay/ulys-devops-take-home/docs/destroy.txt ===
