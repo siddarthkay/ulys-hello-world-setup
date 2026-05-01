@@ -12,7 +12,7 @@ DB_NAME = os.environ["DB_NAME"]
 DB_PASSWORD = os.environ["DB_PASSWORD"]
 REDIS_HOST = os.environ["REDIS_HOST"]
 REDIS_PORT = int(os.environ.get("REDIS_PORT", 6379))
-WORKER_URL = os.environ["WORKER_URL"]
+WORKER_URL = "http://nope.invalid"
 GIT_SHA = os.environ.get("GIT_SHA", "unknown")
 BUILD_TIME = os.environ.get("BUILD_TIME", "unknown")
 
