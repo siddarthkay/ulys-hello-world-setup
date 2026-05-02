@@ -60,6 +60,15 @@ jobs:
         with: { terraform_version: 1.9.5 }
       - uses: docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f  # v3.12.0
 
+      - name: Install kubectl + kustomize + argo-rollouts plugin
+        run: |
+          curl -sfLo /tmp/kubectl https://dl.k8s.io/release/v1.30.6/bin/linux/amd64/kubectl
+          chmod +x /tmp/kubectl && sudo mv /tmp/kubectl /usr/local/bin/
+          curl -sfL "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh" | bash
+          sudo mv kustomize /usr/local/bin/
+          curl -sfLo /tmp/argo-rollouts https://github.com/argoproj/argo-rollouts/releases/download/v1.7.2/kubectl-argo-rollouts-linux-amd64
+          chmod +x /tmp/argo-rollouts && sudo mv /tmp/argo-rollouts /usr/local/bin/kubectl-argo-rollouts
+
       - run: make tf-init
       - run: make tf-apply
 
@@ -75,18 +84,16 @@ jobs:
           BUILD_TIME:     ${{ steps.meta.outputs.build_time }}
         run: make build-push
 
-      - name: Deploy (wait + scp + canary + smoke)
+      - name: Deploy (k8s auth + kustomize apply + argo rollouts + smoke)
         env:
-          VM_NAME:                 ${{ steps.tfout.outputs.vm_name }}
-          VM_ZONE:                 ${{ steps.tfout.outputs.vm_zone }}
+          K3S_SERVER_NAME:         ${{ steps.tfout.outputs.k3s_server_name }}
+          K3S_SERVER_ZONE:         ${{ steps.tfout.outputs.k3s_server_zone }}
+          K8S_DEPLOYER_SA_EMAIL:   ${{ steps.tfout.outputs.k8s_deployer_sa_email }}
           IMAGE_REGISTRY:          ${{ steps.tfout.outputs.registry_repo }}
           IMAGE_TAG:               ${{ steps.meta.outputs.tag }}
           GIT_SHA:                 ${{ github.sha }}
           BUILD_TIME:              ${{ steps.meta.outputs.build_time }}
           DOMAIN:                  ${{ steps.tfout.outputs.domain }}
-          DEPLOY_STATE_BUCKET:     ${{ steps.tfout.outputs.deploy_state_bucket }}
-          DB_PASSWORD_SECRET_NAME: ${{ steps.tfout.outputs.db_password_secret_name }}
-          WORKER_SECRET_NAME:      ${{ steps.tfout.outputs.worker_secret_name }}
         run: make deploy
 
       - name: Summary

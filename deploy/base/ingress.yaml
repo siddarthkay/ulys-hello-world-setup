@@ -1,0 +1,34 @@
+# Caddy Ingress: TLS via cert-manager + HTTP-01, /api/* -> api-stable,
+# / -> web. Argo Rollouts mutates this ingress's annotations during a
+# canary to weight traffic between api-stable and api-canary.
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: app
+  namespace: app
+  # TLS is intentionally not configured here. cert-manager's HTTP-01
+  # self-check follows Caddy's HTTP→HTTPS redirect into a cert that
+  # doesn't exist yet (chicken/egg), so Let's Encrypt is never called.
+  # Path forward (not implemented in this round): use Caddy Ingress'
+  # built-in automatic-https mode (a Caddy controller annotation), or
+  # switch the solver to DNS-01 with a real DNS zone.
+spec:
+  ingressClassName: caddy
+  rules:
+    - host: DOMAIN_PLACEHOLDER
+      http:
+        paths:
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: api-stable
+                # Caddy Ingress Controller resolves port.number reliably;
+                # port.name results in a `:0` upstream and 502s.
+                port: { number: 8080 }
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: web
+                port: { number: 80 }

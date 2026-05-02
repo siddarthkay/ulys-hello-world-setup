@@ -1,0 +1,184 @@
+# Refreshes a kubernetes.io/dockerconfigjson Secret named "ar-creds" in
+# the app namespace, using the OAuth access token from the GCE metadata
+# server. App pods reference this Secret via imagePullSecrets so kubelet
+# can pull from Artifact Registry without static credentials.
+#
+# Why not registries.yaml on the node? k3s has a known issue
+# (k3s-io/k3s#12736): in newer containerd's config_path mode the auth
+# block from /etc/rancher/k3s/registries.yaml is not propagated to the
+# per-host hosts.toml files containerd actually reads. The Secret-based
+# imagePullSecret path is the canonical k8s pattern and works regardless.
+#
+# Tokens expire in 1h; the CronJob refreshes every 30m. A one-shot Job
+# runs at apply time so the first deploy doesn't wait for the cron tick.
+
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: ar-cred-refresher
+  namespace: app
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: ar-cred-refresher
+  namespace: app
+rules:
+  - apiGroups: [""]
+    resources: ["secrets"]
+    resourceNames: ["ar-creds"]
+    verbs: ["get", "update", "patch"]
+  - apiGroups: [""]
+    resources: ["secrets"]
+    verbs: ["create"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: ar-cred-refresher
+  namespace: app
+subjects:
+  - kind: ServiceAccount
+    name: ar-cred-refresher
+    namespace: app
+roleRef:
+  kind: Role
+  name: ar-cred-refresher
+  apiGroup: rbac.authorization.k8s.io
+---
+# Shared script — defined once in a ConfigMap, referenced by both Job
+# and CronJob. Reads metadata token, builds dockerconfigjson, upserts
+# the ar-creds Secret via the kube API (no kubectl binary needed in
+# the pod image).
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ar-cred-refresher-script
+  namespace: app
+data:
+  refresh.sh: |
+    #!/bin/sh
+    set -eu
+    TOK=$(curl -sfH 'Metadata-Flavor: Google' \
+      http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/token \
+      | jq -r .access_token)
+    [ -n "$TOK" ] || { echo "empty metadata token" >&2; exit 1; }
+
+    AUTH=$(printf 'oauth2accesstoken:%s' "$TOK" | base64 -w0)
+    DOCKERCONFIG=$(jq -nc --arg h "$REGISTRY_HOST" --arg t "$TOK" --arg a "$AUTH" \
+      '{auths:{($h):{username:"oauth2accesstoken",password:$t,auth:$a}}}')
+    DATA=$(printf '%s' "$DOCKERCONFIG" | base64 -w0)
+    BODY=$(jq -nc --arg d "$DATA" \
+      '{kind:"Secret",apiVersion:"v1",
+        metadata:{name:"ar-creds",namespace:"app"},
+        type:"kubernetes.io/dockerconfigjson",
+        data:{".dockerconfigjson":$d}}')
+
+    SA_TOKEN=$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)
+    CACERT=/var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+    API=https://kubernetes.default.svc
+
+    code=$(curl -sk --cacert "$CACERT" -o /tmp/out -w '%{http_code}' \
+      -H "Authorization: Bearer $SA_TOKEN" \
+      -H "Content-Type: application/json" \
+      -X PUT --data "$BODY" \
+      "$API/api/v1/namespaces/app/secrets/ar-creds")
+    if [ "$code" = "404" ]; then
+      curl -sfk --cacert "$CACERT" \
+        -H "Authorization: Bearer $SA_TOKEN" \
+        -H "Content-Type: application/json" \
+        -X POST --data "$BODY" \
+        "$API/api/v1/namespaces/app/secrets"
+      echo "ar-creds: created"
+    elif [ "$code" -ge 200 ] && [ "$code" -lt 300 ]; then
+      echo "ar-creds: updated"
+    else
+      echo "ar-creds: HTTP $code"; cat /tmp/out; exit 1
+    fi
+---
+# One-shot init: runs once at apply time so the first rollout doesn't
+# wait for the 30m cron tick. Idempotent re-applies are no-ops because
+# kubectl apply on a Complete Job leaves it alone.
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: ar-cred-refresher-init
+  namespace: app
+spec:
+  backoffLimit: 5
+  template:
+    spec:
+      serviceAccountName: ar-cred-refresher
+      restartPolicy: OnFailure
+      hostNetwork: true
+      dnsPolicy: ClusterFirstWithHostNet
+      # Must run on the agent: only the agent's node SA has
+      # roles/artifactregistry.reader. The fetched metadata token inherits
+      # the node SA's permissions, so a server-scheduled refresher would
+      # produce a token that AR rejects on token-exchange.
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: node-role.kubernetes.io/control-plane
+                    operator: DoesNotExist
+      containers:
+        - name: refresher
+          image: alpine:3.20
+          command: ["/bin/sh", "-c"]
+          args:
+            - "apk add --no-cache curl jq >/dev/null && /scripts/refresh.sh"
+          env:
+            - name: REGISTRY_HOST
+              value: REGISTRY_HOST_PLACEHOLDER
+          volumeMounts:
+            - { name: script, mountPath: /scripts }
+      volumes:
+        - name: script
+          configMap:
+            name: ar-cred-refresher-script
+            defaultMode: 0755
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ar-cred-refresher
+  namespace: app
+spec:
+  schedule: "*/30 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      backoffLimit: 5
+      template:
+        spec:
+          serviceAccountName: ar-cred-refresher
+          restartPolicy: OnFailure
+          hostNetwork: true
+          dnsPolicy: ClusterFirstWithHostNet
+          affinity:
+            nodeAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                nodeSelectorTerms:
+                  - matchExpressions:
+                      - key: node-role.kubernetes.io/control-plane
+                        operator: DoesNotExist
+          containers:
+            - name: refresher
+              image: alpine:3.20
+              command: ["/bin/sh", "-c"]
+              args:
+                - "apk add --no-cache curl jq >/dev/null && /scripts/refresh.sh"
+              env:
+                - name: REGISTRY_HOST
+                  value: REGISTRY_HOST_PLACEHOLDER
+              volumeMounts:
+                - { name: script, mountPath: /scripts }
+          volumes:
+            - name: script
+              configMap:
+                name: ar-cred-refresher-script
+                defaultMode: 0755

@@ -24,11 +24,18 @@ def ensure_schema():
     with db() as c, c.cursor() as cur:
         cur.execute("CREATE TABLE IF NOT EXISTS jobs (id TEXT PRIMARY KEY, payload JSONB, result JSONB, created_at TIMESTAMP)")
 
+# Routes are registered at both the bare path and under /api so the
+# k8s Ingress (which forwards /api/* without stripping) and the in-cluster
+# Service (which reaches the bare path) both work without a prefix-strip
+# annotation that Caddy Ingress doesn't document.
+
 @app.get("/healthz")
+@app.get("/api/healthz")
 def healthz():
     return "ok", 200
 
 @app.get("/readyz")
+@app.get("/api/readyz")
 def readyz():
     checks = {}
     try:
@@ -55,10 +62,12 @@ def readyz():
     return jsonify(checks), (200 if ok else 503)
 
 @app.get("/version")
+@app.get("/api/version")
 def version():
     return jsonify(git_sha=GIT_SHA, build_time=BUILD_TIME)
 
 @app.get("/work")
+@app.get("/api/work")
 def work():
     job_id = str(uuid.uuid4())
     payload = {"job_id": job_id, "n": int(time.time())}

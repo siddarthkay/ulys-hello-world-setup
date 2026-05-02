@@ -34,15 +34,58 @@ wait_until() {
   return 1
 }
 
-# TF_VAR_* env vars terraform/main expects.
-# Region must be threaded explicitly: relying on the variable default
-# would silently move every regional resource if the bootstrap-chosen
-# region differed from the code default. Zone is derived from region
-# inside Terraform (see terraform/main/locals.tf), so no GCP_ZONE.
-export_tf_vars() {
+# Fill GCP_* env vars from sources, in priority order:
+#   1. existing env (CI sets them from secrets; no-op).
+#   2. bootstrap TF state outputs (works after `make all-bootstrap`).
+#   3. interactive prompt (local convenience, like all-bootstrap.sh).
+#
+# Region falls back to gcloud config or "us-central1". TTY guard means CI
+# (no tty) errors out cleanly with `need_env` instead of hanging on read.
+ensure_gcp_env() {
+  if [ -z "${GCP_PROJECT_ID:-}${GCP_TF_STATE_BUCKET:-}${GCP_GHA_SA_EMAIL:-}${GCP_REGION:-}" ] \
+      && [ -d "$TF_BOOTSTRAP/.terraform" ]; then
+    local out
+    if out=$(terraform -chdir="$TF_BOOTSTRAP" output -json 2>/dev/null) && [ -n "$out" ]; then
+      : "${GCP_PROJECT_ID:=$(echo "$out"     | jq -r '.project_id.value                // empty')}"
+      : "${GCP_TF_STATE_BUCKET:=$(echo "$out" | jq -r '.state_bucket.value              // empty')}"
+      : "${GCP_GHA_SA_EMAIL:=$(echo "$out"   | jq -r '.gha_service_account_email.value // empty')}"
+    fi
+  fi
+
+  if [ -t 0 ] && [ -t 1 ]; then
+    local v
+    if [ -z "${GCP_PROJECT_ID:-}" ]; then
+      local def; def=$(gcloud config get-value project 2>/dev/null || true)
+      read -r -p "  GCP project ID${def:+ [$def]}: " v; GCP_PROJECT_ID=${v:-$def}
+    fi
+    if [ -z "${GCP_REGION:-}" ]; then
+      local def; def=$(gcloud config get-value compute/region 2>/dev/null || true); def=${def:-us-central1}
+      read -r -p "  Region [$def]: " v; GCP_REGION=${v:-$def}
+    fi
+    if [ -z "${GCP_TF_STATE_BUCKET:-}" ]; then
+      local def="${GCP_PROJECT_ID}-tfstate"
+      read -r -p "  TF state bucket [$def]: " v; GCP_TF_STATE_BUCKET=${v:-$def}
+    fi
+    if [ -z "${GCP_GHA_SA_EMAIL:-}" ]; then
+      local def="ulys-gha@${GCP_PROJECT_ID}.iam.gserviceaccount.com"
+      read -r -p "  GHA SA email [$def]: " v; GCP_GHA_SA_EMAIL=${v:-$def}
+    fi
+  fi
+
+  export GCP_PROJECT_ID GCP_TF_STATE_BUCKET GCP_GHA_SA_EMAIL GCP_REGION
   need_env GCP_PROJECT_ID
+  need_env GCP_TF_STATE_BUCKET
   need_env GCP_GHA_SA_EMAIL
   need_env GCP_REGION
+}
+
+# TF_VAR_* env vars terraform/main expects. Region must be threaded
+# explicitly: relying on the variable default would silently move every
+# regional resource if the bootstrap-chosen region differed from the code
+# default. Zone is derived from region inside Terraform (see
+# terraform/main/locals.tf), so no GCP_ZONE.
+export_tf_vars() {
+  ensure_gcp_env
   export TF_VAR_project_id="$GCP_PROJECT_ID"
   export TF_VAR_gha_service_account_email="$GCP_GHA_SA_EMAIL"
   export TF_VAR_region="$GCP_REGION"

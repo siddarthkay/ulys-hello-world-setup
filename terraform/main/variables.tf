@@ -6,7 +6,7 @@ variable "project_id" {
 variable "region" {
   type        = string
   default     = "us-central1"
-  description = "Region for regional resources (VM IP, Artifact Registry, GCS buckets). Zone is derived from this; see locals.tf."
+  description = "Region for regional resources (IP, Artifact Registry, GCS buckets). Zone is derived from this; see locals.tf."
 }
 
 variable "name_prefix" {
@@ -22,19 +22,31 @@ variable "name_prefix" {
 
 variable "gha_service_account_email" {
   type        = string
-  description = "Email of the GitHub Actions service account from the bootstrap module's output."
+  description = "Email of the GitHub Actions service account from the bootstrap module's output. CI impersonates k8s_deployer_sa via this identity."
 }
 
-variable "vm_machine_type" {
+variable "k3s_server_machine_type" {
   type        = string
-  default     = "e2-small"
-  description = "Compute Engine machine type for the single app VM."
+  default     = "e2-medium"
+  description = "Machine type for the k3s control-plane node. Needs ~4 GB RAM to host k3s + Prometheus + cert-manager + ESO + Argo Rollouts."
+}
+
+variable "k3s_agent_machine_type" {
+  type        = string
+  default     = "e2-medium"
+  description = "Machine type for the k3s worker node. Hosts api/worker rollouts, postgres, redis, web, Caddy ingress."
+}
+
+variable "k3s_version" {
+  type        = string
+  default     = "v1.30.6+k3s1"
+  description = "k3s release pinned in cloud-init via INSTALL_K3S_VERSION."
 }
 
 variable "pgdata_disk_gb" {
   type        = number
   default     = 10
-  description = "Persistent disk size for the Postgres container's data dir."
+  description = "Persistent disk size for the Postgres PV. Attached to the agent; bound by the postgres StatefulSet's PVC."
 
   validation {
     condition     = var.pgdata_disk_gb >= 5

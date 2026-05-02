@@ -93,23 +93,27 @@ post-plan-comment: ## post terraform/main/plan.txt as a PR comment (needs GITHUB
 # ---- deploy pipeline (used by main workflow) ----------------------------
 
 .PHONY: build-push
-build-push: ## build all four images and push to Artifact Registry
+build-push: ## build api, worker, web images and push to Artifact Registry
 	@bash $(CI)/build-push.sh
 
-.PHONY: wait-vm
-wait-vm: ## wait for the VM startup script to finish
-	@bash $(CI)/wait-vm.sh
+.PHONY: k8s-auth
+k8s-auth: ## open IAP tunnel to k3s API + write kubeconfig (sources to set KUBECONFIG)
+	@bash $(CI)/k8s-auth.sh
 
-.PHONY: run-canary
-run-canary: ## SSH the VM and run the deploy-tools container (10/50/100 canary + rollback)
-	@bash $(CI)/run-canary.sh
+.PHONY: k8s-shell
+k8s-shell: ## debug-only: open a shell with cluster-admin kubeconfig + IAP tunnel
+	@bash $(CI)/k8s-shell.sh
+
+.PHONY: deploy-k8s
+deploy-k8s: ## kustomize set image + kubectl apply + argo rollouts wait
+	@bash $(CI)/deploy-k8s.sh
 
 .PHONY: smoke-public
 smoke-public: ## hit https://DOMAIN/api/version after promote
 	@bash $(CI)/smoke-public.sh
 
 .PHONY: deploy
-deploy: wait-vm run-canary smoke-public ## full VM-side deploy chain (no build, no apply)
+deploy: k8s-auth deploy-k8s smoke-public ## full deploy chain (no build, no apply)
 
 # ---- composite targets used by workflows -------------------------------
 

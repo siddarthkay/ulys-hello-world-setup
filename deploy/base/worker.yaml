@@ -1,0 +1,71 @@
+# Worker is canary-deployed in lockstep with api: api images can call into
+# the matching worker via the per-color Service alias the same way the
+# old VM-based deploy did. For simplicity we use a single Rollout and a
+# single Service; the api->worker call goes through worker-stable. If the
+# canary api needs a paired canary worker (e.g. for a contract change),
+# add a worker-canary Service and route in code.
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: worker
+  namespace: app
+spec:
+  replicas: 2
+  selector:
+    matchLabels: { app: worker }
+  template:
+    metadata:
+      labels: { app: worker }
+    spec:
+      imagePullSecrets:
+        - name: ar-creds
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: node-role.kubernetes.io/control-plane
+                    operator: DoesNotExist
+      containers:
+        - name: worker
+          image: ulys/worker:placeholder
+          ports:
+            - { name: http, containerPort: 8081 }
+          env:
+            - { name: PORT, value: "8081" }
+            - name: WORKER_SECRET
+              valueFrom: { secretKeyRef: { name: worker-secret, key: secret } }
+          readinessProbe:
+            tcpSocket: { port: http }
+            periodSeconds: 5
+          livenessProbe:
+            tcpSocket: { port: http }
+            periodSeconds: 10
+  strategy:
+    canary:
+      canaryService: worker-canary
+      stableService: worker-stable
+      steps:
+        - setWeight: 50
+        - pause: { duration: 30s }
+        - setWeight: 100
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: worker-stable
+  namespace: app
+spec:
+  selector: { app: worker }
+  ports:
+    - { name: http, port: 8081, targetPort: http }
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: worker-canary
+  namespace: app
+spec:
+  selector: { app: worker }
+  ports:
+    - { name: http, port: 8081, targetPort: http }

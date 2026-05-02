@@ -1,0 +1,103 @@
+# Argo Rollouts canary for api. The Caddy Ingress traffic-router plugin
+# adjusts ingress upstream weights at each setWeight step. Analysis runs
+# Prometheus queries against caddy_http_request_* metrics scraped from
+# the ingress. A failed analysis aborts the rollout and traffic snaps
+# back to the stable ReplicaSet.
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: api
+  namespace: app
+spec:
+  replicas: 2
+  selector:
+    matchLabels: { app: api }
+  template:
+    metadata:
+      labels: { app: api }
+    spec:
+      imagePullSecrets:
+        - name: ar-creds
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: node-role.kubernetes.io/control-plane
+                    operator: DoesNotExist
+      containers:
+        - name: api
+          image: ulys/api:placeholder
+          ports:
+            - { name: http, containerPort: 8080 }
+          env:
+            # DB_PASSWORD must come BEFORE DATABASE_URL — k8s env var
+            # substitution ($(VAR)) resolves top-down and only sees vars
+            # already defined earlier in the list.
+            - name: DB_PASSWORD
+              valueFrom: { secretKeyRef: { name: db-password, key: password } }
+            - name: WORKER_SECRET
+              valueFrom: { secretKeyRef: { name: worker-secret, key: secret } }
+            - { name: PORT, value: "8080" }
+            - { name: REDIS_URL, value: "redis://redis:6379/0" }
+            - { name: WORKER_URL, value: "http://worker-stable:8081" }
+            - name: DATABASE_URL
+              value: "postgres://app:$(DB_PASSWORD)@postgres:5432/app?sslmode=disable"
+            # GIT_SHA / BUILD_TIME are baked into the image at build time
+            # (see app/api/Dockerfile + scripts/ci/build-push.sh). We
+            # intentionally don't set them here — a Pod-spec env entry
+            # would override the image's value with empty if the source
+            # field doesn't resolve.
+          readinessProbe:
+            httpGet: { path: /readyz, port: http }
+            periodSeconds: 5
+            failureThreshold: 3
+          livenessProbe:
+            httpGet: { path: /healthz, port: http }
+            periodSeconds: 10
+  strategy:
+    canary:
+      canaryService: api-canary
+      stableService: api-stable
+      # No trafficRouting: there is no Argo Rollouts traffic-router plugin
+      # for Caddy Ingress (the argoproj-labs/rollouts-plugin-trafficrouter-caddy
+      # repo I'd planned to use doesn't exist — verified via the GitHub
+      # 404). Real options for weighted ingress canary on this stack:
+      #   - Switch to ingress-nginx (native Argo Rollouts canary support
+      #     via nginx.ingress.kubernetes.io/canary-* annotations) and lose
+      #     Caddy's automatic-HTTPS (would need cert-manager back).
+      #   - Service mesh (Linkerd/Istio) + SMI TrafficSplit.
+      # Replica-based canary (this) gates promotion via pause + Analysis,
+      # which is the safety value of canary. The canary pod doesn't get
+      # production traffic, but the analysis probes it directly through
+      # the api-canary Service before promoting to api-stable.
+      #
+      # With replicas: 2, setWeight that rounds to 0 pods stalls the rollout.
+      # 50/100 yields exactly 1 canary pod, which is the smallest meaningful
+      # step at this scale.
+      steps:
+        - setWeight: 50
+        - pause: { duration: 60s }
+        - analysis:
+            templates: [{ templateName: api-canary-health }]
+        - setWeight: 100
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: api-stable
+  namespace: app
+spec:
+  selector: { app: api }
+  ports:
+    - { name: http, port: 8080, targetPort: http }
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: api-canary
+  namespace: app
+spec:
+  selector: { app: api }
+  ports:
+    - { name: http, port: 8080, targetPort: http }

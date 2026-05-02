@@ -1,0 +1,27 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- ../../base
+
+# CI replaces these via `kustomize edit set image` before apply.
+images:
+- name: ulys/api
+  newName: us-central1-docker.pkg.dev/ulys-devops-take-home/ulys-images/api
+  newTag: local-1777716328
+- name: ulys/web
+  newName: us-central1-docker.pkg.dev/ulys-devops-take-home/ulys-images/web
+  newTag: 406bd95f4351
+- name: ulys/worker
+  newName: us-central1-docker.pkg.dev/ulys-devops-take-home/ulys-images/worker
+  newTag: 406bd95f4351
+
+# CI also patches the ingress host (sslip.io derived from the public IP
+# at TF-apply time). See scripts/ci/deploy-k8s.sh.
+patches:
+- patch: |-
+    - op: replace
+      path: /spec/rules/0/host
+      value: DOMAIN_PLACEHOLDER
+  target:
+    kind: Ingress
+    name: app

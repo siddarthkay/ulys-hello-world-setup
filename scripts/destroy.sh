@@ -21,13 +21,18 @@ LOG=$DOCS/destroy.txt
 echo "=== terraform destroy: main ===" | tee -a "$LOG"
 cd "$MAIN"
 
-# Stop the VM first so the busy pgdata mount doesn't stall the disk detach.
-# Best-effort: if the instance is already gone, gcloud's 404 is harmless.
-VM_NAME=$(terraform output -raw vm_name 2>/dev/null || true)
-VM_ZONE=$(terraform output -raw vm_zone 2>/dev/null || true)
-if [ -n "$VM_NAME" ] && [ -n "$VM_ZONE" ]; then
-  echo "--- pre-destroy: stop $VM_NAME (so attached_disk detach is fast) ---" | tee -a "$LOG"
-  gcloud compute instances stop "$VM_NAME" --zone="$VM_ZONE" --quiet 2>&1 | tee -a "$LOG" || true
+# Stop the agent VM first so the busy pgdata mount doesn't stall the disk
+# detach. Best-effort: 404s from gcloud (instance already gone) are harmless.
+AGENT_NAME=$(terraform output -raw k3s_agent_name 2>/dev/null || true)
+SERVER_NAME=$(terraform output -raw k3s_server_name 2>/dev/null || true)
+ZONE=$(terraform output -raw k3s_server_zone 2>/dev/null || true)
+if [ -n "$AGENT_NAME" ] && [ -n "$ZONE" ]; then
+  echo "--- pre-destroy: stop $AGENT_NAME (so pgdata detach is fast) ---" | tee -a "$LOG"
+  gcloud compute instances stop "$AGENT_NAME" --zone="$ZONE" --quiet 2>&1 | tee -a "$LOG" || true
+fi
+if [ -n "$SERVER_NAME" ] && [ -n "$ZONE" ]; then
+  echo "--- pre-destroy: stop $SERVER_NAME ---" | tee -a "$LOG"
+  gcloud compute instances stop "$SERVER_NAME" --zone="$ZONE" --quiet 2>&1 | tee -a "$LOG" || true
 fi
 
 terraform destroy -auto-approve | tee -a "$LOG"

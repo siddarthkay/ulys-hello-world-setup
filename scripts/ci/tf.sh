@@ -22,7 +22,7 @@ case "$cmd" in
     ;;
 
   init)
-    need_env GCP_TF_STATE_BUCKET
+    ensure_gcp_env
     log "terraform init (bucket=$GCP_TF_STATE_BUCKET)"
     terraform -chdir="$TF_MAIN" init -input=false -reconfigure \
       -backend-config="bucket=$GCP_TF_STATE_BUCKET"

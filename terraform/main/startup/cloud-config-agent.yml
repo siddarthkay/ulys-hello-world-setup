@@ -1,0 +1,35 @@
+#cloud-config
+#
+# k3s agent node. Renders via templatefile() in nodes.tf.
+#
+# Image-pull from Artifact Registry is handled in-cluster by the
+# ar-cred-refresher CronJob (deploy/base/ar-creds.yaml), which writes a
+# kubernetes.io/dockerconfigjson Secret. App pods reference it via
+# imagePullSecrets. No node-level registries.yaml — k3s's registries.yaml
+# auth has a known propagation issue with newer containerd config_path
+# mode (k3s-io/k3s#12736).
+
+packages:
+  - curl
+
+fs_setup:
+  - device: /dev/disk/by-id/google-pgdata
+    filesystem: ext4
+    label: pgdata
+    overwrite: false
+
+mounts:
+  - [/dev/disk/by-id/google-pgdata, /mnt/pgdata, ext4, "discard,defaults,nofail"]
+
+write_files:
+  # Pre-seed the agent's node-password so rebuilds present a stable value
+  # to the server's per-node secret in kube-system. Without this, an agent
+  # rebuild after the server has recorded the previous random password
+  # will fail with "Node password rejected".
+  - path: /etc/rancher/node/password
+    permissions: "0600"
+    content: ${agent_node_password}
+
+runcmd:
+  - [ chown, -R, "999:999", /mnt/pgdata ]
+  - [ sh, -c, "curl -sfL https://get.k3s.io | INSTALL_K3S_VERSION='${k3s_version}' INSTALL_K3S_EXEC='agent' K3S_URL='https://${server_internal_ip}:6443' K3S_TOKEN='${k3s_token}' sh -" ]

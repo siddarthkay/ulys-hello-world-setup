@@ -1,0 +1,100 @@
+# Postgres on the agent's attached pd-balanced disk.
+# The disk is mounted at /mnt/pgdata by cloud-config-agent.yml. We use a
+# StorageClass-less, manually-provisioned PV pointing at the host path so
+# we don't depend on a CSI driver. PVC binds to it via matching capacity
+# + selector; nodeAffinity pins the pod to the agent.
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pgdata
+  labels:
+    role: pgdata
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes: [ReadWriteOnce]
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: ""
+  hostPath:
+    path: /mnt/pgdata
+    type: Directory
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: node-role.kubernetes.io/control-plane
+              operator: DoesNotExist
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pgdata
+  namespace: app
+spec:
+  accessModes: [ReadWriteOnce]
+  storageClassName: ""
+  resources:
+    requests:
+      storage: 10Gi
+  selector:
+    matchLabels:
+      role: pgdata
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgres
+  namespace: app
+spec:
+  serviceName: postgres
+  replicas: 1
+  selector:
+    matchLabels: { app: postgres }
+  template:
+    metadata:
+      labels: { app: postgres }
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: node-role.kubernetes.io/control-plane
+                    operator: DoesNotExist
+      securityContext:
+        fsGroup: 999
+      containers:
+        - name: postgres
+          image: postgres:16-alpine
+          env:
+            - { name: POSTGRES_USER, value: app }
+            - { name: POSTGRES_DB,   value: app }
+            - name: POSTGRES_PASSWORD
+              valueFrom: { secretKeyRef: { name: db-password, key: password } }
+            - { name: PGDATA, value: /var/lib/postgresql/data/pgdata }
+          ports:
+            - { name: pg, containerPort: 5432 }
+          volumeMounts:
+            - { name: data, mountPath: /var/lib/postgresql/data }
+          readinessProbe:
+            exec: { command: [pg_isready, -U, app, -d, app] }
+            initialDelaySeconds: 10
+            periodSeconds: 5
+          livenessProbe:
+            exec: { command: [pg_isready, -U, app, -d, app] }
+            initialDelaySeconds: 30
+            periodSeconds: 10
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: pgdata
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+  namespace: app
+spec:
+  selector: { app: postgres }
+  ports:
+    - { name: pg, port: 5432, targetPort: pg }

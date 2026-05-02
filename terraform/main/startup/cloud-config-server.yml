@@ -1,0 +1,127 @@
+#cloud-config
+#
+# k3s control-plane node. Renders via templatefile() in nodes.tf.
+#
+# What this does, in order:
+#   1. Install k3s server (--disable=traefik because Caddy Ingress takes
+#      that role; servicelb stays so Caddy's Service: LoadBalancer works).
+#   2. Configure kube-apiserver as an OIDC issuer so kubectl can present
+#      Google-issued ID tokens (GHA impersonates k8s_deployer_sa).
+#   3. Install Helm and apply the bootstrap stack: Caddy Ingress Controller
+#      (auto-HTTPS via Let's Encrypt — no cert-manager needed), External
+#      Secrets Operator, Argo Rollouts, kube-prometheus-stack.
+#   4. Apply ClusterSecretStore + RBAC.
+#
+# ESO reads Secret Manager via the node SA's metadata-server creds (ADC).
+# No projected SA tokens / WIF dance — the server SA has
+# secretmanager.secretAccessor on the two secrets.
+
+packages:
+  - curl
+  - jq
+  - apt-transport-https
+  - ca-certificates
+  - gnupg
+
+write_files:
+  - path: /etc/rancher/k3s/config.yaml
+    permissions: "0644"
+    content: |
+      disable:
+        - traefik
+      kube-apiserver-arg:
+        - oidc-issuer-url=https://accounts.google.com
+        - oidc-client-id=${k8s_deployer_email}
+        - oidc-username-claim=email
+        - oidc-groups-claim=groups
+      tls-san:
+        - 127.0.0.1
+      write-kubeconfig-mode: "0644"
+
+  - path: /etc/k3s-bootstrap/eso-secret-store.yaml
+    permissions: "0644"
+    content: |
+      apiVersion: external-secrets.io/v1
+      kind: ClusterSecretStore
+      metadata:
+        name: gcp-sm
+      spec:
+        provider:
+          gcpsm:
+            projectID: ${project_id}
+
+  - path: /etc/k3s-bootstrap/rbac.yaml
+    permissions: "0644"
+    content: |
+      apiVersion: rbac.authorization.k8s.io/v1
+      kind: ClusterRole
+      metadata:
+        name: ci-deployer
+      rules:
+        - apiGroups: ["", "apps", "argoproj.io", "networking.k8s.io", "external-secrets.io", "batch"]
+          resources: ["*"]
+          verbs:     ["*"]
+        - apiGroups: ["rbac.authorization.k8s.io"]
+          resources: ["roles", "rolebindings"]
+          verbs: ["*"]
+      ---
+      apiVersion: rbac.authorization.k8s.io/v1
+      kind: ClusterRoleBinding
+      metadata:
+        name: ci-deployer
+      subjects:
+        - kind: User
+          name: ${k8s_deployer_email}
+          apiGroup: rbac.authorization.k8s.io
+      roleRef:
+        kind: ClusterRole
+        name: ci-deployer
+        apiGroup: rbac.authorization.k8s.io
+
+  - path: /usr/local/bin/k3s-bootstrap.sh
+    permissions: "0755"
+    content: |
+      #!/usr/bin/env bash
+      set -euo pipefail
+      export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
+      until kubectl get nodes >/dev/null 2>&1; do
+        echo "waiting for k3s api..."; sleep 3
+      done
+      curl -sfL https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+      helm repo add caddy https://caddyserver.github.io/ingress
+      helm repo add external-secrets https://charts.external-secrets.io
+      helm repo add argo https://argoproj.github.io/argo-helm
+      helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+      helm repo update
+
+      # Caddy Ingress Controller handles TLS itself via Let's Encrypt
+      # (Caddy's built-in automatic-https). cert-manager isn't needed and
+      # was removed: its HTTP-01 self-check followed Caddy's HTTP→HTTPS
+      # redirect into a non-existent cert and the challenge never resolved.
+      helm upgrade --install caddy-ingress-controller caddy/caddy-ingress-controller \
+        --namespace caddy-system --create-namespace --wait
+
+      helm upgrade --install external-secrets external-secrets/external-secrets \
+        --namespace external-secrets --create-namespace --wait
+
+      helm upgrade --install argo-rollouts argo/argo-rollouts \
+        --namespace argo-rollouts --create-namespace \
+        --set dashboard.enabled=false --wait
+
+      helm upgrade --install kps prometheus-community/kube-prometheus-stack \
+        --namespace monitoring --create-namespace \
+        --set grafana.enabled=false \
+        --set alertmanager.enabled=false \
+        --set prometheus.prometheusSpec.serviceMonitorSelectorNilUsesHelmValues=false \
+        --wait
+
+      kubectl apply -f /etc/k3s-bootstrap/rbac.yaml
+
+      kubectl wait --for=condition=established --timeout=120s \
+        crd/clustersecretstores.external-secrets.io \
+        crd/externalsecrets.external-secrets.io
+      kubectl apply -f /etc/k3s-bootstrap/eso-secret-store.yaml
+
+runcmd:
+  - [ sh, -c, "curl -sfL https://get.k3s.io | INSTALL_K3S_VERSION='${k3s_version}' INSTALL_K3S_EXEC='server' K3S_TOKEN='${k3s_token}' sh -" ]
+  - [ /usr/local/bin/k3s-bootstrap.sh ]

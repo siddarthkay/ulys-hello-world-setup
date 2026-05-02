@@ -1,0 +1,47 @@
+# AnalysisTemplate for the api Rollout's canary step. Two metrics:
+#
+# 1. canary-readyz (webMetric): direct probe of /readyz on the canary
+#    Service. Verifies the canary's app-level dependency chain (DB +
+#    Redis + worker HMAC) before promoting.
+# 2. canary-pods-ready (Prometheus): queries kube-state-metrics for the
+#    fraction of api pods reporting Ready=True. Catches the case where
+#    /readyz happens to pass on one pod but the rest are still starting.
+#
+# Both must pass for the canary to advance. Either failing aborts the
+# rollout, snapping traffic back to the stable ReplicaSet.
+apiVersion: argoproj.io/v1alpha1
+kind: AnalysisTemplate
+metadata:
+  name: api-canary-health
+  namespace: app
+spec:
+  metrics:
+    - name: canary-readyz
+      interval: 15s
+      count: 3
+      successCondition: result.db == "ok" && result.redis == "ok" && result.worker == "ok"
+      failureLimit: 1
+      provider:
+        web:
+          # FQDN required: webMetric runs from the argo-rollouts ns
+          # controller, where the bare api-canary Service name doesn't
+          # resolve. .app forces the namespace.
+          url: http://api-canary.app:8080/readyz
+          timeoutSeconds: 5
+          method: GET
+    - name: canary-pods-ready
+      interval: 15s
+      count: 3
+      # Ratio: ready api pods / total api pods. Caddy doesn't expose
+      # /metrics by default in the Caddy Ingress chart so we don't have
+      # request-level signal here; kube-state-metrics gives us pod-level
+      # readiness, which is enough to gate "did the new RS roll out".
+      successCondition: result[0] >= 0.99
+      failureLimit: 1
+      provider:
+        prometheus:
+          address: http://kps-kube-prometheus-stack-prometheus.monitoring.svc:9090
+          query: |
+            sum(kube_pod_status_ready{namespace="app", pod=~"api-.*", condition="true"})
+            /
+            count(kube_pod_status_phase{namespace="app", pod=~"api-.*", phase="Running"})

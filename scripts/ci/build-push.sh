@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
-# Build + push four images to Artifact Registry: api, worker, caddy-app,
-# deploy-tools.
+# Build + push three images to Artifact Registry: api, worker, web.
 #
 # Required env:
 #   IMAGE_REGISTRY  e.g. us-central1-docker.pkg.dev/PROJECT/ulys-images
@@ -23,10 +22,6 @@ build_push() {
   local name=$1 context=$2 dockerfile=$3
   shift 3
   log "build & push $name -> $IMAGE_REGISTRY/$name:$IMAGE_TAG"
-  # SHA-tagged only. We deliberately don't push :latest from build because
-  # a failed canary that rolls back would leave :latest pointing at a broken
-  # image. SHA-tagged images are the only safe ref; if a `latest` alias
-  # is ever needed, set it from the deploy step on success.
   docker buildx build "$context" \
     ${dockerfile:+--file "$dockerfile"} \
     --push \
@@ -40,8 +35,4 @@ build_push api    "$ROOT/app/api" "" \
 
 build_push worker "$ROOT/app/worker" ""
 
-# caddy-app's build context is `app/` so its Dockerfile can COPY web/ from
-# the sibling directory.
-build_push caddy-app "$ROOT/app" "$ROOT/app/caddy-app/Dockerfile"
-
-build_push deploy-tools "$ROOT/app/deploy-tools" ""
+build_push web    "$ROOT/app/web" ""
